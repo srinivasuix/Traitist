@@ -3,7 +3,7 @@ import React from 'react';
 export const MetricsSection: React.FC = () => {
   return (
     <section
-      className="max-w-7xl mx-auto px-4 md:px-8 py-20 border-b border-neutral-300"
+      className="max-w-7xl mx-auto px-4 md:px-8 py-12 sm:py-16 md:py-20 border-b border-neutral-300"
       data-purpose="metrics-and-specifications"
     >
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">

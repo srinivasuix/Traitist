@@ -19,11 +19,11 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose 
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-      <div className="relative max-w-lg w-full bg-[#ECEBE6] rounded-sm p-6 sm:p-8 shadow-2xl border border-neutral-300">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
+      <div className="relative max-w-lg w-full max-h-[90vh] overflow-y-auto bg-[#ECEBE6] rounded-sm p-4 sm:p-8 shadow-2xl border border-neutral-300">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 rounded-full hover:bg-neutral-200 transition cursor-pointer"
+          className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"
           aria-label="Close size guide"
         >
           <X className="w-5 h-5 text-neutral-800" />

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
+import { ShoppingBag } from 'lucide-react';
 import { AnnouncementBar } from './components/AnnouncementBar';
 import { Navbar } from './components/Navbar';
 import { HeroRotator } from './components/HeroRotator';
 import { ProductGrid } from './components/ProductGrid';
 import { CampaignBanner } from './components/CampaignBanner';
-import { LookbookSection } from './components/LookbookSection';
 import { CommunitySection } from './components/CommunitySection';
 import { MetricsSection } from './components/MetricsSection';
 import { NewsletterSection } from './components/NewsletterSection';
@@ -15,9 +15,11 @@ import { SizeGuideModal } from './components/SizeGuideModal';
 import { SearchModal } from './components/SearchModal';
 import { WishlistModal } from './components/WishlistModal';
 import { Toast } from './components/Toast';
+import { Preloader } from './components/Preloader';
 import { Product, CATALOG_PRODUCTS, ROTATOR_PRODUCTS } from './data/products';
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [currency, setCurrency] = useState<'INR' | 'USD'>('INR');
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     // Initial sample cart item for preview experience
@@ -37,10 +39,33 @@ export default function App() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Auto-scroll smooth behavior
+  // Auto-scroll smooth behavior & body scroll lock during preload
   useEffect(() => {
     document.documentElement.style.scrollBehavior = 'smooth';
   }, []);
+
+  // Listen to #cart in URL to open cart directly
+  useEffect(() => {
+    const checkHash = () => {
+      if (window.location.hash === '#cart') {
+        setIsCartOpen(true);
+      }
+    };
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isLoading]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -69,6 +94,7 @@ export default function App() {
       }
     });
     showToast(`Added ${product.title} (Size ${size}) to Bag`);
+    setIsCartOpen(true);
   };
 
   const handleUpdateQuantity = (productId: string, size: string, delta: number) => {
@@ -116,6 +142,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#ECEBE6] text-[#111111] flex flex-col antialiased selection:bg-black selection:text-white">
+      {/* 0. Editorial Preloader Screen */}
+      {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+
       {/* 1. Announcement Ticker Bar */}
       <AnnouncementBar />
 
@@ -149,16 +178,13 @@ export default function App() {
 
         {/* 5. Campaign Banner ("MADE FOR THE LONG NIGHT.") */}
         <CampaignBanner
-          onExploreLookbook={() => {
-            const el = document.getElementById('lookbook');
+          onExploreCollection={() => {
+            const el = document.getElementById('shop');
             el?.scrollIntoView({ behavior: 'smooth' });
           }}
         />
 
-        {/* 6. Editorial Lookbook Section */}
-        <LookbookSection />
-
-        {/* 7. Community Feed ("Worn by you") */}
+        {/* 6. Community Feed ("Worn by you") */}
         <CommunitySection />
 
         {/* 8. Specifications & Metrics (480 GSM, 150 Run size, etc.) */}
@@ -213,6 +239,29 @@ export default function App() {
         onAddToCart={(product, size) => handleAddToCart(product, size, 1)}
         onSelectProduct={(product) => setSelectedProduct(product)}
       />
+
+      {/* Floating Sticky Cart Trigger (Accessible anytime from any section) */}
+      {!isCartOpen && cartItems.length > 0 && (
+        <button
+          onClick={() => setIsCartOpen(true)}
+          aria-label="View Shopping Bag"
+          className="fixed bottom-5 right-5 z-40 bg-[#111111] text-white px-4 py-3 rounded-full shadow-2xl flex items-center gap-3 border border-neutral-700/60 hover:bg-[#FF5722] transition-all duration-300 hover:scale-105 cursor-pointer font-mono text-xs font-semibold group"
+        >
+          <div className="relative">
+            <ShoppingBag className="w-4 h-4 text-white" />
+            <span className="absolute -top-1.5 -right-1.5 bg-[#FF5722] group-hover:bg-white group-hover:text-black text-white text-[9px] w-3.5 h-3.5 rounded-full flex items-center justify-center font-bold">
+              {cartItems.reduce((acc, curr) => acc + curr.quantity, 0)}
+            </span>
+          </div>
+          <span className="tracking-wider uppercase">
+            BAG • {currency === 'INR' ? '₹' : '$'}
+            {cartItems.reduce((sum, item) => {
+              const p = currency === 'INR' ? item.product.priceINR : item.product.priceUSD;
+              return sum + p * item.quantity;
+            }, 0).toLocaleString()}
+          </span>
+        </button>
+      )}
 
       <Toast
         message={toastMessage}

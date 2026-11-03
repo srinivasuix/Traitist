@@ -21,7 +21,7 @@ export const CommunitySection: React.FC = () => {
 
   return (
     <section
-      className="max-w-7xl mx-auto px-4 md:px-8 py-20 border-b border-neutral-300"
+      className="max-w-7xl mx-auto px-4 md:px-8 py-12 sm:py-16 md:py-20 border-b border-neutral-300"
       data-purpose="social-community-feed"
     >
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">

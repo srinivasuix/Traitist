@@ -24,9 +24,9 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-      <div className="relative max-w-xl w-full max-h-[85vh] bg-[#ECEBE6] rounded-sm p-6 sm:p-8 shadow-2xl border border-neutral-300 flex flex-col">
-        <div className="flex items-center justify-between pb-4 border-b border-neutral-300">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
+      <div className="relative max-w-xl w-full max-h-[88vh] bg-[#ECEBE6] rounded-sm p-4 sm:p-7 shadow-2xl border border-neutral-300 flex flex-col">
+        <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-neutral-300">
           <div className="flex items-center gap-2">
             <Heart className="w-5 h-5 text-[#FF5722] fill-[#FF5722]" />
             <h3 className="text-sm font-mono font-bold uppercase tracking-wider text-neutral-900">
@@ -35,7 +35,7 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-neutral-200 transition cursor-pointer"
+            className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"
             aria-label="Close wishlist"
           >
             <X className="w-5 h-5 text-neutral-800" />

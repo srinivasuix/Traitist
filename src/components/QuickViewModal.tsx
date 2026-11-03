@@ -40,24 +40,24 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-sm animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 bg-black/80 backdrop-blur-sm animate-fade-in">
       <div
-        className="relative max-w-3xl w-full max-h-[92vh] bg-[#ECEBE6] rounded-sm overflow-hidden flex flex-col md:flex-row shadow-2xl border border-neutral-300"
+        className="relative max-w-3xl w-full max-h-[92vh] bg-[#ECEBE6] rounded-sm flex flex-col md:flex-row shadow-2xl border border-neutral-300 overflow-y-auto md:overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-3.5 right-3.5 z-20 p-2 rounded-full bg-white/80 hover:bg-black hover:text-white transition cursor-pointer shadow-sm"
+          className="absolute top-3 right-3 z-30 w-9 h-9 flex items-center justify-center rounded-full bg-white/90 hover:bg-black hover:text-white transition cursor-pointer shadow-md"
           aria-label="Close modal"
         >
           <X className="w-4 h-4" />
         </button>
 
         {/* Left: Garment Showcase */}
-        <div className="w-full md:w-1/2 bg-[#DFDDD7] p-6 sm:p-8 flex items-center justify-center relative overflow-hidden border-b md:border-b-0 md:border-r border-neutral-300">
+        <div className="w-full md:w-1/2 bg-[#DFDDD7] p-3 sm:p-4 flex items-center justify-center relative overflow-hidden border-b md:border-b-0 md:border-r border-neutral-300 h-[260px] sm:h-[340px] md:h-auto md:min-h-[460px] shrink-0">
           {product.badge && (
-            <span className="absolute top-4 left-4 text-[9px] font-mono uppercase bg-black text-white px-2 py-0.5 rounded-sm z-10">
+            <span className="absolute top-3.5 left-3.5 text-[9px] font-mono uppercase bg-black text-white px-2 py-0.5 rounded-sm z-10">
               {product.badge}
             </span>
           )}
@@ -65,16 +65,16 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
           <img
             src={product.image}
             alt={product.title}
-            className="max-h-[340px] sm:max-h-[420px] w-auto object-contain garment-shadow filter drop-shadow-xl"
+            className="max-h-[240px] sm:max-h-[320px] md:max-h-[520px] w-full h-full object-contain garment-shadow filter drop-shadow-2xl"
             style={{
-              mixBlendMode: product.blendMode || 'multiply',
-              transform: `scale(${product.scale || 1.15})`,
+              mixBlendMode: product.blendMode || 'normal',
+              transform: `scale(${product.scale ? product.scale * 1.15 : 1.35})`,
             }}
           />
         </div>
 
         {/* Right: Garment Details & Actions */}
-        <div className="w-full md:w-1/2 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto">
+        <div className="w-full md:w-1/2 p-5 sm:p-8 flex flex-col justify-between overflow-y-auto">
           <div>
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 font-semibold">
@@ -210,15 +210,15 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
               </button>
             )}
 
-            <div className="pt-2 flex items-center justify-between text-[10px] font-mono text-neutral-500">
+            <div className="pt-2 flex flex-wrap items-center justify-between gap-y-1.5 gap-x-2 text-[10px] font-mono text-neutral-500">
               <span className="flex items-center gap-1">
-                <Truck className="w-3 h-3 text-[#10B981]" /> Free Pan-India Shipping
+                <Truck className="w-3 h-3 text-[#10B981] shrink-0" /> Free Shipping
               </span>
               <span className="flex items-center gap-1">
-                <RefreshCw className="w-3 h-3 text-neutral-600" /> 7-Day Free Exchange
+                <RefreshCw className="w-3 h-3 text-neutral-600 shrink-0" /> 7-Day Exchange
               </span>
               <span className="flex items-center gap-1">
-                <ShieldCheck className="w-3 h-3 text-neutral-600" /> 100% Bio-Wash
+                <ShieldCheck className="w-3 h-3 text-neutral-600 shrink-0" /> 100% Bio-Wash
               </span>
             </div>
           </div>

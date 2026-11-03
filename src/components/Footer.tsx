@@ -46,9 +46,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
                 ✓ Joined the early drop list.
               </p>
             ) : (
-              <form onSubmit={handleQuickSubmit} className="flex items-center">
+              <form onSubmit={handleQuickSubmit} className="flex items-center w-full max-w-xs">
                 <input
-                  className="bg-[#DFDDD7] border border-neutral-300 text-xs px-3 py-2 w-44 placeholder-neutral-500 focus:outline-none focus:border-black font-mono"
+                  className="bg-[#DFDDD7] border border-neutral-300 text-xs px-3 py-2 flex-grow min-w-0 placeholder-neutral-500 focus:outline-none focus:border-black font-mono min-h-[38px]"
                   placeholder="Email for the list"
                   type="email"
                   value={quickEmail}
@@ -57,7 +57,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
                 />
                 <button
                   type="submit"
-                  className="bg-black text-white text-xs px-4 py-2 font-semibold hover:bg-neutral-800 transition cursor-pointer font-mono"
+                  className="bg-black text-white text-xs px-4 py-2 font-semibold hover:bg-neutral-800 transition cursor-pointer font-mono min-h-[38px] shrink-0"
                 >
                   JOIN
                 </button>
@@ -87,8 +87,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
                 </a>
               </li>
               <li>
-                <a className="hover:text-black transition" href="#lookbook">
-                  Lookbook
+                <a className="hover:text-black transition" href="#campaign">
+                  Campaign SS26
                 </a>
               </li>
             </ul>
@@ -180,16 +180,15 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
             <img
               src={BRAND_LOGO_URL}
               alt="TRAITIST - Threads of Resilience"
-              className="max-h-24 md:max-h-32 w-auto mx-auto object-contain block opacity-90 hover:opacity-100 transition-opacity"
-              style={{ mixBlendMode: 'multiply' }}
+              className="max-h-16 sm:max-h-24 md:max-h-32 w-auto mx-auto object-contain block opacity-90 hover:opacity-100 transition-opacity"
             />
           </div>
         </div>
 
         {/* Legal & Copyright */}
-        <div className="flex flex-col sm:flex-row items-center justify-between pt-8 text-[11px] font-mono text-neutral-500 uppercase gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between pt-8 text-[11px] font-mono text-neutral-500 uppercase gap-4 text-center sm:text-left">
           <p>© 2026 TRAITIST</p>
-          <div className="flex flex-wrap items-center space-x-6">
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-4 sm:gap-x-6 gap-y-2">
             <a className="hover:text-black transition" href="#archive">
               PRIVACY
             </a>
@@ -208,7 +207,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
             <button
               onClick={scrollToTop}
               aria-label="Back to top"
-              className="hover:text-black transition p-1 hover:bg-neutral-300 rounded cursor-pointer"
+              className="hover:text-black transition p-1.5 hover:bg-neutral-300 rounded cursor-pointer"
             >
               <ArrowUp className="w-3.5 h-3.5 inline-block" />
             </button>

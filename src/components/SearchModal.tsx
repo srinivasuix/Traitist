@@ -49,30 +49,30 @@ export const SearchModal: React.FC<SearchModalProps> = ({
   const popularSearches = [
     'PhD Progress',
     'Scholar Thoughts',
-    'Manuscript',
+    'Under Review',
     'Coffee',
     'Milestone',
-    'Heavyweight',
+    'Pie Chart',
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-      <div className="relative max-w-2xl w-full bg-[#ECEBE6] rounded-sm p-6 shadow-2xl border border-neutral-300">
-        <div className="flex items-center justify-between pb-4 border-b border-neutral-300">
-          <div className="flex items-center gap-3 flex-grow pr-4">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-8 sm:pt-20 px-2.5 sm:px-4 bg-black/75 backdrop-blur-sm animate-fade-in">
+      <div className="relative max-w-2xl w-full bg-[#ECEBE6] rounded-sm p-4 sm:p-6 shadow-2xl border border-neutral-300">
+        <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-neutral-300">
+          <div className="flex items-center gap-2.5 sm:gap-3 flex-grow pr-2 sm:pr-4">
             <Search className="w-5 h-5 text-neutral-600 shrink-0" />
             <input
               ref={inputRef}
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search by title, edition, or category..."
-              className="w-full bg-transparent text-sm sm:text-base font-mono text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
+              placeholder="Search catalog by title, edition, or category..."
+              className="w-full bg-transparent text-xs sm:text-base font-mono text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
             />
             {query && (
               <button
                 onClick={() => setQuery('')}
-                className="text-neutral-400 hover:text-black p-1"
+                className="text-neutral-400 hover:text-black p-1.5"
                 aria-label="Clear search"
               >
                 <X className="w-4 h-4" />
@@ -81,7 +81,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-neutral-200 transition cursor-pointer"
+            className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer shrink-0"
             aria-label="Close search"
           >
             <X className="w-5 h-5 text-neutral-800" />

@@ -18,7 +18,7 @@ export const NewsletterSection: React.FC = () => {
 
   return (
     <section
-      className="max-w-4xl mx-auto px-4 py-24 text-center"
+      className="max-w-4xl mx-auto px-4 py-14 sm:py-20 md:py-24 text-center"
       data-purpose="newsletter-subscription"
       id="archive"
     >
@@ -41,11 +41,11 @@ export const NewsletterSection: React.FC = () => {
         </div>
       ) : (
         <form
-          className="max-w-md mx-auto flex items-center bg-[#DFDDD7] rounded-full p-1 border border-neutral-300 focus-within:border-black transition-colors"
+          className="max-w-md mx-auto flex items-center bg-[#DFDDD7] rounded-full p-1 border border-neutral-300 focus-within:border-black transition-colors min-h-[46px]"
           onSubmit={handleSubmit}
         >
           <input
-            className="bg-transparent border-0 flex-grow px-5 py-2.5 text-xs text-neutral-900 placeholder-neutral-500 focus:ring-0 focus:outline-none"
+            className="bg-transparent border-0 flex-grow min-w-0 px-3.5 sm:px-5 py-2.5 text-xs text-neutral-900 placeholder-neutral-500 focus:ring-0 focus:outline-none"
             placeholder="Email address for 24h early access"
             type="email"
             value={email}
@@ -55,7 +55,7 @@ export const NewsletterSection: React.FC = () => {
             }}
           />
           <button
-            className="bg-black text-white text-xs font-semibold uppercase tracking-wider px-6 py-2.5 rounded-full hover:bg-neutral-800 transition cursor-pointer"
+            className="bg-black text-white text-xs font-semibold uppercase tracking-wider px-5 sm:px-6 py-2.5 rounded-full hover:bg-neutral-800 transition cursor-pointer min-h-[40px] shrink-0"
             type="submit"
           >
             JOIN

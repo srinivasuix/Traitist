@@ -69,13 +69,13 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
         </div>
 
         {/* Filter categories & link */}
-        <div className="flex flex-wrap items-center gap-2 md:gap-3">
-          <div className="flex items-center gap-1 bg-[#DFDDD7]/70 p-1 rounded-md border border-neutral-300/80">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 w-full md:w-auto">
+          <div className="flex items-center gap-1 bg-[#DFDDD7]/70 p-1 rounded-md border border-neutral-300/80 overflow-x-auto no-scrollbar flex-nowrap">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-3 py-1 text-[11px] font-mono uppercase tracking-wider rounded transition-colors cursor-pointer ${
+                className={`px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider rounded transition-colors cursor-pointer shrink-0 min-h-[32px] ${
                   activeCategory === cat
                     ? 'bg-black text-white font-semibold'
                     : 'text-neutral-600 hover:text-black'
@@ -87,7 +87,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
           </div>
 
           <a
-            className="text-[11px] font-mono uppercase tracking-widest text-neutral-800 underline underline-offset-4 hover:text-black ml-2"
+            className="text-[11px] font-mono uppercase tracking-widest text-neutral-800 underline underline-offset-4 hover:text-black self-end sm:self-auto shrink-0"
             href="#shop"
           >
             SHOP ALL PIECES
@@ -96,7 +96,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       </div>
 
       {/* Product Grid: 4 Columns on desktop, 2 on mobile */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 sm:gap-x-5 gap-y-10">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-x-3 sm:gap-x-5 gap-y-7 sm:gap-y-10">
         {filteredProducts.map((product) => {
           const isWishlisted = wishlistIds.includes(product.id);
           const currentSize = selectedSizes[product.id] || 'M';
@@ -129,7 +129,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                     onToggleWishlist(product);
                   }}
                   aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
-                  className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-white/70 backdrop-blur-sm border border-black/10 hover:bg-white transition z-10 cursor-pointer"
+                  className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/80 backdrop-blur-sm border border-black/10 hover:bg-white flex items-center justify-center transition z-10 cursor-pointer shadow-xs"
                 >
                   <Heart
                     className={`w-3.5 h-3.5 transition-colors ${

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Trash2, Plus, Minus, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { Product } from '../data/products';
+import { TraitistReceiptPrinter, TraitistReceiptOrderData } from './ReceiptPrinter';
 
 export interface CartItem {
   product: Product;
@@ -33,6 +34,19 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<'upi' | 'cod' | 'card'>('upi');
+  const [completedOrder, setCompletedOrder] = useState<TraitistReceiptOrderData | null>(null);
+
+  // Keyboard Escape listener to close cart
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -67,10 +81,29 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   };
 
   const handleCompleteOrder = () => {
+    const randomNum = Math.floor(100000 + Math.random() * 900000);
+    const orderSnapshot: TraitistReceiptOrderData = {
+      orderId: `TRT-${randomNum}`,
+      timestamp: new Date().toLocaleString('en-IN', {
+        dateStyle: 'medium',
+        timeStyle: 'medium',
+      }),
+      items: items.length > 0 ? [...items] : [],
+      subtotal,
+      discountAmount,
+      discountPercent,
+      promoCode: promoCode || (discountPercent > 0 ? 'PHD10' : undefined),
+      shipping,
+      grandTotal,
+      currency,
+      paymentMethod,
+      deliveryAddress: 'Indiranagar, Bengaluru / Express Air Delivery',
+    };
+    setCompletedOrder(orderSnapshot);
     setOrderComplete(true);
     setTimeout(() => {
       onClearCart();
-    }, 500);
+    }, 400);
   };
 
   const formatPrice = (val: number) => {
@@ -91,54 +124,47 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         className="relative w-full max-w-md bg-[#ECEBE6] h-full shadow-2xl flex flex-col z-10 border-l border-neutral-300"
       >
         {/* Header */}
-        <div className="px-6 py-5 border-b border-neutral-300 flex items-center justify-between">
+        <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-neutral-300 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-neutral-900">
-              YOUR BAG
+              {orderComplete ? 'ORDER RECEIPT' : 'YOUR BAG'}
             </h2>
-            <span className="text-xs font-mono bg-black text-white px-2 py-0.5 rounded-full">
-              {items.reduce((sum, item) => sum + item.quantity, 0)}
-            </span>
+            {!orderComplete && (
+              <span className="text-xs font-mono bg-black text-white px-2 py-0.5 rounded-full">
+                {items.reduce((sum, item) => sum + item.quantity, 0)}
+              </span>
+            )}
+            {orderComplete && (
+              <span className="text-[10px] font-mono bg-emerald-600 text-white font-bold px-2 py-0.5 rounded uppercase">
+                AUTHENTICATED
+              </span>
+            )}
           </div>
           <button
-            onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-neutral-200 transition cursor-pointer"
+            onClick={() => {
+              if (orderComplete) {
+                setOrderComplete(false);
+                setIsCheckingOut(false);
+              }
+              onClose();
+            }}
+            className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"
             aria-label="Close cart"
           >
             <X className="w-5 h-5 text-neutral-800" />
           </button>
         </div>
 
-        {orderComplete ? (
-          <div className="flex-grow p-8 flex flex-col items-center justify-center text-center">
-            <div className="w-16 h-16 rounded-full bg-black text-white flex items-center justify-center mb-4">
-              <CheckCircle2 className="w-8 h-8 text-[#10B981]" />
-            </div>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">
-              DISPATCH CONFIRMED
-            </span>
-            <h3 className="text-2xl font-bold font-display text-neutral-950 mt-1">
-              Order #TRT-{Math.floor(100000 + Math.random() * 900000)}
-            </h3>
-            <p className="text-xs text-neutral-600 mt-2 font-sans max-w-xs">
-              Thank you for supporting Traitist Studios. Your parcel is being packed in our
-              warehouse with custom sticker packs.
-            </p>
-            <div className="p-3 bg-[#DFDDD7] rounded text-xs font-mono text-neutral-800 mt-6 w-full text-left space-y-1 border border-neutral-300">
-              <p>• Estimated Delivery: 2–3 Business Days</p>
-              <p>• Payment: Verified via {paymentMethod.toUpperCase()}</p>
-              <p>• Tracking link dispatched via SMS/Email</p>
-            </div>
-            <button
-              onClick={() => {
+        {orderComplete && completedOrder ? (
+          <div className="flex-grow overflow-y-auto px-4 sm:px-6 py-4 flex flex-col items-center">
+            <TraitistReceiptPrinter
+              orderData={completedOrder}
+              onContinueShopping={() => {
                 setOrderComplete(false);
                 setIsCheckingOut(false);
                 onClose();
               }}
-              className="mt-6 w-full py-3 bg-black text-white text-xs font-mono uppercase tracking-widest font-semibold hover:bg-neutral-800 transition cursor-pointer"
-            >
-              Continue Browsing
-            </button>
+            />
           </div>
         ) : isCheckingOut ? (
           /* Checkout Simulation View */
@@ -379,7 +405,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
             {/* Footer with Summary & Checkout */}
             {items.length > 0 && (
-              <div className="px-6 py-5 border-t border-neutral-300 bg-[#ECEBE6]">
+              <div className="px-4 sm:px-6 py-4 sm:py-5 pb-6 sm:pb-5 border-t border-neutral-300 bg-[#ECEBE6]">
                 {/* Coupon Code Input */}
                 <form onSubmit={handleApplyPromo} className="flex gap-2 mb-4">
                   <input
@@ -387,11 +413,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     value={promoCode}
                     onChange={(e) => setPromoCode(e.target.value)}
                     placeholder="Coupon (try 'PHD10')"
-                    className="flex-grow bg-[#DFDDD7] border border-neutral-300 text-xs px-3 py-1.5 uppercase font-mono placeholder:normal-case focus:outline-none focus:border-black rounded-xs"
+                    className="flex-grow bg-[#DFDDD7] border border-neutral-300 text-xs px-3 py-2 uppercase font-mono placeholder:normal-case focus:outline-none focus:border-black rounded-xs min-h-[38px]"
                   />
                   <button
                     type="submit"
-                    className="px-3 py-1.5 bg-black text-white text-xs font-mono uppercase font-semibold hover:bg-neutral-800 transition cursor-pointer"
+                    className="px-3.5 py-2 bg-black text-white text-xs font-mono uppercase font-semibold hover:bg-neutral-800 transition cursor-pointer min-h-[38px]"
                   >
                     Apply
                   </button>
@@ -431,7 +457,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 <div className="mt-4 space-y-2">
                   <button
                     onClick={() => setIsCheckingOut(true)}
-                    className="w-full py-3 bg-[#FF5722] text-white text-xs font-mono uppercase tracking-widest font-bold rounded-sm hover:bg-[#e04818] transition cursor-pointer flex items-center justify-center gap-2 shadow-md hover:scale-[1.01]"
+                    className="w-full py-3.5 min-h-[46px] bg-[#FF5722] text-white text-xs font-mono uppercase tracking-widest font-bold rounded-sm hover:bg-[#e04818] transition cursor-pointer flex items-center justify-center gap-2 shadow-md hover:scale-[1.01]"
                   >
                     <span>Instant Checkout via UPI / COD</span>
                     <ArrowRight className="w-4 h-4" />

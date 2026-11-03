@@ -7,9 +7,9 @@ interface PreloaderProps {
 
 const STATUS_MESSAGES = [
   'INITIALIZING ARCHIVE',
-  'CALIBRATING 240 GSM COMBD COTTON',
+  'CALIBRATING 240 GSM COMBED COTTON',
   'RENDERING 3D GARMENT VOLUMES',
-  'SYNCHRONIZING DROP 04',
+  'SYNCHRONIZING COLLECTION',
   'THREADS OF RESILIENCE READY',
 ];
 
@@ -19,6 +19,12 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
+    // Respect reduced motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      onComplete();
+      return;
+    }
+
     // Smooth progress counter ramp from 0 to 100 over ~1.8 seconds
     const startTime = Date.now();
     const duration = 1800; // 1.8s
@@ -66,6 +72,9 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
 
   return (
     <div
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
       className={`fixed inset-0 z-50 flex flex-col justify-between bg-[#ECEBE6] text-[#111111] transition-all duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] select-none ${
         isExiting
           ? '-translate-y-full opacity-95 pointer-events-none'
@@ -76,12 +85,13 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       {/* Top Meta Bar */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-5 sm:pt-8 flex items-center justify-between text-[11px] font-mono tracking-widest uppercase text-neutral-600">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#FF5722] animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-[#FF5722] animate-pulse" aria-hidden="true" />
           <span className="text-[10px] sm:text-[11px]">TRAITIST // 2026</span>
         </div>
         <button
           onClick={handleSkip}
-          className="hover:text-black hover:underline transition-colors cursor-pointer text-[10px] tracking-wider py-1 px-2.5 border border-neutral-300 rounded min-h-[32px] flex items-center"
+          aria-label="Skip intro animation"
+          className="hover:text-black hover:underline transition-colors cursor-pointer text-[10px] tracking-wider py-1.5 px-3 border border-neutral-300 rounded min-h-[44px] min-w-[44px] inline-flex items-center justify-center font-mono"
         >
           SKIP
         </button>
@@ -96,14 +106,14 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
             alt="TRAITIST - Threads of Resilience"
             className="h-10 min-[380px]:h-12 sm:h-20 md:h-24 w-auto max-w-[200px] min-[380px]:max-w-[260px] sm:max-w-[380px] object-contain transition-transform duration-700 ease-out scale-100"
           />
-          <p className="mt-3 sm:mt-4 text-[9px] min-[380px]:text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-neutral-500 text-center">
-            HEAVYWEIGHT EDITORIAL STREETWEAR • DROP 04
+          <p className="mt-3 sm:mt-4 text-[9px] min-[380px]:text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-neutral-600 text-center">
+            HEAVYWEIGHT EDITORIAL STREETWEAR • NIGHT SHIFT
           </p>
         </div>
 
         {/* Dynamic Status Message */}
         <div className="h-6 mt-4 sm:mt-6 flex items-center justify-center px-2 text-center">
-          <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-neutral-700 animate-pulse">
+          <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-neutral-800 animate-pulse">
             {STATUS_MESSAGES[statusIndex]}
           </span>
         </div>
@@ -112,24 +122,30 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       {/* Bottom Counter & Hairline Progress Bar */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 pb-6 sm:pb-12">
         <div className="flex items-end justify-between mb-3 text-neutral-800">
-          <span className="text-[10px] sm:text-xs font-mono tracking-widest text-neutral-500 uppercase">
+          <span className="text-[10px] sm:text-xs font-mono tracking-widest text-neutral-600 uppercase">
             CALIBRATING ASSETS
           </span>
           <span className="text-3xl sm:text-5xl font-mono font-bold tracking-tighter tabular-nums">
             {String(progress).padStart(3, '0')}
-            <span className="text-lg sm:text-2xl font-light text-neutral-400 ml-1">%</span>
+            <span className="text-lg sm:text-2xl font-light text-neutral-600 ml-1">%</span>
           </span>
         </div>
 
         {/* Precision Progress Track */}
-        <div className="w-full h-[3px] bg-neutral-300 relative overflow-hidden rounded-full">
+        <div
+          role="progressbar"
+          aria-valuenow={progress}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          className="w-full h-[3px] bg-neutral-300 relative overflow-hidden rounded-full"
+        >
           <div
             className="h-full bg-black transition-all duration-75 ease-out rounded-full"
             style={{ width: `${progress}%` }}
           />
         </div>
 
-        <div className="flex items-center justify-between mt-3 text-[10px] font-mono text-neutral-500 tracking-wider">
+        <div className="flex items-center justify-between mt-3 text-[10px] font-mono text-neutral-600 tracking-wider">
           <span>TORONTO / NEW DELHI</span>
           <span>CURATED EDITION 01 — 08</span>
         </div>

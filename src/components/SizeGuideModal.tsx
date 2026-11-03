@@ -9,6 +9,16 @@ interface SizeGuideModalProps {
 export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose }) => {
   const [unit, setUnit] = useState<'inches' | 'cm'>('inches');
 
+  // Handle keyboard Escape
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const measurements = [
@@ -19,25 +29,35 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose 
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-      <div className="relative max-w-lg w-full max-h-[90vh] overflow-y-auto bg-[#ECEBE6] rounded-sm p-4 sm:p-8 shadow-2xl border border-neutral-300">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="sizeguide-title"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-sm animate-fade-in"
+    >
+      <div
+        className="fixed inset-0 bg-transparent"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <div data-lenis-prevent className="relative max-w-lg w-full max-h-[90vh] overflow-y-auto bg-[#ECEBE6] rounded-sm p-4 sm:p-8 shadow-2xl border border-neutral-300 z-10">
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"
+          className="absolute top-3 right-3 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"
           aria-label="Close size guide"
         >
-          <X className="w-5 h-5 text-neutral-800" />
+          <X className="w-5 h-5 text-neutral-800" aria-hidden="true" />
         </button>
 
         <div className="flex items-center gap-2 mb-1">
-          <Ruler className="w-5 h-5 text-black" />
-          <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 font-semibold">
+          <Ruler className="w-5 h-5 text-black" aria-hidden="true" />
+          <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-600 font-semibold">
             FIT & SPECIFICATIONS
           </span>
         </div>
-        <h3 className="text-2xl font-bold font-display text-neutral-950">
+        <h2 id="sizeguide-title" className="text-2xl font-bold font-display text-neutral-950">
           Boxy Streetwear Fit Guide
-        </h3>
+        </h2>
         <p className="text-xs text-neutral-600 mt-1 font-sans">
           All Traitist tees are cut with an intentional drop-shoulder boxy drape in 240 GSM bio-washed heavy cotton.
         </p>
@@ -47,18 +67,22 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose 
           <span className="text-xs font-mono font-bold uppercase text-neutral-900">
             Garment Measurements
           </span>
-          <div className="flex items-center gap-1 bg-[#DFDDD7] p-1 rounded border border-neutral-300">
+          <div className="flex items-center gap-1 bg-[#DFDDD7] p-1 rounded border border-neutral-300" role="group" aria-label="Measurement units">
             <button
+              type="button"
+              aria-pressed={unit === 'inches'}
               onClick={() => setUnit('inches')}
-              className={`px-2.5 py-1 text-xs font-mono rounded cursor-pointer transition ${
+              className={`px-3 py-1.5 min-h-[36px] text-xs font-mono rounded cursor-pointer transition ${
                 unit === 'inches' ? 'bg-black text-white font-bold' : 'text-neutral-600 hover:text-black'
               }`}
             >
               INCHES
             </button>
             <button
+              type="button"
+              aria-pressed={unit === 'cm'}
               onClick={() => setUnit('cm')}
-              className={`px-2.5 py-1 text-xs font-mono rounded cursor-pointer transition ${
+              className={`px-3 py-1.5 min-h-[36px] text-xs font-mono rounded cursor-pointer transition ${
                 unit === 'cm' ? 'bg-black text-white font-bold' : 'text-neutral-600 hover:text-black'
               }`}
             >
@@ -70,19 +94,20 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose 
         {/* Table */}
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs font-mono border-collapse">
+            <caption className="visually-hidden">Traitist Boxy Fit Measurement Chart</caption>
             <thead>
-              <tr className="border-b border-neutral-300 text-neutral-500 uppercase text-[10px]">
-                <th className="py-2 pr-3">Size</th>
-                <th className="py-2 px-3">Chest</th>
-                <th className="py-2 px-3">Length</th>
-                <th className="py-2 px-3">Shoulder</th>
-                <th className="py-2 pl-3">Sleeve</th>
+              <tr className="border-b border-neutral-300 text-neutral-600 uppercase text-[10px]">
+                <th scope="col" className="py-2 pr-3">Size</th>
+                <th scope="col" className="py-2 px-3">Chest</th>
+                <th scope="col" className="py-2 px-3">Length</th>
+                <th scope="col" className="py-2 px-3">Shoulder</th>
+                <th scope="col" className="py-2 pl-3">Sleeve</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-neutral-200">
               {measurements.map((row) => (
                 <tr key={row.size} className="hover:bg-neutral-200/50">
-                  <td className="py-2.5 pr-3 font-bold text-neutral-900">{row.size}</td>
+                  <th scope="row" className="py-2.5 pr-3 font-bold text-neutral-900">{row.size}</th>
                   <td className="py-2.5 px-3 text-neutral-700">
                     {unit === 'inches' ? row.chestIn : row.chestCm}
                   </td>
@@ -116,8 +141,9 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose 
         </div>
 
         <button
+          type="button"
           onClick={onClose}
-          className="mt-6 w-full py-2.5 bg-black text-white text-xs font-mono uppercase tracking-widest font-semibold hover:bg-neutral-800 transition cursor-pointer"
+          className="mt-6 w-full py-3 min-h-[44px] bg-black text-white text-xs font-mono uppercase tracking-widest font-semibold rounded-sm hover:bg-neutral-800 active:scale-[0.97] hover:scale-[1.01] transition-all duration-200 ease-out cursor-pointer shadow-sm"
         >
           Got It
         </button>

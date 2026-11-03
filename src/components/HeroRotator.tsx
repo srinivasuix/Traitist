@@ -1,21 +1,21 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
-import { ROTATOR_PRODUCTS, Product } from '../data/products';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Play, Pause } from 'lucide-react';
+import { ROTATOR_PRODUCTS, Product, BRAND_LOGO_URL } from '../data/products';
+import { BorderBeam } from './magicui/border-beam';
 
 interface HeroRotatorProps {
-  currency: 'INR' | 'USD';
   onSelectProduct: (product: Product) => void;
 }
 
 const AUTO_DURATION_MS = 2800; // Auto-advance timing
 
 export const HeroRotator: React.FC<HeroRotatorProps> = ({
-  currency,
   onSelectProduct,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isChanging, setIsChanging] = useState(false);
   const [resetTimerKey, setResetTimerKey] = useState(0);
+  const [isPausedManually, setIsPausedManually] = useState(false);
   const total = ROTATOR_PRODUCTS.length;
 
   // Drag & interactive rotation state
@@ -74,9 +74,10 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
     }, 180);
   }, [total]);
 
-  // Smooth Auto-advance (pauses naturally while user is actively hovering or dragging)
+  // Smooth Auto-advance (pauses naturally while user is actively hovering, dragging, or has paused)
   useEffect(() => {
-    if (isDragging || isHovered) return;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isDragging || isHovered || isPausedManually || prefersReducedMotion) return;
 
     const timer = setInterval(() => {
       setIsChanging(true);
@@ -87,7 +88,7 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
     }, AUTO_DURATION_MS);
 
     return () => clearInterval(timer);
-  }, [resetTimerKey, total, isDragging, isHovered]);
+  }, [resetTimerKey, total, isDragging, isHovered, isPausedManually]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -148,7 +149,7 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
     if (!isDragging) return;
 
     const deltaX = e.clientX - dragStartRef.current.x;
-    if (Math.abs(deltaX) > 6) {
+    if (Math.abs(deltaX) > 16) {
       hasMovedSignificantRef.current = true;
     }
     setDragOffset(deltaX);
@@ -270,17 +271,20 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
 
   return (
     <section
-      className="relative min-h-[82vh] flex flex-col items-center justify-center pt-6 pb-12 px-4 overflow-hidden border-b border-neutral-300 select-none bg-[#ECEBE6]"
+      className="relative min-h-[72vh] sm:min-h-[82vh] flex flex-col items-center justify-center pt-4 sm:pt-6 pb-8 sm:pb-12 px-3 sm:px-4 overflow-hidden border-b border-neutral-300 select-none bg-[#ECEBE6]"
       id="hero-showcase"
       data-purpose="hero-garment-showcase"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleStageMouseLeave}
     >
       {/* Background Monumental Watermark */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.035] select-none">
-        <span className="text-[34vw] font-black font-display tracking-tighter text-black">
-          SPIN
-        </span>
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.035] select-none overflow-hidden px-6">
+        <img
+          src={BRAND_LOGO_URL}
+          alt=""
+          aria-hidden="true"
+          className="w-[88vw] max-w-[1050px] max-h-[75vh] object-contain select-none pointer-events-none"
+        />
       </div>
 
       <div className="max-w-5xl w-full mx-auto flex flex-col items-center relative z-10">
@@ -292,7 +296,7 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
           onMouseMove={handleStageMouseMove}
-          className={`perspective-stage relative w-full h-[420px] min-[400px]:h-[470px] sm:h-[580px] md:h-[650px] flex items-center justify-center touch-pan-y ${
+          className={`perspective-stage relative w-full h-[340px] min-[360px]:h-[390px] min-[400px]:h-[460px] sm:h-[580px] md:h-[650px] flex items-center justify-center touch-pan-y ${
             isDragging ? 'cursor-grabbing' : 'cursor-grab'
           }`}
           id="rotator-stage"
@@ -308,7 +312,7 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
                 <div
                   key={prod.id}
                   onClick={(e) => {
-                    // Prevent click when user was dragging
+                    // Prevent click when user was dragging significantly
                     if (hasMovedSignificantRef.current) return;
                     e.stopPropagation();
 
@@ -318,9 +322,22 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
                       setProduct(idx);
                     }
                   }}
-                  className="showcase-card absolute flex flex-col items-center justify-center origin-center will-change-transform"
+                  className="showcase-card absolute flex flex-col items-center justify-center origin-center will-change-transform cursor-pointer"
                   style={getCardStyle(idx)}
                   data-index={idx}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={isCenter ? `Open dedicated page for ${prod.title}` : `Rotate to ${prod.title}`}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      if (isCenter) {
+                        onSelectProduct(prod);
+                      } else {
+                        setProduct(idx);
+                      }
+                    }
+                  }}
                 >
                   {/* Independent Organic Floating Wrapper */}
                   <div
@@ -331,18 +348,30 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
                       src={prod.image}
                       alt={prod.title}
                       draggable={false}
-                      className="w-[280px] min-[400px]:w-[340px] sm:w-[520px] md:w-[670px] max-h-[390px] min-[400px]:max-h-[450px] sm:max-h-[620px] md:max-h-[690px] object-contain garment-shadow filter drop-shadow-2xl transition-transform duration-300 group-hover:scale-[1.025]"
+                      className="w-[230px] min-[360px]:w-[270px] min-[400px]:w-[340px] sm:w-[520px] md:w-[670px] max-h-[310px] min-[360px]:max-h-[360px] min-[400px]:max-h-[440px] sm:max-h-[620px] md:max-h-[690px] object-contain garment-shadow filter drop-shadow-2xl transition-transform duration-300 group-hover:scale-[1.025]"
                       style={{
                         mixBlendMode: prod.blendMode || 'normal',
                       }}
                     />
 
-                    {/* View Piece Overlay on Center Focus Piece */}
+                    {/* View Piece Overlay on Center Focus Piece with Magic UI BorderBeam */}
                     {isCenter && (
-                      <div className="card-action-overlay absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap bg-black text-white text-[10px] font-mono tracking-widest uppercase px-3.5 py-2 shadow-lg flex items-center gap-1.5 rounded-sm hover:bg-[#FF5722] transition-colors pointer-events-auto cursor-pointer">
-                        <span>VIEW PIECE</span>
-                        <ArrowUpRight className="w-3 h-3" />
-                      </div>
+                      <button
+                        type="button"
+                        onPointerDown={(e) => {
+                          e.stopPropagation();
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSelectProduct(prod);
+                        }}
+                        aria-label={`View dedicated page for ${prod.title}`}
+                        className="card-action-overlay relative overflow-hidden absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap bg-black text-white text-[11px] font-mono tracking-widest uppercase px-4 py-2.5 shadow-xl flex items-center gap-2 rounded-sm hover:bg-[#FF5722] hover:scale-105 active:scale-95 transition-all pointer-events-auto cursor-pointer z-30 min-h-[44px]"
+                      >
+                        <BorderBeam size={80} duration={8} colorFrom="#FF5722" colorTo="#ffffff" />
+                        <span className="font-bold relative z-10">VIEW PIECE</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5] relative z-10" aria-hidden="true" />
+                      </button>
                     )}
                   </div>
                 </div>
@@ -360,21 +389,19 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
             }`}
             id="product-meta-container"
           >
-            <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-neutral-500 mb-0.5">
+            <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-neutral-600 mb-0.5">
               {currentProduct.colorway}
             </span>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight font-display text-neutral-900 group-hover:text-[#FF5722] transition-colors">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight font-display text-neutral-900 group-hover:text-[#FF5722] transition-colors">
               {currentProduct.title}
-            </h1>
+            </h2>
             <p className="text-base sm:text-lg font-mono-subtle text-neutral-900 mt-0.5 font-semibold">
-              {currency === 'INR'
-                ? currentProduct.priceDisplayINR
-                : currentProduct.priceDisplayUSD}
+              {currentProduct.priceDisplayINR}
             </p>
           </div>
 
           {/* Slider Pagination, Duration Progress & Arrow Controls */}
-          <div className="flex items-center justify-center gap-4 sm:gap-6 mt-4">
+          <div className="flex items-center justify-center gap-3 sm:gap-5 mt-4">
             {/* Previous Arrow */}
             <button
               onClick={(e) => {
@@ -384,28 +411,28 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
               aria-label="Previous garment"
               className="w-11 h-11 rounded-full border border-neutral-300 hover:border-black hover:bg-black hover:text-white text-neutral-700 transition duration-150 cursor-pointer flex items-center justify-center touch-manipulation"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4" aria-hidden="true" />
             </button>
 
             {/* Dynamic Counter Format: 01 ── 08 with animated duration progress bar */}
-            <div className="flex items-center gap-2.5 sm:gap-3 font-mono text-[11px] font-semibold text-neutral-800 select-none">
+            <div className="flex items-center gap-2 sm:gap-2.5 font-mono text-[11px] font-semibold text-neutral-800 select-none">
               <span className="w-5 text-right font-mono" id="counter-current">
                 {String(currentIndex + 1).padStart(2, '0')}
               </span>
 
               {/* Progress Track filling smoothly over duration and looping continuously */}
               <div
-                className="w-16 sm:w-28 h-[2px] bg-neutral-300 relative overflow-hidden rounded-full"
+                className="w-14 sm:w-24 h-[2px] bg-neutral-300 relative overflow-hidden rounded-full"
                 title="Auto-changing every 2.8 seconds"
               >
                 <div
                   key={`${currentIndex}-${resetTimerKey}`}
                   className={`h-full bg-black rounded-full ${
-                    isHovered || isDragging ? '' : 'animate-progress-fill'
+                    isHovered || isDragging || isPausedManually ? '' : 'animate-progress-fill'
                   }`}
                   style={{
                     animationDuration: `${AUTO_DURATION_MS}ms`,
-                    animationPlayState: isHovered || isDragging ? 'paused' : 'running',
+                    animationPlayState: isHovered || isDragging || isPausedManually ? 'paused' : 'running',
                   }}
                 />
               </div>
@@ -413,6 +440,20 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
               <span className="w-5 text-left font-mono" id="counter-total">
                 {String(total).padStart(2, '0')}
               </span>
+
+              {/* WCAG 2.2.2 Pause / Resume Auto-advance Button */}
+              <button
+                type="button"
+                onClick={() => setIsPausedManually(!isPausedManually)}
+                aria-label={isPausedManually ? 'Resume automatic slideshow' : 'Pause automatic slideshow'}
+                className="w-9 h-9 sm:w-8 sm:h-8 rounded-full border border-neutral-300 hover:border-black flex items-center justify-center text-neutral-700 hover:text-black transition cursor-pointer ml-1 relative before:absolute before:-inset-1.5"
+              >
+                {isPausedManually ? (
+                  <Play className="w-3 h-3 fill-current" aria-hidden="true" />
+                ) : (
+                  <Pause className="w-3 h-3 fill-current" aria-hidden="true" />
+                )}
+              </button>
             </div>
 
             {/* Next Arrow */}
@@ -424,20 +465,21 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
               aria-label="Next garment"
               className="w-11 h-11 rounded-full border border-neutral-300 hover:border-black hover:bg-black hover:text-white text-neutral-700 transition duration-150 cursor-pointer flex items-center justify-center touch-manipulation"
             >
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </button>
           </div>
 
           {/* Quick Action Button & Interaction Guide */}
           <div className="mt-3.5 flex flex-col items-center gap-2">
             <button
+              type="button"
               onClick={() => onSelectProduct(currentProduct)}
-              className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest font-semibold px-5 py-2.5 min-h-[42px] border border-black hover:bg-black hover:text-white transition duration-200 cursor-pointer"
+              className="group inline-flex items-center justify-center gap-2 text-[11px] font-mono uppercase tracking-widest font-semibold px-6 py-2.5 min-h-[46px] border border-black hover:bg-black hover:text-white rounded-sm transition-all duration-200 ease-out hover:scale-[1.01] active:scale-[0.97] cursor-pointer shadow-xs hover:shadow-md"
             >
-              <span>OPEN PIECE</span>
-              <span className="text-xs">→</span>
+              <span>VIEW PIECE</span>
+              <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
             </button>
-            <p className="text-[10px] uppercase font-mono tracking-widest text-neutral-500 mt-0.5 text-center px-4 leading-normal">
+            <p className="text-[10px] uppercase font-mono tracking-widest text-neutral-600 mt-0.5 text-center px-4 leading-normal">
               <span className="hidden sm:inline">DRAG TO SPIN • MOUSE TILT TO INSPECT • TAP TO OPEN • ARROWS TO BROWSE</span>
               <span className="sm:hidden">SWIPE TO ROTATE • TAP TO VIEW PIECE</span>
             </p>

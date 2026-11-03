@@ -292,7 +292,7 @@ export const ReceiptPrinterPaper: React.FC<ReceiptPrinterPaperProps> = ({
         clipPath: receiptClipPath,
       }}
       className={cn(
-        'receipt-printable relative w-full bg-white text-neutral-900 px-5 sm:px-6 pt-6 pb-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.22)] border-t border-neutral-200 select-text font-mono text-xs',
+        'receipt-printable relative w-full bg-white text-neutral-900 px-3.5 min-[360px]:px-5 sm:px-6 pt-6 pb-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.22)] border-t border-neutral-200 select-text font-mono text-xs',
         className,
       )}
       {...props}
@@ -326,7 +326,7 @@ export interface TraitistReceiptOrderData {
   promoCode?: string;
   shipping: number;
   grandTotal: number;
-  currency: 'INR' | 'USD';
+  currency?: string;
   paymentMethod: 'upi' | 'cod' | 'card';
   deliveryAddress?: string;
 }
@@ -381,7 +381,7 @@ export const TraitistReceiptPrinter: React.FC<TraitistReceiptPrinterProps> = ({
   };
 
   const formatPrice = (val: number) => {
-    return orderData.currency === 'INR' ? `₹${val.toLocaleString()}` : `$${val.toFixed(2)}`;
+    return `₹${val.toLocaleString()}`;
   };
 
   // Formatted date string matching Image 1: "11 AUG 2026 · 14:32"
@@ -429,7 +429,7 @@ export const TraitistReceiptPrinter: React.FC<TraitistReceiptPrinterProps> = ({
             <button
               type="button"
               onClick={onContinueShopping}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#2c2c2e] hover:bg-[#38383a] active:scale-95 text-neutral-200 text-xs font-medium cursor-pointer transition shadow-sm border border-white/5"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm bg-[#2c2c2e] hover:bg-[#38383a] active:scale-[0.97] hover:scale-[1.01] text-neutral-200 text-xs font-mono font-medium cursor-pointer transition-all duration-200 ease-out shadow-sm border border-white/5"
             >
               <Home className="w-3.5 h-3.5" />
               <span>Home</span>
@@ -483,14 +483,11 @@ export const TraitistReceiptPrinter: React.FC<TraitistReceiptPrinterProps> = ({
             {/* Item Breakdown matching Image 1 */}
             <div className="space-y-3 font-mono">
               {orderData.items.map((item, idx) => {
-                const itemPrice =
-                  orderData.currency === 'INR'
-                    ? item.product.priceINR
-                    : item.product.priceUSD;
+                const itemPrice = item.product.priceINR;
                 return (
                   <div key={`${item.product.id}-${item.size}-${idx}`} className="text-xs">
                     <div className="flex justify-between items-baseline font-bold text-neutral-900 uppercase">
-                      <span className="truncate max-w-[200px]">{item.product.title}</span>
+                      <span className="truncate max-w-[150px] min-[360px]:max-w-[190px] sm:max-w-[220px]">{item.product.title}</span>
                       <span>{formatPrice(itemPrice * item.quantity)}</span>
                     </div>
                     <div className="text-[11px] text-neutral-500 mt-0.5">
@@ -538,11 +535,11 @@ export const TraitistReceiptPrinter: React.FC<TraitistReceiptPrinterProps> = ({
             {/* Order Details Metadata */}
             <div className="space-y-1.5 font-mono text-xs text-neutral-600">
               <div className="flex justify-between">
-                <span className="text-neutral-500">Order</span>
+                <span className="text-neutral-600">Order</span>
                 <span className="font-semibold text-neutral-900">{orderDisplayCode}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-neutral-500">Paid with</span>
+                <span className="text-neutral-600">Paid with</span>
                 <span className="text-neutral-800">
                   {orderData.paymentMethod === 'upi'
                     ? 'UPI •••• 8821'
@@ -552,7 +549,7 @@ export const TraitistReceiptPrinter: React.FC<TraitistReceiptPrinterProps> = ({
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-neutral-500">Date</span>
+                <span className="text-neutral-600">Date</span>
                 <span className="text-neutral-800">{formatDateString(orderData.timestamp)}</span>
               </div>
             </div>
@@ -561,6 +558,7 @@ export const TraitistReceiptPrinter: React.FC<TraitistReceiptPrinterProps> = ({
             <div className="mt-6 flex flex-col items-center">
               <div className="w-full flex justify-center py-1">
                 <svg
+                  aria-hidden="true"
                   className="h-10 w-52 max-w-full"
                   viewBox="0 0 200 40"
                   fill="currentColor"
@@ -610,7 +608,7 @@ export const TraitistReceiptPrinter: React.FC<TraitistReceiptPrinterProps> = ({
                   <rect x="194" y="0" width="3" height="36" />
                 </svg>
               </div>
-              <span className="text-[10px] font-mono tracking-widest text-neutral-500 mt-1 uppercase">
+              <span className="text-[10px] font-mono tracking-widest text-neutral-600 mt-1 uppercase">
                 ORD {numericSuffix}
               </span>
             </div>
@@ -624,16 +622,16 @@ export const TraitistReceiptPrinter: React.FC<TraitistReceiptPrinterProps> = ({
           <button
             type="button"
             onClick={handleCopyOrderId}
-            className="py-2.5 px-3 bg-neutral-200 hover:bg-neutral-300 text-neutral-900 text-xs font-mono uppercase tracking-wider font-semibold rounded-lg flex items-center justify-center gap-1.5 transition cursor-pointer border border-neutral-300"
+            className="py-2.5 px-3 min-h-[44px] bg-neutral-200 hover:bg-neutral-300 active:scale-[0.97] hover:scale-[1.01] text-neutral-900 text-xs font-mono uppercase tracking-wider font-semibold rounded-sm flex items-center justify-center gap-1.5 transition-all duration-200 ease-out cursor-pointer border border-neutral-300"
           >
             {copied ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-600" />
+                <Check className="w-3.5 h-3.5 text-emerald-600" aria-hidden="true" />
                 <span>Copied!</span>
               </>
             ) : (
               <>
-                <Copy className="w-3.5 h-3.5" />
+                <Copy className="w-3.5 h-3.5" aria-hidden="true" />
                 <span>Copy ID</span>
               </>
             )}
@@ -642,9 +640,9 @@ export const TraitistReceiptPrinter: React.FC<TraitistReceiptPrinterProps> = ({
           <button
             type="button"
             onClick={handlePrintSlip}
-            className="py-2.5 px-3 bg-neutral-200 hover:bg-neutral-300 text-neutral-900 text-xs font-mono uppercase tracking-wider font-semibold rounded-lg flex items-center justify-center gap-1.5 transition cursor-pointer border border-neutral-300"
+            className="py-2.5 px-3 min-h-[44px] bg-neutral-200 hover:bg-neutral-300 active:scale-[0.97] hover:scale-[1.01] text-neutral-900 text-xs font-mono uppercase tracking-wider font-semibold rounded-sm flex items-center justify-center gap-1.5 transition-all duration-200 ease-out cursor-pointer border border-neutral-300"
           >
-            <Download className="w-3.5 h-3.5" />
+            <Download className="w-3.5 h-3.5" aria-hidden="true" />
             <span>Save Slip</span>
           </button>
         </div>
@@ -652,19 +650,19 @@ export const TraitistReceiptPrinter: React.FC<TraitistReceiptPrinterProps> = ({
         <button
           type="button"
           onClick={onContinueShopping}
-          className="w-full py-3 bg-black text-white text-xs font-mono uppercase tracking-widest font-bold rounded-lg hover:bg-neutral-800 transition cursor-pointer flex items-center justify-center gap-2 shadow-md"
+          className="w-full py-3 min-h-[46px] bg-black text-white text-xs font-mono uppercase tracking-widest font-bold rounded-sm hover:bg-neutral-800 active:scale-[0.97] hover:scale-[1.01] transition-all duration-200 ease-out cursor-pointer flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
         >
-          <ShoppingBag className="w-4 h-4" />
+          <ShoppingBag className="w-4 h-4" aria-hidden="true" />
           <span>Continue Shopping</span>
         </button>
 
-        <div className="flex items-center justify-center pt-1 text-[11px] font-mono text-neutral-500">
+        <div className="flex items-center justify-center pt-1 text-[11px] font-mono text-neutral-600">
           <button
             type="button"
             onClick={handleReplay}
-            className="flex items-center gap-1 hover:text-black transition cursor-pointer underline underline-offset-2"
+            className="min-h-[44px] flex items-center gap-1 hover:text-black transition cursor-pointer underline underline-offset-2"
           >
-            <RefreshCw className="w-3 h-3" />
+            <RefreshCw className="w-3 h-3" aria-hidden="true" />
             <span>Replay Print Animation</span>
           </button>
         </div>

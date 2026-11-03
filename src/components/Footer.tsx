@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowUp, Instagram, Youtube, Twitter } from 'lucide-react';
+import { ArrowUp, Instagram, Youtube, Twitter, Check } from 'lucide-react';
 import { BRAND_LOGO_URL } from '../data/products';
 
 interface FooterProps {
@@ -42,22 +42,28 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
             </p>
 
             {signedUp ? (
-              <p className="text-xs font-mono text-[#10B981] font-semibold">
-                ✓ Joined the early drop list.
+              <p className="text-xs font-mono text-[#10B981] font-semibold flex items-center">
+                <Check className="w-3.5 h-3.5 inline mr-1 text-[#10B981]" aria-hidden="true" />
+                <span>Joined the early drop list.</span>
               </p>
             ) : (
               <form onSubmit={handleQuickSubmit} className="flex items-center w-full max-w-xs">
+                <label htmlFor="footer-quick-email" className="visually-hidden">
+                  Email for early drop list
+                </label>
                 <input
-                  className="bg-[#DFDDD7] border border-neutral-300 text-xs px-3 py-2 flex-grow min-w-0 placeholder-neutral-500 focus:outline-none focus:border-black font-mono min-h-[38px]"
+                  id="footer-quick-email"
+                  className="bg-[#DFDDD7] border border-neutral-300 text-xs px-3 py-2 flex-grow min-w-0 placeholder-neutral-500 focus:outline-none focus:border-black font-mono min-h-[44px]"
                   placeholder="Email for the list"
                   type="email"
+                  autoComplete="email"
                   value={quickEmail}
                   onChange={(e) => setQuickEmail(e.target.value)}
                   required
                 />
                 <button
                   type="submit"
-                  className="bg-black text-white text-xs px-4 py-2 font-semibold hover:bg-neutral-800 transition cursor-pointer font-mono min-h-[38px] shrink-0"
+                  className="bg-black text-white text-xs px-4 py-2 font-semibold hover:bg-neutral-800 transition cursor-pointer font-mono min-h-[44px] shrink-0"
                 >
                   JOIN
                 </button>
@@ -78,7 +84,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
               </li>
               <li>
                 <a className="hover:text-black transition" href="#hero-showcase">
-                  Drop 04
+                  Showcase
                 </a>
               </li>
               <li>
@@ -113,7 +119,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
               <li>
                 <button
                   onClick={onOpenSizeGuide}
-                  className="hover:text-black transition text-left cursor-pointer"
+                  className="hover:text-black transition text-left cursor-pointer inline-flex items-center min-h-[32px] sm:min-h-0"
                 >
                   Size guide
                 </button>
@@ -186,7 +192,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
         </div>
 
         {/* Legal & Copyright */}
-        <div className="flex flex-col sm:flex-row items-center justify-between pt-8 text-[11px] font-mono text-neutral-500 uppercase gap-4 text-center sm:text-left">
+        <div className="flex flex-col sm:flex-row items-center justify-between pt-8 text-[11px] font-mono text-neutral-600 uppercase gap-4 text-center sm:text-left">
           <p>© 2026 TRAITIST</p>
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-4 sm:gap-x-6 gap-y-2">
             <a className="hover:text-black transition" href="#archive">
@@ -207,9 +213,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
             <button
               onClick={scrollToTop}
               aria-label="Back to top"
-              className="hover:text-black transition p-1.5 hover:bg-neutral-300 rounded cursor-pointer"
+              className="hover:text-black transition p-2 hover:bg-neutral-300 rounded cursor-pointer min-w-[44px] min-h-[44px] inline-flex items-center justify-center"
             >
-              <ArrowUp className="w-3.5 h-3.5 inline-block" />
+              <ArrowUp className="w-4 h-4" aria-hidden="true" />
             </button>
           </div>
         </div>

@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { ShoppingBag } from 'lucide-react';
 import { AnnouncementBar } from './components/AnnouncementBar';
 import { Navbar } from './components/Navbar';
@@ -10,17 +11,18 @@ import { MetricsSection } from './components/MetricsSection';
 import { NewsletterSection } from './components/NewsletterSection';
 import { Footer } from './components/Footer';
 import { CartDrawer, CartItem } from './components/CartDrawer';
-import { QuickViewModal } from './components/QuickViewModal';
+import { ProductDetailPage } from './components/ProductDetailPage';
 import { SizeGuideModal } from './components/SizeGuideModal';
 import { SearchModal } from './components/SearchModal';
 import { WishlistModal } from './components/WishlistModal';
 import { Toast } from './components/Toast';
 import { Preloader } from './components/Preloader';
 import { Product, CATALOG_PRODUCTS, ROTATOR_PRODUCTS } from './data/products';
+import { BorderBeam } from './components/magicui/border-beam';
+import Lenis from 'lenis';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [currency, setCurrency] = useState<'INR' | 'USD'>('INR');
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     // Initial sample cart item for preview experience
     return [
@@ -39,21 +41,64 @@ export default function App() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Auto-scroll smooth behavior & body scroll lock during preload
+  // Initialize Darkroom Engineering Lenis smooth scroll
   useEffect(() => {
-    document.documentElement.style.scrollBehavior = 'smooth';
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const lenis = new Lenis({
+      lerp: 0.08,
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 0.9,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    const rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
   }, []);
 
-  // Listen to #cart in URL to open cart directly
+  // Sync hash routing for dedicated product page (#/product/:id) and #cart
   useEffect(() => {
-    const checkHash = () => {
-      if (window.location.hash === '#cart') {
+    const handleHashSync = () => {
+      const hash = window.location.hash;
+      if (hash === '#cart') {
         setIsCartOpen(true);
+        return;
+      }
+      if (hash.startsWith('#/product/')) {
+        const id = hash.replace('#/product/', '');
+        const allProds = [...CATALOG_PRODUCTS, ...ROTATOR_PRODUCTS];
+        const found = allProds.find(
+          (p) =>
+            p.id === id ||
+            p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') === id.toLowerCase()
+        );
+        if (found) {
+          setSelectedProduct(found);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      } else if (!hash || hash === '#shop' || hash === '#campaign' || hash === '#archive') {
+        setSelectedProduct(null);
       }
     };
-    checkHash();
-    window.addEventListener('hashchange', checkHash);
-    return () => window.removeEventListener('hashchange', checkHash);
+
+    handleHashSync();
+    window.addEventListener('hashchange', handleHashSync);
+    window.addEventListener('popstate', handleHashSync);
+    return () => {
+      window.removeEventListener('hashchange', handleHashSync);
+      window.removeEventListener('popstate', handleHashSync);
+    };
   }, []);
 
   useEffect(() => {
@@ -71,13 +116,30 @@ export default function App() {
     setToastMessage(msg);
   };
 
-  const handleToggleCurrency = () => {
-    const next = currency === 'INR' ? 'USD' : 'INR';
-    setCurrency(next);
-    showToast(`Switched currency to ${next === 'INR' ? 'Indian Rupee (₹)' : 'US Dollar ($)'}`);
+  const handleSelectProduct = (product: Product) => {
+    if (selectedProduct?.id === product.id) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    setSelectedProduct(product);
+    window.history.pushState(null, '', `#/product/${product.id}`);
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
-  const handleAddToCart = (product: Product, size: string, quantity: number = 1) => {
+  const handleGoHome = useCallback(() => {
+    setSelectedProduct(null);
+    if (window.location.hash.startsWith('#/product/')) {
+      window.history.pushState(null, '', window.location.pathname);
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
+  const handleAddToCart = (
+    product: Product,
+    size: string,
+    quantity: number = 1,
+    openDrawer: boolean = false
+  ) => {
     setCartItems((prev) => {
       const existingIdx = prev.findIndex(
         (item) => item.product.id === product.id && item.size === size
@@ -94,7 +156,9 @@ export default function App() {
       }
     });
     showToast(`Added ${product.title} (Size ${size}) to Bag`);
-    setIsCartOpen(true);
+    if (openDrawer) {
+      setIsCartOpen(true);
+    }
   };
 
   const handleUpdateQuantity = (productId: string, size: string, delta: number) => {
@@ -142,6 +206,14 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#ECEBE6] text-[#111111] flex flex-col antialiased selection:bg-black selection:text-white">
+      {/* Accessible Skip to Content Link */}
+      <a
+        href="#main-content"
+        className="skip-link sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-black focus:text-white focus:text-xs focus:font-mono focus:outline-none"
+      >
+        Skip to main content
+      </a>
+
       {/* 0. Editorial Preloader Screen */}
       {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
 
@@ -152,47 +224,84 @@ export default function App() {
       <Navbar
         cartCount={cartItems.reduce((acc, curr) => acc + curr.quantity, 0)}
         wishlistCount={wishlistIds.length}
-        currency={currency}
-        onToggleCurrency={handleToggleCurrency}
         onOpenCart={() => setIsCartOpen(true)}
         onOpenSearch={() => setIsSearchOpen(true)}
         onOpenWishlist={() => setIsWishlistOpen(true)}
         onOpenSizeGuide={() => setIsSizeGuideOpen(true)}
+        onGoHome={handleGoHome}
       />
 
-      {/* 3. Hero 3D Rotator Showcase */}
-      <main className="flex-grow">
-        <HeroRotator
-          currency={currency}
-          onSelectProduct={(product) => setSelectedProduct(product)}
-        />
+      {/* Main Content Area: Dedicated Product Page OR Homepage with Simple Clean Transition */}
+      <AnimatePresence mode="wait">
+        {selectedProduct ? (
+          <motion.main
+            key={`product-page-${selectedProduct.id}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            id="main-content"
+            tabIndex={-1}
+            className="flex-grow focus:outline-none"
+          >
+            <ProductDetailPage
+              product={selectedProduct}
+              onBack={handleGoHome}
+              onAddToCart={handleAddToCart}
+              onInstantBuy={(prod, size, qty) => {
+                handleAddToCart(prod, size, qty);
+                setIsCartOpen(true);
+              }}
+              isWishlisted={wishlistIds.includes(selectedProduct.id)}
+              onToggleWishlist={handleToggleWishlist}
+              onSelectProduct={handleSelectProduct}
+              onOpenSizeGuide={() => setIsSizeGuideOpen(true)}
+            />
+          </motion.main>
+        ) : (
+          <motion.main
+            key="homepage-feed"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            id="main-content"
+            tabIndex={-1}
+            className="flex-grow focus:outline-none"
+          >
+            <h1 className="visually-hidden">TRAITIST — Streetwear Studios SS26</h1>
+            {/* 3. Hero 3D Rotator Showcase */}
+            <HeroRotator
+              onSelectProduct={handleSelectProduct}
+            />
 
-        {/* 4. Product Catalog Grid ("Latest pieces") */}
-        <ProductGrid
-          currency={currency}
-          wishlistIds={wishlistIds}
-          onToggleWishlist={handleToggleWishlist}
-          onAddToCart={(product, size) => handleAddToCart(product, size, 1)}
-          onSelectProduct={(product) => setSelectedProduct(product)}
-        />
+            {/* 4. Product Catalog Grid ("Latest pieces") */}
+            <ProductGrid
+              wishlistIds={wishlistIds}
+              onToggleWishlist={handleToggleWishlist}
+              onAddToCart={(product, size) => handleAddToCart(product, size, 1)}
+              onSelectProduct={handleSelectProduct}
+            />
 
-        {/* 5. Campaign Banner ("MADE FOR THE LONG NIGHT.") */}
-        <CampaignBanner
-          onExploreCollection={() => {
-            const el = document.getElementById('shop');
-            el?.scrollIntoView({ behavior: 'smooth' });
-          }}
-        />
+            {/* 5. Campaign Banner ("MADE FOR THE LONG NIGHT.") */}
+            <CampaignBanner
+              onExploreCollection={() => {
+                const el = document.getElementById('shop');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            />
 
-        {/* 6. Community Feed ("Worn by you") */}
-        <CommunitySection />
+            {/* 6. Community Feed ("Worn by you") */}
+            <CommunitySection />
 
-        {/* 8. Specifications & Metrics (480 GSM, 150 Run size, etc.) */}
-        <MetricsSection />
+            {/* 8. Specifications & Metrics (480 GSM, 150 Run size, etc.) */}
+            <MetricsSection />
 
-        {/* 9. Join The List Newsletter Section */}
-        <NewsletterSection />
-      </main>
+            {/* 9. Join The List Newsletter Section */}
+            <NewsletterSection />
+          </motion.main>
+        )}
+      </AnimatePresence>
 
       {/* 10. Main Footer */}
       <Footer onOpenSizeGuide={() => setIsSizeGuideOpen(true)} />
@@ -202,20 +311,13 @@ export default function App() {
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
         items={cartItems}
-        currency={currency}
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveFromCart}
         onClearCart={handleClearCart}
-      />
-
-      <QuickViewModal
-        product={selectedProduct}
-        onClose={() => setSelectedProduct(null)}
-        currency={currency}
-        isWishlisted={selectedProduct ? wishlistIds.includes(selectedProduct.id) : false}
-        onToggleWishlist={handleToggleWishlist}
         onAddToCart={handleAddToCart}
         onOpenSizeGuide={() => setIsSizeGuideOpen(true)}
+        wishlistIds={wishlistIds}
+        onToggleWishlist={handleToggleWishlist}
       />
 
       <SizeGuideModal
@@ -226,39 +328,35 @@ export default function App() {
       <SearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}
-        currency={currency}
-        onSelectProduct={(product) => setSelectedProduct(product)}
+        onSelectProduct={handleSelectProduct}
       />
 
       <WishlistModal
         isOpen={isWishlistOpen}
         onClose={() => setIsWishlistOpen(false)}
         wishlistProducts={wishlistedProducts}
-        currency={currency}
         onRemoveFromWishlist={handleToggleWishlist}
         onAddToCart={(product, size) => handleAddToCart(product, size, 1)}
-        onSelectProduct={(product) => setSelectedProduct(product)}
+        onSelectProduct={handleSelectProduct}
       />
 
-      {/* Floating Sticky Cart Trigger (Accessible anytime from any section) */}
+      {/* Floating Sticky Cart Trigger (Accessible anytime from any section) with Magic UI BorderBeam */}
       {!isCartOpen && cartItems.length > 0 && (
         <button
+          type="button"
           onClick={() => setIsCartOpen(true)}
-          aria-label="View Shopping Bag"
-          className="fixed bottom-5 right-5 z-40 bg-[#111111] text-white px-4 py-3 rounded-full shadow-2xl flex items-center gap-3 border border-neutral-700/60 hover:bg-[#FF5722] transition-all duration-300 hover:scale-105 cursor-pointer font-mono text-xs font-semibold group"
+          aria-label={`View Shopping Bag with ${cartItems.reduce((acc, curr) => acc + curr.quantity, 0)} items`}
+          className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 mb-[env(safe-area-inset-bottom,0px)] z-40 w-auto max-w-fit inline-flex items-center gap-2.5 sm:gap-3 px-4 py-2.5 min-h-[44px] bg-[#111111] hover:bg-[#FF5722] text-white rounded-sm shadow-2xl border border-neutral-700/60 font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-wider cursor-pointer transition-all duration-200 ease-out hover:scale-105 active:scale-95 group overflow-hidden"
         >
-          <div className="relative">
-            <ShoppingBag className="w-4 h-4 text-white" />
-            <span className="absolute -top-1.5 -right-1.5 bg-[#FF5722] group-hover:bg-white group-hover:text-black text-white text-[9px] w-3.5 h-3.5 rounded-full flex items-center justify-center font-bold">
+          <BorderBeam size={60} duration={6} colorFrom="#FF5722" colorTo="#ffffff" />
+          <div className="relative z-10 flex items-center justify-center">
+            <ShoppingBag className="w-4 h-4 text-white" aria-hidden="true" />
+            <span className="absolute -top-1.5 -right-2 bg-[#FF5722] group-hover:bg-white group-hover:text-black text-white text-[9px] min-w-[16px] h-4 px-1 rounded-full flex items-center justify-center font-bold font-mono">
               {cartItems.reduce((acc, curr) => acc + curr.quantity, 0)}
             </span>
           </div>
-          <span className="tracking-wider uppercase">
-            BAG • {currency === 'INR' ? '₹' : '$'}
-            {cartItems.reduce((sum, item) => {
-              const p = currency === 'INR' ? item.product.priceINR : item.product.priceUSD;
-              return sum + p * item.quantity;
-            }, 0).toLocaleString()}
+          <span className="relative z-10 tracking-wider">
+            BAG • ₹{cartItems.reduce((sum, item) => sum + item.product.priceINR * item.quantity, 0).toLocaleString()}
           </span>
         </button>
       )}

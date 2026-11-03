@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { CAMPAIGN_BACKDROP } from '../data/products';
 
 interface CampaignBannerProps {
@@ -7,17 +8,37 @@ interface CampaignBannerProps {
 
 export const CampaignBanner: React.FC<CampaignBannerProps> = ({ onExploreCollection }) => {
   const [activeHotspot, setActiveHotspot] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const parallaxY = useTransform(scrollYProgress, [0, 1], ['-5%', '5%']);
+
+  // Keyboard Escape listener to dismiss active hotspot
+  React.useEffect(() => {
+    if (activeHotspot === null) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setActiveHotspot(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeHotspot]);
 
   return (
     <section
+      ref={sectionRef}
       className="relative w-full min-h-[580px] md:h-[82vh] bg-neutral-950 overflow-hidden flex flex-col justify-end p-6 md:p-14 border-y border-neutral-900"
       data-purpose="editorial-campaign"
       id="campaign"
     >
-      {/* Campaign Photography Backdrop */}
-      <img
+      {/* Campaign Photography Backdrop with Cinematic Scroll Parallax */}
+      <motion.img
+        style={{ y: parallaxY }}
         alt="PhD students wearing graphic tees on campus steps"
-        className="absolute inset-0 w-full h-full object-cover object-center opacity-85 transition-opacity duration-300"
+        className="absolute -top-[10%] inset-x-0 w-full h-[120%] object-cover object-center opacity-85 will-change-transform pointer-events-none"
         src={CAMPAIGN_BACKDROP}
       />
       {/* Contrast Scrim for Text Legibility */}
@@ -29,15 +50,17 @@ export const CampaignBanner: React.FC<CampaignBannerProps> = ({ onExploreCollect
           <button
             type="button"
             onClick={() => setActiveHotspot(activeHotspot === 1 ? null : 1)}
-            aria-label="View PhD Progress Tee"
-            className="w-6 h-6 flex items-center justify-center cursor-pointer group"
+            aria-label="View PhD Progress Tee details"
+            aria-expanded={activeHotspot === 1}
+            aria-controls="hotspot-popup-1"
+            className="w-11 h-11 flex items-center justify-center cursor-pointer group"
           >
             <span className="hotspot-pulse absolute w-4 h-4 rounded-full bg-[#FFB300] shadow-lg"></span>
             <div className="w-2.5 h-2.5 rounded-full bg-[#FFB300] group-hover:scale-125 transition-transform"></div>
           </button>
 
           {activeHotspot === 1 && (
-            <div className="absolute bottom-7 left-1/2 -translate-x-1/2 w-52 bg-black/95 backdrop-blur-md border border-white/20 p-3 rounded shadow-2xl text-left z-30">
+            <div id="hotspot-popup-1" className="absolute bottom-12 left-1/2 -translate-x-1/2 w-52 bg-black/95 backdrop-blur-md border border-white/20 p-3 rounded shadow-2xl text-left z-30">
               <span className="text-[9px] font-mono uppercase tracking-widest text-[#FFB300] font-semibold block">
                 EDITION 01 • FLAGSHIP
               </span>
@@ -56,15 +79,17 @@ export const CampaignBanner: React.FC<CampaignBannerProps> = ({ onExploreCollect
           <button
             type="button"
             onClick={() => setActiveHotspot(activeHotspot === 2 ? null : 2)}
-            aria-label="View Under Review Tee"
-            className="w-6 h-6 flex items-center justify-center cursor-pointer group"
+            aria-label="View Under Review Tee details"
+            aria-expanded={activeHotspot === 2}
+            aria-controls="hotspot-popup-2"
+            className="w-11 h-11 flex items-center justify-center cursor-pointer group"
           >
             <span className="hotspot-pulse absolute w-4 h-4 rounded-full bg-[#38BDF8] shadow-lg"></span>
             <div className="w-2.5 h-2.5 rounded-full bg-[#38BDF8] group-hover:scale-125 transition-transform"></div>
           </button>
 
           {activeHotspot === 2 && (
-            <div className="absolute bottom-7 left-1/2 -translate-x-1/2 w-52 bg-black/95 backdrop-blur-md border border-white/20 p-3 rounded shadow-2xl text-left z-30">
+            <div id="hotspot-popup-2" className="absolute bottom-12 left-1/2 -translate-x-1/2 w-52 bg-black/95 backdrop-blur-md border border-white/20 p-3 rounded shadow-2xl text-left z-30">
               <span className="text-[9px] font-mono uppercase tracking-widest text-[#38BDF8] font-semibold block">
                 EDITION 06 • VIRAL
               </span>
@@ -83,15 +108,17 @@ export const CampaignBanner: React.FC<CampaignBannerProps> = ({ onExploreCollect
           <button
             type="button"
             onClick={() => setActiveHotspot(activeHotspot === 3 ? null : 3)}
-            aria-label="View Pie Chart Tee"
-            className="w-6 h-6 flex items-center justify-center cursor-pointer group"
+            aria-label="View Pie Chart Tee details"
+            aria-expanded={activeHotspot === 3}
+            aria-controls="hotspot-popup-3"
+            className="w-11 h-11 flex items-center justify-center cursor-pointer group"
           >
             <span className="hotspot-pulse absolute w-4 h-4 rounded-full bg-[#A855F7] shadow-lg"></span>
             <div className="w-2.5 h-2.5 rounded-full bg-[#A855F7] group-hover:scale-125 transition-transform"></div>
           </button>
 
           {activeHotspot === 3 && (
-            <div className="absolute bottom-7 left-1/2 -translate-x-1/2 w-52 bg-black/95 backdrop-blur-md border border-white/20 p-3 rounded shadow-2xl text-left z-30">
+            <div id="hotspot-popup-3" className="absolute bottom-12 left-1/2 -translate-x-1/2 w-52 bg-black/95 backdrop-blur-md border border-white/20 p-3 rounded shadow-2xl text-left z-30">
               <span className="text-[9px] font-mono uppercase tracking-widest text-[#A855F7] font-semibold block">
                 EDITION 04 • CHART
               </span>
@@ -110,15 +137,17 @@ export const CampaignBanner: React.FC<CampaignBannerProps> = ({ onExploreCollect
           <button
             type="button"
             onClick={() => setActiveHotspot(activeHotspot === 4 ? null : 4)}
-            aria-label="View Milestone Tee"
-            className="w-6 h-6 flex items-center justify-center cursor-pointer group"
+            aria-label="View Milestone Tee details"
+            aria-expanded={activeHotspot === 4}
+            aria-controls="hotspot-popup-4"
+            className="w-11 h-11 flex items-center justify-center cursor-pointer group"
           >
             <span className="hotspot-pulse absolute w-4 h-4 rounded-full bg-white shadow-lg"></span>
             <div className="w-2.5 h-2.5 rounded-full bg-white group-hover:scale-125 transition-transform"></div>
           </button>
 
           {activeHotspot === 4 && (
-            <div className="absolute bottom-7 left-1/2 -translate-x-1/2 w-52 bg-black/95 backdrop-blur-md border border-white/20 p-3 rounded shadow-2xl text-left z-30">
+            <div id="hotspot-popup-4" className="absolute bottom-12 left-1/2 -translate-x-1/2 w-52 bg-black/95 backdrop-blur-md border border-white/20 p-3 rounded shadow-2xl text-left z-30">
               <span className="text-[9px] font-mono uppercase tracking-widest text-neutral-400 font-semibold block">
                 EDITION 03 • MOUNTAIN
               </span>
@@ -137,15 +166,17 @@ export const CampaignBanner: React.FC<CampaignBannerProps> = ({ onExploreCollect
           <button
             type="button"
             onClick={() => setActiveHotspot(activeHotspot === 5 ? null : 5)}
-            aria-label="View Coffee Tee"
-            className="w-6 h-6 flex items-center justify-center cursor-pointer group"
+            aria-label="View Coffee Tee details"
+            aria-expanded={activeHotspot === 5}
+            aria-controls="hotspot-popup-5"
+            className="w-11 h-11 flex items-center justify-center cursor-pointer group"
           >
             <span className="hotspot-pulse absolute w-4 h-4 rounded-full bg-[#FF5722] shadow-lg"></span>
             <div className="w-2.5 h-2.5 rounded-full bg-[#FF5722] group-hover:scale-125 transition-transform"></div>
           </button>
 
           {activeHotspot === 5 && (
-            <div className="absolute bottom-7 left-1/2 -translate-x-1/2 w-52 bg-black/95 backdrop-blur-md border border-white/20 p-3 rounded shadow-2xl text-left z-30">
+            <div id="hotspot-popup-5" className="absolute bottom-12 left-1/2 -translate-x-1/2 w-52 bg-black/95 backdrop-blur-md border border-white/20 p-3 rounded shadow-2xl text-left z-30">
               <span className="text-[9px] font-mono uppercase tracking-widest text-[#FF5722] font-semibold block">
                 EDITION 05 • COMIC STRIP
               </span>
@@ -164,15 +195,17 @@ export const CampaignBanner: React.FC<CampaignBannerProps> = ({ onExploreCollect
           <button
             type="button"
             onClick={() => setActiveHotspot(activeHotspot === 6 ? null : 6)}
-            aria-label="View Scholar Thoughts Tee"
-            className="w-6 h-6 flex items-center justify-center cursor-pointer group"
+            aria-label="View Scholar Thoughts Tee details"
+            aria-expanded={activeHotspot === 6}
+            aria-controls="hotspot-popup-6"
+            className="w-11 h-11 flex items-center justify-center cursor-pointer group"
           >
             <span className="hotspot-pulse absolute w-4 h-4 rounded-full bg-[#10B981] shadow-lg"></span>
             <div className="w-2.5 h-2.5 rounded-full bg-[#10B981] group-hover:scale-125 transition-transform"></div>
           </button>
 
           {activeHotspot === 6 && (
-            <div className="absolute bottom-7 left-1/2 -translate-x-1/2 w-52 bg-black/95 backdrop-blur-md border border-white/20 p-3 rounded shadow-2xl text-left z-30">
+            <div id="hotspot-popup-6" className="absolute bottom-12 left-1/2 -translate-x-1/2 w-52 bg-black/95 backdrop-blur-md border border-white/20 p-3 rounded shadow-2xl text-left z-30">
               <span className="text-[9px] font-mono uppercase tracking-widest text-[#10B981] font-semibold block">
                 EDITION 02 • BESTSELLER
               </span>
@@ -190,15 +223,50 @@ export const CampaignBanner: React.FC<CampaignBannerProps> = ({ onExploreCollect
         <span className="text-[10px] md:text-xs font-mono tracking-widest text-neutral-300 uppercase block mb-2 font-semibold">
           CAMPAIGN SS26 • CAMPUS EDITION
         </span>
-        <h2 className="text-3xl min-[400px]:text-4xl sm:text-6xl md:text-7xl font-extrabold font-display text-white tracking-tighter leading-none mb-6">
+        <h2 className="text-3xl min-[400px]:text-4xl sm:text-6xl md:text-7xl font-extrabold font-display text-white tracking-tighter leading-none mb-4 sm:mb-6">
           MADE FOR THE
           <br />
           LONG NIGHT.
         </h2>
+
+        {/* Mobile Look Preview Cards (Scrollable horizontal pills for mobile screens) */}
+        <div className="md:hidden mb-5">
+          <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 mb-2">
+            Featured In Campaign
+          </p>
+          <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-2 px-2 pb-1 touch-pan-x">
+            {[
+              { id: 1, color: '#FFB300', title: 'PhD Progress', price: '₹ 599' },
+              { id: 2, color: '#38BDF8', title: 'Under Review', price: '₹ 599' },
+              { id: 3, color: '#A855F7', title: 'Reality Chart', price: '₹ 599' },
+              { id: 4, color: '#FFFFFF', title: 'Milestones', price: '₹ 599' },
+              { id: 5, color: '#FF5722', title: 'Coffee & Tears', price: '₹ 599' },
+              { id: 6, color: '#10B981', title: 'Scholar Thoughts', price: '₹ 599' },
+            ].map((look) => (
+              <div
+                key={look.id}
+                className="shrink-0 bg-black/75 backdrop-blur-md border border-white/20 rounded px-2.5 py-1.5 flex items-center gap-2"
+              >
+                <span
+                  className="w-2 h-2 rounded-full shrink-0"
+                  style={{ backgroundColor: look.color }}
+                />
+                <span className="text-[11px] font-mono text-white whitespace-nowrap">
+                  {look.title}
+                </span>
+                <span className="text-[10px] font-mono text-neutral-400">
+                  {look.price}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="flex flex-wrap items-center gap-4">
           <button
+            type="button"
             onClick={onExploreCollection}
-            className="inline-flex items-center justify-center bg-white text-black text-xs md:text-sm font-semibold tracking-wider uppercase px-7 py-3 min-h-[44px] rounded-full hover:bg-neutral-200 transition cursor-pointer shadow-lg hover:scale-105 duration-200"
+            className="inline-flex items-center justify-center bg-white text-black text-xs md:text-sm font-semibold tracking-wider uppercase px-7 py-3.5 min-h-[48px] rounded-sm hover:bg-neutral-100 transition-all duration-200 ease-out hover:scale-[1.01] active:scale-[0.97] cursor-pointer shadow-lg hover:shadow-xl"
           >
             EXPLORE THE COLLECTION
           </button>

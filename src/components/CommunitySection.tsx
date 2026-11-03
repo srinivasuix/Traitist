@@ -26,7 +26,7 @@ export const CommunitySection: React.FC = () => {
     >
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
         <div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-600">
             TAG US TO GET FEATURED
           </span>
           <h2 className="text-3xl md:text-4xl font-bold font-display tracking-tight text-neutral-950 mt-1">
@@ -34,7 +34,7 @@ export const CommunitySection: React.FC = () => {
           </h2>
         </div>
         <a
-          className="text-[11px] font-mono uppercase tracking-widest text-neutral-800 underline underline-offset-4 hover:text-black"
+          className="text-[11px] font-mono uppercase tracking-widest text-neutral-800 underline underline-offset-4 hover:text-black min-h-[36px] flex items-center"
           href="#shop"
         >
           MORE FITS
@@ -50,21 +50,23 @@ export const CommunitySection: React.FC = () => {
           >
             <img
               src={item.image}
-              alt={item.handle}
+              alt={`Streetwear outfit styling shared by ${item.handle}`}
               loading="lazy"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
             {/* Tag Overlay */}
             <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between">
               <div className="bg-black/85 backdrop-blur-sm px-2.5 py-1 rounded-sm flex items-center gap-1.5">
-                <Instagram className="w-3 h-3 text-[#FFB300]" />
+                <Instagram className="w-3 h-3 text-[#FFB300]" aria-hidden="true" />
                 <p className="text-[10px] font-mono text-white font-medium">{item.handle}</p>
               </div>
 
               <button
                 type="button"
                 onClick={() => toggleLike(item.handle)}
-                className="bg-black/80 backdrop-blur-sm px-2 py-1 rounded-sm flex items-center gap-1 text-[10px] font-mono text-white hover:bg-black transition cursor-pointer"
+                aria-pressed={!!hasLiked[item.handle]}
+                aria-label={`Like look by ${item.handle}`}
+                className="bg-black/80 backdrop-blur-sm px-2.5 py-1.5 min-h-[32px] rounded-sm flex items-center gap-1.5 text-[10px] font-mono text-white hover:bg-black transition cursor-pointer"
               >
                 <Heart
                   className={`w-3 h-3 ${
@@ -72,6 +74,7 @@ export const CommunitySection: React.FC = () => {
                       ? 'fill-[#FF5722] text-[#FF5722]'
                       : 'text-white'
                   }`}
+                  aria-hidden="true"
                 />
                 <span>{likes[item.handle]}</span>
               </button>

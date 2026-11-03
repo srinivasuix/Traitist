@@ -1,121 +1,143 @@
 import React, { useState } from 'react';
-import { Search, ShoppingBag, Menu, X, Heart, Globe } from 'lucide-react';
+import { Search, ShoppingBag, Menu, X, Heart } from 'lucide-react';
 import { BRAND_LOGO_URL } from '../data/products';
 
 interface NavbarProps {
   cartCount: number;
   wishlistCount: number;
-  currency: 'INR' | 'USD';
-  onToggleCurrency: () => void;
   onOpenCart: () => void;
   onOpenSearch: () => void;
   onOpenWishlist: () => void;
   onOpenSizeGuide: () => void;
+  onGoHome?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   cartCount,
   wishlistCount,
-  currency,
-  onToggleCurrency,
   onOpenCart,
   onOpenSearch,
   onOpenWishlist,
   onOpenSizeGuide,
+  onGoHome,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Monitor scroll position for dynamic sticky elevation & backdrop blur
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Keyboard Escape listener to dismiss mobile navigation
+  React.useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
 
   return (
     <>
       <header
-        className="sticky top-0 z-40 bg-[#ECEBE6]/95 backdrop-blur-md border-b border-neutral-300/80 px-2.5 sm:px-6 md:px-8 py-2.5 sm:py-3.5 md:py-4 transition-all"
+        className={`sticky top-0 z-40 transition-all duration-300 ease-out ${
+          isScrolled
+            ? 'bg-[#ECEBE6]/90 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.06)] border-b border-neutral-300 py-2 sm:py-2.5'
+            : 'bg-[#ECEBE6] border-b border-neutral-300/80 py-2.5 sm:py-3.5 md:py-4'
+        } px-2.5 sm:px-6 md:px-8 pt-[max(0.625rem,env(safe-area-inset-top))] will-change-transform`}
         data-purpose="site-navigation"
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between relative min-h-[48px] sm:min-h-[56px] md:min-h-[64px]">
           {/* Left Navigation Items */}
-          <nav className="flex items-center gap-4 md:gap-6 text-[12px] font-semibold tracking-wider uppercase z-10 shrink-0">
+          <nav aria-label="Primary" className="flex items-center gap-4 md:gap-6 text-[12px] font-semibold tracking-wider uppercase z-10 shrink-0">
             <button
               onClick={() => setMobileMenuOpen(true)}
-              aria-label="Toggle menu"
-              className="p-2 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-sm hover:bg-neutral-200/60 transition cursor-pointer"
+              aria-label="Open navigation menu"
+              aria-expanded={mobileMenuOpen}
+              className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-sm hover:bg-neutral-200/60 transition cursor-pointer"
             >
-              <Menu className="w-5 h-5 text-neutral-900" />
+              <Menu className="w-5 h-5 text-neutral-900" aria-hidden="true" />
             </button>
             <div className="hidden md:flex items-center space-x-6 text-neutral-800 font-mono-subtle">
               <a
                 className="hover:text-black transition tracking-wider"
                 href="#shop"
+                onClick={() => onGoHome?.()}
               >
                 SHOP
               </a>
               <a
                 className="hover:text-black transition tracking-wider flex items-center gap-1.5"
                 href="#hero-showcase"
+                onClick={() => onGoHome?.()}
               >
-                <span>DROP 04</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FF5722]"></span>
+                <span>COLLECTION</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF5722]" aria-hidden="true"></span>
               </a>
               <a
                 className="hover:text-black transition tracking-wider"
                 href="#campaign"
+                onClick={() => onGoHome?.()}
               >
                 CAMPAIGN
               </a>
               <a
-                className="hover:text-black transition tracking-wider text-neutral-500 hover:text-black"
+                className="hover:text-black transition tracking-wider text-neutral-600 hover:text-black"
                 href="#archive"
+                onClick={() => onGoHome?.()}
               >
                 ARCHIVE
               </a>
             </div>
           </nav>
 
-          {/* Absolute Center Logo (Exact Mathematical Middle Alignment with Smooth Responsive Scaling) */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-20 pointer-events-auto">
+          {/* Responsive Brand Logo (Flex-centered on mobile, absolute-center on sm+) */}
+          <div className="flex-1 flex items-center justify-center sm:absolute sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 z-20 pointer-events-auto min-w-0 px-1">
             <a
-              className="flex items-center py-1 group"
+              className="flex items-center py-1 group max-w-full cursor-pointer"
               href="#"
-              title="TRAITIST Studios"
+              onClick={(e) => {
+                e.preventDefault();
+                onGoHome?.();
+              }}
+              title="TRAITIST Studios Home"
+              aria-label="TRAITIST Studios Home"
             >
               <img
                 src={BRAND_LOGO_URL}
                 alt="TRAITIST - Threads of Resilience"
-                className="h-7 min-[380px]:h-8 min-[480px]:h-10 sm:h-12 md:h-14 lg:h-16 w-auto max-w-[120px] min-[380px]:max-w-[150px] min-[480px]:max-w-[200px] sm:max-w-[320px] md:max-w-[400px] object-contain inline-block transition-transform duration-300 group-hover:scale-105"
+                className="h-6 min-[360px]:h-7 min-[400px]:h-8 min-[480px]:h-10 sm:h-12 md:h-14 lg:h-16 w-auto max-w-[95px] min-[360px]:max-w-[120px] min-[400px]:max-w-[150px] min-[480px]:max-w-[200px] sm:max-w-[320px] md:max-w-[400px] object-contain inline-block transition-transform duration-300 group-hover:scale-105"
               />
             </a>
           </div>
 
           {/* Right Utility Actions */}
-          <div className="flex items-center gap-0.5 min-[380px]:gap-1 sm:gap-3 text-neutral-800 z-10 shrink-0">
-            {/* Currency Switcher */}
-            <button
-              onClick={onToggleCurrency}
-              className="flex items-center gap-1 text-[10px] sm:text-[11px] font-mono font-semibold px-1.5 sm:px-2.5 py-1.5 rounded border border-neutral-300/80 hover:border-black transition cursor-pointer min-h-[36px]"
-              title="Toggle Currency"
-            >
-              <Globe className="w-3.5 h-3.5 text-neutral-600 shrink-0" />
-              <span className="hidden min-[420px]:inline">{currency === 'INR' ? '₹ INR' : '$ USD'}</span>
-              <span className="min-[420px]:hidden">{currency === 'INR' ? '₹' : '$'}</span>
-            </button>
-
+          <div className="flex items-center gap-0.5 min-[380px]:gap-1 sm:gap-2 text-neutral-800 z-10 shrink-0">
             {/* Search Trigger */}
             <button
               onClick={onOpenSearch}
               aria-label="Search catalog"
-              className="p-2 min-w-[36px] sm:min-w-[40px] min-h-[36px] sm:min-h-[40px] flex items-center justify-center hover:text-black hover:bg-neutral-200/50 rounded-sm transition cursor-pointer"
+              className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:text-black hover:bg-neutral-200/50 rounded-sm transition cursor-pointer"
             >
-              <Search className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
+              <Search className="w-4.5 h-4.5 sm:w-5 sm:h-5" aria-hidden="true" />
             </button>
 
             {/* Wishlist Trigger */}
             <button
               onClick={onOpenWishlist}
-              aria-label="View Wishlist"
-              className="relative p-2 min-w-[36px] sm:min-w-[40px] min-h-[36px] sm:min-h-[40px] flex items-center justify-center hover:text-black hover:bg-neutral-200/50 rounded-sm transition cursor-pointer"
+              aria-label={`View Wishlist (${wishlistCount} items)`}
+              className="relative p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:text-black hover:bg-neutral-200/50 rounded-sm transition cursor-pointer"
             >
-              <Heart className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
+              <Heart className="w-4.5 h-4.5 sm:w-5 sm:h-5" aria-hidden="true" />
               {wishlistCount > 0 && (
-                <span className="absolute top-0.5 right-0.5 bg-[#FF5722] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute top-1 right-1 bg-[#FF5722] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                   {wishlistCount}
                 </span>
               )}
@@ -124,13 +146,15 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Shopping Cart Trigger */}
             <button
               onClick={onOpenCart}
-              aria-label="Shopping Cart"
-              className="relative p-2 min-w-[36px] sm:min-w-[40px] min-h-[36px] sm:min-h-[40px] flex items-center justify-center hover:text-black hover:bg-neutral-200/50 rounded-sm transition cursor-pointer"
+              aria-label={`Shopping Bag (${cartCount} items)`}
+              className="relative p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:text-black hover:bg-neutral-200/50 rounded-sm transition cursor-pointer"
             >
-              <ShoppingBag className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
-              <span className="absolute top-0.5 right-0 bg-black text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold font-mono">
-                {cartCount}
-              </span>
+              <ShoppingBag className="w-4.5 h-4.5 sm:w-5 sm:h-5" aria-hidden="true" />
+              {cartCount > 0 && (
+                <span className="absolute top-1 right-1 bg-black text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                  {cartCount}
+                </span>
+              )}
             </button>
           </div>
         </div>
@@ -138,12 +162,21 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Menu Slide-Over */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 flex">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile Navigation"
+          className="fixed inset-0 z-50 flex"
+        >
           <div
             className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
             onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
           />
-          <div className="relative w-full max-w-[280px] min-[400px]:max-w-xs bg-[#ECEBE6] h-full shadow-2xl flex flex-col justify-between p-5 sm:p-6 z-10 border-r border-neutral-300 overflow-y-auto">
+          <div
+            data-lenis-prevent
+            className="relative w-full max-w-[280px] min-[400px]:max-w-xs bg-[#ECEBE6] h-full shadow-2xl flex flex-col justify-between p-5 sm:p-6 z-10 border-r border-neutral-300 overflow-y-auto"
+          >
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-neutral-300">
                 <img
@@ -153,58 +186,34 @@ export const Navbar: React.FC<NavbarProps> = ({
                 />
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"
+                  className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"
                   aria-label="Close menu"
                 >
-                  <X className="w-5 h-5 text-neutral-800" />
+                  <X className="w-5 h-5 text-neutral-800" aria-hidden="true" />
                 </button>
-              </div>
-
-              {/* Mobile Drawer Currency Switcher */}
-              <div className="mt-4 p-2 bg-[#DFDDD7] rounded border border-neutral-300 flex items-center justify-between">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-600 font-semibold flex items-center gap-1.5">
-                  <Globe className="w-3.5 h-3.5 text-neutral-500" />
-                  <span>Currency</span>
-                </span>
-                <div className="flex items-center gap-1">
-                  <button
-                    onClick={() => {
-                      if (currency !== 'INR') onToggleCurrency();
-                    }}
-                    className={`px-2 py-1 text-[10px] font-mono font-semibold rounded cursor-pointer transition ${
-                      currency === 'INR' ? 'bg-black text-white' : 'text-neutral-700 hover:text-black'
-                    }`}
-                  >
-                    ₹ INR
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (currency !== 'USD') onToggleCurrency();
-                    }}
-                    className={`px-2 py-1 text-[10px] font-mono font-semibold rounded cursor-pointer transition ${
-                      currency === 'USD' ? 'bg-black text-white' : 'text-neutral-700 hover:text-black'
-                    }`}
-                  >
-                    $ USD
-                  </button>
-                </div>
               </div>
 
               <nav className="mt-6 flex flex-col space-y-1 font-mono text-xs sm:text-sm tracking-wider uppercase font-semibold">
                 <a
                   href="#shop"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onGoHome?.();
+                  }}
                   className="py-3 px-3 rounded hover:bg-neutral-200/80 transition flex items-center justify-between min-h-[44px]"
                 >
                   <span>Shop Latest Pieces</span>
-                  <span className="text-[10px] font-mono text-neutral-500">08 PIECES</span>
+                  <span className="text-[10px] font-mono text-neutral-600">08 PIECES</span>
                 </a>
                 <a
                   href="#hero-showcase"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onGoHome?.();
+                  }}
                   className="py-3 px-3 rounded hover:bg-neutral-200/80 transition flex items-center justify-between min-h-[44px]"
                 >
-                  <span>Drop 04 Showcase</span>
+                  <span>Collection Showcase</span>
                   <span className="text-[10px] bg-black text-white px-2 py-0.5 rounded-full font-sans">
                     NEW
                   </span>

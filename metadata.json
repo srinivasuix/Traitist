@@ -1,0 +1,6 @@
+{
+  "name": "TRAITIST — Streetwear Studios",
+  "description": "High-contrast urban streetwear and graphic apparel studio engineered for creators, researchers, and developers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

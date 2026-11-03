@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { X, Trash2, Plus, Minus, ArrowRight, ShieldCheck, ShoppingBag, Check, ChevronDown, Eye, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Product, CATALOG_PRODUCTS } from '../data/products';
 import { TraitistReceiptPrinter, TraitistReceiptOrderData } from './ReceiptPrinter';
@@ -68,8 +69,6 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
-
-  if (!isOpen) return null;
 
   const freeShippingThreshold = 999;
 
@@ -205,24 +204,34 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   };
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="cart-drawer-heading"
-      className="fixed inset-0 z-50 flex justify-end"
-    >
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
-        onClick={onClose}
-        aria-hidden="true"
-      />
+    <AnimatePresence>
+      {isOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="cart-drawer-heading"
+          className="fixed inset-0 z-50 flex justify-end"
+        >
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={onClose}
+            aria-hidden="true"
+          />
 
-      {/* Drawer content */}
-      <aside
-        data-lenis-prevent
-        className="relative w-full max-w-md bg-[#ECEBE6] h-full shadow-2xl flex flex-col z-10 border-l border-neutral-300"
-      >
+          {/* Drawer content */}
+          <motion.aside
+            data-lenis-prevent
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 28, stiffness: 300, mass: 0.9 }}
+            className="relative w-full max-w-md bg-[#ECEBE6] h-full shadow-2xl flex flex-col z-10 border-l border-neutral-300"
+          >
         {/* Header */}
         <div className="px-5 sm:px-6 py-4 sm:py-5 border-b border-neutral-300 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
@@ -738,25 +747,27 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             </div>
           </>
         )}
-      </aside>
+        </motion.aside>
 
-      {/* Quick View Preview Pop Up Modal (Opened from Recommended Pieces) */}
-      {previewProduct && (
-        <QuickViewModal
-          product={previewProduct}
-          onClose={() => setPreviewProduct(null)}
-          isWishlisted={wishlistIds?.includes(previewProduct.id) ?? false}
-          onToggleWishlist={onToggleWishlist || (() => {})}
-          onAddToCart={(prod, size, qty) => {
-            if (onAddToCart) {
-              onAddToCart(prod, size, qty);
-            } else {
-              onUpdateQuantity(prod.id, size, qty);
-            }
-          }}
-          onOpenSizeGuide={onOpenSizeGuide || (() => {})}
-        />
-      )}
-    </div>
-  );
+        {/* Quick View Preview Pop Up Modal (Opened from Recommended Pieces) */}
+        {previewProduct && (
+          <QuickViewModal
+            product={previewProduct}
+            onClose={() => setPreviewProduct(null)}
+            isWishlisted={wishlistIds?.includes(previewProduct.id) ?? false}
+            onToggleWishlist={onToggleWishlist || (() => {})}
+            onAddToCart={(prod, size, qty) => {
+              if (onAddToCart) {
+                onAddToCart(prod, size, qty);
+              } else {
+                onUpdateQuantity(prod.id, size, qty);
+              }
+            }}
+            onOpenSizeGuide={onOpenSizeGuide || (() => {})}
+          />
+        )}
+      </div>
+    )}
+  </AnimatePresence>
+);
 };

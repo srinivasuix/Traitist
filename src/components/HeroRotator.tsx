@@ -152,7 +152,18 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
     if (Math.abs(deltaX) > 16) {
       hasMovedSignificantRef.current = true;
     }
-    setDragOffset(deltaX);
+
+    // Apply Apple progressive rubber-band resistance beyond 1 item distance (spacing ~320px)
+    const maxBound = isMobile ? 180 : 360;
+    const absDelta = Math.abs(deltaX);
+    let effectiveOffset = deltaX;
+    if (absDelta > maxBound) {
+      const overshoot = absDelta - maxBound;
+      const resisted = (overshoot * maxBound * 0.55) / (maxBound + 0.55 * overshoot);
+      effectiveOffset = Math.sign(deltaX) * (maxBound + resisted);
+    }
+
+    setDragOffset(effectiveOffset);
   };
 
   const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -167,16 +178,19 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
 
     const deltaX = dragOffset;
     const elapsed = Date.now() - dragStartRef.current.time;
-    const velocity = Math.abs(deltaX) / Math.max(elapsed, 1); // px per ms
+    // Velocity in px/ms
+    const velocity = Math.abs(deltaX) / Math.max(elapsed, 1);
+
+    // Apple momentum projection: project where the gesture is heading based on release velocity
+    const projectedOffset = deltaX + (deltaX !== 0 ? Math.sign(deltaX) * velocity * 160 : 0);
 
     setDragOffset(0);
 
-    const threshold = isMobile ? 40 : 60;
-    const fastSwipeThreshold = 0.35; // px/ms
+    const threshold = isMobile ? 40 : 55;
 
-    if (deltaX < -threshold || (deltaX < -20 && velocity > fastSwipeThreshold)) {
+    if (projectedOffset < -threshold) {
       nextProduct();
-    } else if (deltaX > threshold || (deltaX > 20 && velocity > fastSwipeThreshold)) {
+    } else if (projectedOffset > threshold) {
       prevProduct();
     }
   };

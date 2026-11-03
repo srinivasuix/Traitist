@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   ArrowLeft,
@@ -104,12 +104,38 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onBack]);
 
+  const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null);
+
   const handlePrevImage = () => {
     setActiveImageIdx((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
   };
 
   const handleNextImage = () => {
     setActiveImageIdx((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1));
+  };
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    touchStartRef.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+      time: Date.now(),
+    };
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!touchStartRef.current) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartRef.current.x;
+    const deltaY = e.changedTouches[0].clientY - touchStartRef.current.y;
+    touchStartRef.current = null;
+
+    // Direct manipulation gesture: only fire swipe if horizontal motion exceeds vertical
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 35) {
+      if (deltaX < 0) {
+        handleNextImage();
+      } else {
+        handlePrevImage();
+      }
+    }
   };
 
   const handleToggleAccordion = (key: string) => {
@@ -205,7 +231,9 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             <div
               onMouseMove={handleStageMouseMove}
               onMouseLeave={handleStageMouseLeave}
-              className="relative w-full aspect-square sm:aspect-[4/5] bg-[#DFDDD7]/60 rounded-md border border-neutral-300/80 p-6 sm:p-12 flex items-center justify-center overflow-hidden shadow-2xs group select-none"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              className="relative w-full aspect-square sm:aspect-[4/5] bg-[#DFDDD7]/60 rounded-md border border-neutral-300/80 p-6 sm:p-12 flex items-center justify-center overflow-hidden shadow-2xs group select-none touch-pan-y"
             >
               {/* Badge */}
               {product.badge && (
@@ -228,10 +256,10 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeImageIdx}
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  initial={{ opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 1.02 }}
-                  transition={{ duration: 0.25 }}
+                  transition={{ type: 'spring', bounce: 0, duration: 0.32 }}
                   className="w-full h-full flex items-center justify-center overflow-hidden"
                 >
                   <img

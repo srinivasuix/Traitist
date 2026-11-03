@@ -47,11 +47,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       <header
-        className={`sticky top-0 z-40 transition-all duration-300 ease-out ${
+        className={`sticky top-0 z-40 transition-colors duration-200 ease-out ${
           isScrolled
-            ? 'bg-[#ECEBE6]/90 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.06)] border-b border-neutral-300 py-2 sm:py-2.5'
-            : 'bg-[#ECEBE6] border-b border-neutral-300/80 py-2.5 sm:py-3.5 md:py-4'
-        } px-2.5 sm:px-6 md:px-8 pt-[max(0.625rem,env(safe-area-inset-top))] will-change-transform`}
+            ? 'apple-glass shadow-[0_4px_24px_rgba(0,0,0,0.06)] border-b border-neutral-300/90'
+            : 'bg-[#ECEBE6] border-b border-neutral-300/60'
+        } py-2.5 sm:py-3 px-2.5 sm:px-6 md:px-8 pt-[max(0.625rem,env(safe-area-inset-top))]`}
         data-purpose="site-navigation"
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between relative min-h-[48px] sm:min-h-[56px] md:min-h-[64px]">

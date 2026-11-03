@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { X, Heart, ShieldCheck, Truck, RefreshCw, Plus, Minus, ArrowRight } from 'lucide-react';
 import { Product } from '../data/products';
 
@@ -32,37 +33,47 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [product, onClose]);
 
-  if (!product) return null;
-
-  const displayPrice = product.priceDisplayINR;
+  const displayPrice = product ? product.priceDisplayINR : '';
 
   const handleAdd = () => {
+    if (!product) return;
     onAddToCart(product, selectedSize, quantity);
     onClose();
   };
 
   const handleInstantBuy = () => {
+    if (!product) return;
     onAddToCart(product, selectedSize, quantity);
     onClose();
   };
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="quickview-title"
-      className="fixed inset-0 z-[60] flex items-center justify-center p-2.5 sm:p-6 bg-black/80 backdrop-blur-sm animate-fade-in"
-    >
-      <div
-        className="fixed inset-0 bg-transparent"
-        onClick={onClose}
-        aria-hidden="true"
-      />
-      <div
-        data-lenis-prevent
-        className="relative max-w-3xl w-full max-h-[92vh] bg-[#ECEBE6] rounded-sm flex flex-col md:flex-row shadow-2xl border border-neutral-300 overflow-y-auto md:overflow-hidden z-10"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <AnimatePresence>
+      {product && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="quickview-title"
+          className="fixed inset-0 z-[60] flex items-center justify-center p-2.5 sm:p-6"
+        >
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+            onClick={onClose}
+            aria-hidden="true"
+          />
+          <motion.div
+            data-lenis-prevent
+            initial={{ opacity: 0, scale: 0.96, y: 8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: 8 }}
+            transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+            className="relative max-w-3xl w-full max-h-[92vh] bg-[#ECEBE6] rounded-sm flex flex-col md:flex-row shadow-2xl border border-neutral-300 overflow-y-auto md:overflow-hidden z-10"
+            onClick={(e) => e.stopPropagation()}
+          >
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -248,7 +259,9 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
-  );
+  )}
+</AnimatePresence>
+);
 };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { X, Ruler } from 'lucide-react';
 
 interface SizeGuideModalProps {
@@ -67,25 +68,39 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose 
           <span className="text-xs font-mono font-bold uppercase text-neutral-900">
             Garment Measurements
           </span>
-          <div className="flex items-center gap-1 bg-[#DFDDD7] p-1 rounded border border-neutral-300" role="group" aria-label="Measurement units">
+          <div className="relative flex items-center bg-[#DFDDD7] p-1 rounded-sm border border-neutral-300" role="group" aria-label="Measurement units">
             <button
               type="button"
               aria-pressed={unit === 'inches'}
               onClick={() => setUnit('inches')}
-              className={`px-3 py-1.5 min-h-[36px] text-xs font-mono rounded cursor-pointer transition ${
-                unit === 'inches' ? 'bg-black text-white font-bold' : 'text-neutral-600 hover:text-black'
+              className={`relative z-10 px-3.5 py-1.5 min-h-[34px] text-xs font-mono font-semibold rounded-xs cursor-pointer transition-colors duration-150 ${
+                unit === 'inches' ? 'text-white' : 'text-neutral-700 hover:text-black'
               }`}
             >
+              {unit === 'inches' && (
+                <motion.span
+                  layoutId="active-unit-pill"
+                  className="absolute inset-0 bg-neutral-950 rounded-xs -z-10 shadow-xs"
+                  transition={{ type: 'spring', bounce: 0.15, duration: 0.35 }}
+                />
+              )}
               INCHES
             </button>
             <button
               type="button"
               aria-pressed={unit === 'cm'}
               onClick={() => setUnit('cm')}
-              className={`px-3 py-1.5 min-h-[36px] text-xs font-mono rounded cursor-pointer transition ${
-                unit === 'cm' ? 'bg-black text-white font-bold' : 'text-neutral-600 hover:text-black'
+              className={`relative z-10 px-3.5 py-1.5 min-h-[34px] text-xs font-mono font-semibold rounded-xs cursor-pointer transition-colors duration-150 ${
+                unit === 'cm' ? 'text-white' : 'text-neutral-700 hover:text-black'
               }`}
             >
+              {unit === 'cm' && (
+                <motion.span
+                  layoutId="active-unit-pill"
+                  className="absolute inset-0 bg-neutral-950 rounded-xs -z-10 shadow-xs"
+                  transition={{ type: 'spring', bounce: 0.15, duration: 0.35 }}
+                />
+              )}
               CENTIMETERS
             </button>
           </div>

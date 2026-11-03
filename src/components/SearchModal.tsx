@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Search, X, ArrowRight } from 'lucide-react';
 import { CATALOG_PRODUCTS, ROTATOR_PRODUCTS, Product } from '../data/products';
 
@@ -34,8 +35,6 @@ export const SearchModal: React.FC<SearchModalProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
-
   // Combine and deduplicate products
   const allProductsMap = new Map<string, Product>();
   [...CATALOG_PRODUCTS, ...ROTATOR_PRODUCTS].forEach((p) => {
@@ -64,18 +63,31 @@ export const SearchModal: React.FC<SearchModalProps> = ({
   ];
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-label="Search catalog"
-      className="fixed inset-0 z-50 flex items-start justify-center pt-8 sm:pt-20 px-2.5 sm:px-4 bg-black/75 backdrop-blur-sm animate-fade-in"
-    >
-      <div
-        className="fixed inset-0 bg-transparent"
-        onClick={onClose}
-        aria-hidden="true"
-      />
-      <div data-lenis-prevent className="relative max-w-2xl w-full bg-[#ECEBE6] rounded-sm p-4 sm:p-6 shadow-2xl border border-neutral-300 z-10">
+    <AnimatePresence>
+      {isOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Search catalog"
+          className="fixed inset-0 z-50 flex items-start justify-center pt-8 sm:pt-20 px-2.5 sm:px-4"
+        >
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            className="fixed inset-0 bg-black/75 backdrop-blur-sm"
+            onClick={onClose}
+            aria-hidden="true"
+          />
+          <motion.div
+            data-lenis-prevent
+            initial={{ opacity: 0, scale: 0.98, y: -12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.98, y: -10, transition: { duration: 0.16 } }}
+            transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+            className="relative max-w-2xl w-full bg-[#ECEBE6] rounded-sm p-4 sm:p-6 shadow-2xl border border-neutral-300 z-10"
+          >
         <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-neutral-300">
           <div className="flex items-center gap-2.5 sm:gap-3 flex-grow pr-2 sm:pr-4">
             <Search className="w-5 h-5 text-neutral-600 shrink-0" aria-hidden="true" />
@@ -193,7 +205,9 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             })
           )}
         </div>
-      </div>
+      </motion.div>
     </div>
-  );
+  )}
+</AnimatePresence>
+);
 };

@@ -33,7 +33,7 @@
     }
   }
 
-  /* Tactile button micro-interactions (Emil Kowalski & Impeccable standard) */
+  /* Tactile button micro-interactions & mobile-native platform foundations (Emil Kowalski, Apple Design & Mobile Native) */
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]) {
     transition: transform 180ms cubic-bezier(0.23, 1, 0.32, 1),
@@ -43,11 +43,30 @@
                 box-shadow 180ms ease,
                 opacity 180ms ease;
     user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
   }
 
   button:not(:disabled):active,
   [role="button"]:not([aria-disabled="true"]):active {
     transform: scale(0.975);
+  }
+
+  /* Prevent iOS Safari 16px auto-zoom and layout drift on touch devices */
+  @media (pointer: coarse) {
+    input, textarea, select {
+      font-size: 16px !important;
+    }
+  }
+
+  /* Prevent whole-page rubber-band pull while preserving smooth inner container scrolling */
+  html, body {
+    overscroll-behavior-y: none;
+  }
+
+  [data-lenis-prevent], [role="dialog"] {
+    overscroll-behavior: contain;
   }
 }
 

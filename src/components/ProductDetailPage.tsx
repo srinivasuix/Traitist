@@ -637,10 +637,15 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     VIEW PIECE →
                   </div>
                 </div>
-                <div className="flex justify-between items-baseline mt-2.5 gap-2">
-                  <h4 className="text-xs font-bold uppercase tracking-tight text-neutral-900 group-hover:text-[#FF5722] transition-colors truncate">
-                    {rel.title}
-                  </h4>
+                <div className="flex justify-between items-start mt-2.5">
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-tight text-neutral-900 group-hover:text-[#FF5722] transition-colors">
+                      {rel.title}
+                    </h4>
+                    <p className="text-[10px] font-mono text-neutral-600 uppercase mt-0.5">
+                      {rel.gsm} • {rel.colorway}
+                    </p>
+                  </div>
                   <span className="text-xs font-mono font-bold text-neutral-950 whitespace-nowrap">
                     {rel.priceDisplayINR}
                   </span>

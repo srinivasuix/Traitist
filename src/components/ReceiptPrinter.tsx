@@ -68,11 +68,11 @@ export const TraitistReceiptPrinter: React.FC<OrderConfirmationProps> = ({
       {/* 1. Order Status Header Card */}
       <div className="bg-white rounded-sm border border-neutral-300 p-5 shadow-xs text-center flex flex-col items-center">
         {/* Panda Order Successful Illustration */}
-        <div className="w-44 sm:w-52 overflow-hidden rounded-2xl mb-4 border border-neutral-800 shadow-xl bg-black">
+        <div className="w-44 sm:w-52 mx-auto mb-4 flex items-center justify-center">
           <img
-            src="/images/empty-states/order-success.jpg?v=2"
+            src="/images/empty-states/order-success.png"
             alt="Order Successful!"
-            className="w-full h-auto object-cover"
+            className="w-full h-auto drop-shadow-sm select-none pointer-events-none"
           />
         </div>
 

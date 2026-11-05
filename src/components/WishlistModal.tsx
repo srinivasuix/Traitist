@@ -75,11 +75,11 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
         <div className="flex-grow overflow-y-auto py-4 space-y-3">
           {wishlistProducts.length === 0 ? (
             <div className="py-8 px-4 text-center flex flex-col items-center select-none">
-              <div className="w-48 sm:w-56 overflow-hidden rounded-2xl mb-4 border border-neutral-800 shadow-xl bg-black hover:scale-[1.02] transition-transform duration-300">
+              <div className="w-48 sm:w-56 mx-auto mb-4 hover:scale-[1.03] transition-transform duration-300 flex items-center justify-center">
                 <img
-                  src="/images/empty-states/wishlist-empty.jpg?v=2"
+                  src="/images/empty-states/wishlist-empty.png"
                   alt="Your Wishlist is Empty"
-                  className="w-full h-auto object-cover"
+                  className="w-full h-auto drop-shadow-md select-none pointer-events-none"
                 />
               </div>
               <p className="text-xs font-mono uppercase tracking-widest text-neutral-900 font-bold mb-1">

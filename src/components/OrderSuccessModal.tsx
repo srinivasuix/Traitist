@@ -45,11 +45,11 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
             </button>
 
             {/* Panda Order Successful Illustration */}
-            <div className="w-48 sm:w-56 mx-auto overflow-hidden rounded-2xl mb-4 border border-neutral-800 shadow-xl bg-black hover:scale-[1.02] transition-transform duration-300">
+            <div className="w-48 sm:w-56 mx-auto mb-4 hover:scale-[1.03] transition-transform duration-300 flex items-center justify-center">
               <img
-                src="/images/empty-states/order-success.jpg?v=2"
+                src="/images/empty-states/order-success.png"
                 alt="Order Successful!"
-                className="w-full h-auto object-cover"
+                className="w-full h-auto drop-shadow-md select-none pointer-events-none"
               />
             </div>
 

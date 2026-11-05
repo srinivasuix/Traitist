@@ -796,88 +796,124 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     </div>
                   ) : (
                     <div className="space-y-2.5">
-                      {items.map((item) => (
-                        <div
-                          key={`${item.product.id}-${item.size}`}
-                          className="flex items-center gap-3 p-3 bg-white rounded-xs border border-neutral-200 shadow-2xs"
-                        >
-                          <img
-                            src={item.product.image}
-                            alt={item.product.title}
-                            className="w-14 h-17 object-contain bg-[#DFDDD7] p-1 rounded-xs shrink-0"
-                            style={{ mixBlendMode: item.product.blendMode || 'multiply' }}
-                          />
-                          <div className="flex-grow min-w-0">
-                            <div className="flex items-start justify-between gap-2">
-                              <h3 className="text-xs font-bold text-neutral-900 truncate">
-                                {item.product.title}
-                              </h3>
-                              <span className="text-xs font-mono font-bold text-neutral-900 shrink-0">
-                                {formatPrice(item.product.priceINR)}
-                              </span>
-                            </div>
-                            <p className="text-[11px] text-neutral-500 font-sans">
-                              {getCleanColor(item.product.colorway)}
-                              {item.product.sku ? ` · ${item.product.sku}` : ''}
-                            </p>
-
-                            {/* Size selector & quantity stepper */}
-                            <div className="flex items-center gap-2 mt-2 flex-wrap">
-                              {/* Size Selector */}
-                              <div className="relative">
-                                <select
-                                  value={item.size}
-                                  onChange={(e) =>
-                                    onUpdateSize?.(item.product.id, item.size, e.target.value)
-                                  }
-                                  className="text-[11px] font-mono font-bold uppercase py-1 pl-2 pr-5 border border-neutral-300 bg-neutral-50 hover:bg-neutral-100 rounded-xs text-neutral-900 appearance-none cursor-pointer focus:outline-none focus:border-black transition h-[28px]"
-                                  aria-label={`Change size for ${item.product.title}`}
-                                >
-                                  {(item.product.sizes || DEFAULT_SIZES).map((s) => (
-                                    <option key={s} value={s}>
-                                      {s}
-                                    </option>
-                                  ))}
-                                </select>
-                                <ChevronDown className="w-3 h-3 text-neutral-500 absolute right-1.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                              </div>
-
-                              {/* Stepper */}
-                              <div className="inline-flex items-center border border-neutral-300 bg-neutral-50 rounded-xs h-[28px]">
-                                <button
-                                  type="button"
-                                  onClick={() => onUpdateQuantity(item.product.id, item.size, -1)}
-                                  className="px-2 h-full flex items-center justify-center hover:bg-neutral-200 transition cursor-pointer"
-                                  aria-label={`Decrease quantity of ${item.product.title}`}
-                                >
-                                  <Minus className="w-3 h-3 text-neutral-700" />
-                                </button>
-                                <span className="w-6 text-center text-xs font-mono font-semibold">
-                                  {item.quantity}
+                      <AnimatePresence initial={false} mode="popLayout">
+                        {items.map((item) => (
+                          <motion.div
+                            key={`${item.product.id}-${item.size}`}
+                            layout
+                            initial={{ opacity: 0, scale: 0.96, y: 8 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{
+                              opacity: 0,
+                              scale: 0.92,
+                              x: -20,
+                              transition: {
+                                duration: 0.22,
+                                ease: [0.32, 0.72, 0, 1],
+                              },
+                            }}
+                            transition={{
+                              layout: { duration: 0.28, ease: [0.32, 0.72, 0, 1] },
+                            }}
+                            className="flex items-center gap-3 p-3 bg-white rounded-xs border border-neutral-200 shadow-2xs"
+                          >
+                            <img
+                              src={item.product.image}
+                              alt={item.product.title}
+                              className="w-14 h-17 object-contain bg-[#DFDDD7] p-1 rounded-xs shrink-0"
+                              style={{ mixBlendMode: item.product.blendMode || 'multiply' }}
+                            />
+                            <div className="flex-grow min-w-0">
+                              <div className="flex items-start justify-between gap-2">
+                                <h3 className="text-xs font-bold text-neutral-900 truncate">
+                                  {item.product.title}
+                                </h3>
+                                <span className="text-xs font-mono font-bold text-neutral-900 shrink-0">
+                                  {formatPrice(item.product.priceINR)}
                                 </span>
-                                <button
-                                  type="button"
-                                  onClick={() => onUpdateQuantity(item.product.id, item.size, 1)}
-                                  className="px-2 h-full flex items-center justify-center hover:bg-neutral-200 transition cursor-pointer"
-                                  aria-label={`Increase quantity of ${item.product.title}`}
-                                >
-                                  <Plus className="w-3 h-3 text-neutral-700" />
-                                </button>
                               </div>
+                              <p className="text-[11px] text-neutral-500 font-sans">
+                                {getCleanColor(item.product.colorway)}
+                                {item.product.sku ? ` · ${item.product.sku}` : ''}
+                              </p>
 
-                              {/* Trash */}
-                              <button
-                                type="button"
-                                onClick={() => onRemoveItem(item.product.id, item.size)}
-                                className="p-1 text-neutral-400 hover:text-[#FF5722] transition cursor-pointer rounded-xs"
-                                aria-label={`Remove ${item.product.title} from bag`}
-                              >
-                                <Trash2 className="w-3.5 h-3.5" />
-                              </button>
+                              {/* Size selector & quantity stepper */}
+                              <div className="flex items-center gap-2 mt-2 flex-wrap">
+                                {/* Size Selector */}
+                                <div className="relative">
+                                  <select
+                                    value={item.size}
+                                    onChange={(e) =>
+                                      onUpdateSize?.(item.product.id, item.size, e.target.value)
+                                    }
+                                    className="text-[11px] font-mono font-bold uppercase py-1 pl-2 pr-5 border border-neutral-300 bg-neutral-50 hover:bg-neutral-100 rounded-xs text-neutral-900 appearance-none cursor-pointer focus:outline-none focus:border-black transition h-[28px]"
+                                    aria-label={`Change size for ${item.product.title}`}
+                                  >
+                                    {(item.product.sizes || DEFAULT_SIZES).map((s) => (
+                                      <option key={s} value={s}>
+                                        {s}
+                                      </option>
+                                    ))}
+                                  </select>
+                                  <ChevronDown className="w-3 h-3 text-neutral-500 absolute right-1.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                                </div>
+
+                                {/* Stepper */}
+                                <div className="inline-flex items-center border border-neutral-300 bg-neutral-50 rounded-xs h-[28px]">
+                                  <button
+                                    type="button"
+                                    onClick={() => onUpdateQuantity(item.product.id, item.size, -1)}
+                                    className="px-2 h-full flex items-center justify-center hover:bg-neutral-200 transition cursor-pointer"
+                                    aria-label={`Decrease quantity of ${item.product.title}`}
+                                  >
+                                    <Minus className="w-3 h-3 text-neutral-700" />
+                                  </button>
+                                  <span className="w-6 text-center text-xs font-mono font-semibold">
+                                    {item.quantity}
+                                  </span>
+                                  <button
+                                    type="button"
+                                    onClick={() => onUpdateQuantity(item.product.id, item.size, 1)}
+                                    className="px-2 h-full flex items-center justify-center hover:bg-neutral-200 transition cursor-pointer"
+                                    aria-label={`Increase quantity of ${item.product.title}`}
+                                  >
+                                    <Plus className="w-3 h-3 text-neutral-700" />
+                                  </button>
+                                </div>
+
+                                {/* Subtle Interactive Trash / Delete Button */}
+                                <motion.button
+                                  type="button"
+                                  whileHover="hover"
+                                  whileTap="tap"
+                                  onClick={() => onRemoveItem(item.product.id, item.size)}
+                                  className="w-7 h-7 rounded-full flex items-center justify-center text-neutral-400 hover:text-[#FF5722] hover:bg-[#FF5722]/10 active:bg-[#FF5722]/20 transition-colors cursor-pointer group shrink-0"
+                                  aria-label={`Remove ${item.product.title} from bag`}
+                                  title="Remove item"
+                                >
+                                  <motion.div
+                                    variants={{
+                                      hover: {
+                                        rotate: [0, -10, 8, -4, 0],
+                                        scale: 1.15,
+                                        transition: { duration: 0.35, ease: 'easeInOut' },
+                                      },
+                                      tap: {
+                                        scale: 0.82,
+                                        rotate: 0,
+                                        transition: { duration: 0.1 },
+                                      },
+                                    }}
+                                    className="flex items-center justify-center"
+                                  >
+                                    <Trash2 className="w-3.5 h-3.5 transition-colors" />
+                                  </motion.div>
+                                </motion.button>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      ))}
+                          </motion.div>
+                        ))}
+                      </AnimatePresence>
                     </div>
                   )}
                 </div>

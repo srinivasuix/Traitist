@@ -84,103 +84,133 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
               </p>
             </div>
           ) : (
-            wishlistProducts.map((product) => {
-              const price = product.priceDisplayINR;
+            <AnimatePresence initial={false} mode="popLayout">
+              {wishlistProducts.map((product) => {
+                const price = product.priceDisplayINR;
 
-              return (
-                <div
-                  key={product.id}
-                  className="flex items-center justify-between p-3 bg-[#DFDDD7]/70 rounded border border-neutral-300/80"
-                >
-                  <div
-                    tabIndex={0}
-                    role="button"
-                    aria-label={`View details for ${product.title}`}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
+                return (
+                  <motion.div
+                    key={product.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.96, y: 8 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{
+                      opacity: 0,
+                      scale: 0.92,
+                      x: -20,
+                      transition: { duration: 0.22, ease: [0.32, 0.72, 0, 1] },
+                    }}
+                    transition={{
+                      layout: { duration: 0.28, ease: [0.32, 0.72, 0, 1] },
+                    }}
+                    className="flex items-center justify-between p-3 bg-[#DFDDD7]/70 rounded border border-neutral-300/80"
+                  >
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      aria-label={`View details for ${product.title}`}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          onSelectProduct(product);
+                          onClose();
+                        }
+                      }}
+                      onClick={() => {
                         onSelectProduct(product);
                         onClose();
-                      }
-                    }}
-                    onClick={() => {
-                      onSelectProduct(product);
-                      onClose();
-                    }}
-                    className="flex items-center gap-3 cursor-pointer flex-grow min-w-0 pr-3 focus-visible:outline-2 focus-visible:outline-black rounded"
-                  >
-                    <img
-                      src={product.image}
-                      alt={product.title}
-                      className="w-14 h-16 object-contain bg-[#DFDDD7] p-1 rounded"
-                      style={{ mixBlendMode: product.blendMode || 'multiply' }}
-                    />
-                    <div className="min-w-0">
-                      <h3 className="text-xs font-bold uppercase tracking-tight text-neutral-900 truncate">
-                        {product.title}
-                      </h3>
-                      <p className="text-[10px] font-mono text-neutral-600">
-                        {product.edition || product.category} • {product.gsm}
-                      </p>
-                      <div className="flex items-center gap-1.5 mt-1 font-mono">
-                        {product.regularPriceDisplayINR && !product.isSecretDrop && (
-                          <span className="text-[11px] text-neutral-400 line-through">
-                            {product.regularPriceDisplayINR}
+                      }}
+                      className="flex items-center gap-3 cursor-pointer flex-grow min-w-0 pr-3 focus-visible:outline-2 focus-visible:outline-black rounded"
+                    >
+                      <img
+                        src={product.image}
+                        alt={product.title}
+                        className="w-14 h-16 object-contain bg-[#DFDDD7] p-1 rounded"
+                        style={{ mixBlendMode: product.blendMode || 'multiply' }}
+                      />
+                      <div className="min-w-0">
+                        <h3 className="text-xs font-bold uppercase tracking-tight text-neutral-900 truncate">
+                          {product.title}
+                        </h3>
+                        <p className="text-[10px] font-mono text-neutral-600">
+                          {product.edition || product.category} • {product.gsm}
+                        </p>
+                        <div className="flex items-center gap-1.5 mt-1 font-mono">
+                          {product.regularPriceDisplayINR && !product.isSecretDrop && (
+                            <span className="text-[11px] text-neutral-400 line-through">
+                              {product.regularPriceDisplayINR}
+                            </span>
+                          )}
+                          <span className="text-xs font-bold text-neutral-950">
+                            {product.isSecretDrop ? 'Soon' : price}
                           </span>
-                        )}
-                        <span className="text-xs font-bold text-neutral-950">
-                          {product.isSecretDrop ? 'Soon' : price}
-                        </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="flex items-center gap-2 shrink-0">
-                    {!product.isSecretDrop && (
+                    <div className="flex items-center gap-2 shrink-0">
+                      {!product.isSecretDrop && (
+                        <motion.button
+                          type="button"
+                          whileHover={{ scale: 1.04 }}
+                          whileTap={{ scale: 0.92 }}
+                          transition={{ type: 'spring', stiffness: 450, damping: 20 }}
+                          onClick={() => handleAdd(product)}
+                          aria-label={addedIds[product.id] ? `Added ${product.title} to bag` : `Add size M of ${product.title} to bag`}
+                          className={`px-3 py-2 min-h-[40px] rounded-sm transition-colors duration-200 cursor-pointer flex items-center gap-1.5 text-xs font-mono font-bold shadow-xs ${
+                            addedIds[product.id]
+                              ? 'bg-emerald-600 text-white'
+                              : 'bg-neutral-950 text-white hover:bg-[#FF5722]'
+                          }`}
+                        >
+                          <motion.div
+                            key={addedIds[product.id] ? 'check' : 'bag'}
+                            initial={{ scale: 0.6, rotate: -20 }}
+                            animate={{ scale: [0.6, 1.25, 1], rotate: [-20, 0, 0] }}
+                            transition={{ type: 'spring', stiffness: 500, damping: 22 }}
+                            className="flex items-center"
+                          >
+                            {addedIds[product.id] ? (
+                              <Check className="w-3.5 h-3.5 text-white" aria-hidden="true" />
+                            ) : (
+                              <ShoppingBag className="w-3.5 h-3.5 text-white" aria-hidden="true" />
+                            )}
+                          </motion.div>
+                          <span>{addedIds[product.id] ? 'Added!' : 'Add'}</span>
+                        </motion.button>
+                      )}
+
                       <motion.button
                         type="button"
-                        whileHover={{ scale: 1.04 }}
-                        whileTap={{ scale: 0.92 }}
-                        transition={{ type: 'spring', stiffness: 450, damping: 20 }}
-                        onClick={() => handleAdd(product)}
-                        aria-label={addedIds[product.id] ? `Added ${product.title} to bag` : `Add size M of ${product.title} to bag`}
-                        className={`px-3 py-2 min-h-[40px] rounded-sm transition-colors duration-200 cursor-pointer flex items-center gap-1.5 text-xs font-mono font-bold shadow-xs ${
-                          addedIds[product.id]
-                            ? 'bg-emerald-600 text-white'
-                            : 'bg-neutral-950 text-white hover:bg-[#FF5722]'
-                        }`}
+                        whileHover="hover"
+                        whileTap="tap"
+                        onClick={() => onRemoveFromWishlist(product)}
+                        aria-label={`Remove ${product.title} from wishlist`}
+                        className="p-2 min-h-[40px] min-w-[40px] flex items-center justify-center text-neutral-500 hover:text-[#FF5722] hover:bg-neutral-200/60 rounded-full transition-colors cursor-pointer group"
                       >
                         <motion.div
-                          key={addedIds[product.id] ? 'check' : 'bag'}
-                          initial={{ scale: 0.6, rotate: -20 }}
-                          animate={{ scale: [0.6, 1.25, 1], rotate: [-20, 0, 0] }}
-                          transition={{ type: 'spring', stiffness: 500, damping: 22 }}
-                          className="flex items-center"
+                          variants={{
+                            hover: {
+                              rotate: [0, -10, 8, -4, 0],
+                              scale: 1.15,
+                              transition: { duration: 0.35, ease: 'easeInOut' },
+                            },
+                            tap: {
+                              scale: 0.82,
+                              rotate: 0,
+                              transition: { duration: 0.1 },
+                            },
+                          }}
+                          className="flex items-center justify-center"
                         >
-                          {addedIds[product.id] ? (
-                            <Check className="w-3.5 h-3.5 text-white" aria-hidden="true" />
-                          ) : (
-                            <ShoppingBag className="w-3.5 h-3.5 text-white" aria-hidden="true" />
-                          )}
+                          <Trash2 className="w-4 h-4 transition-colors" aria-hidden="true" />
                         </motion.div>
-                        <span>{addedIds[product.id] ? 'Added!' : 'Add'}</span>
                       </motion.button>
-                    )}
-
-                    <motion.button
-                      whileHover={{ scale: 1.15 }}
-                      whileTap={{ scale: 0.88 }}
-                      transition={{ type: 'spring', stiffness: 450, damping: 20 }}
-                      onClick={() => onRemoveFromWishlist(product)}
-                      aria-label={`Remove ${product.title} from wishlist`}
-                      className="p-2 min-h-[40px] min-w-[40px] flex items-center justify-center text-neutral-500 hover:text-[#FF5722] hover:bg-neutral-200/60 rounded-sm transition cursor-pointer"
-                    >
-                      <Trash2 className="w-4 h-4" aria-hidden="true" />
-                    </motion.button>
-                  </div>
-                </div>
-              );
-            })
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
           )}
         </div>
 

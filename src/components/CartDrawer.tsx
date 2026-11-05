@@ -782,17 +782,31 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 {/* Cart Items List */}
                 <div className="flex-grow overflow-y-auto px-5 py-3 space-y-3">
                   {items.length === 0 ? (
-                    <div className="py-12 flex flex-col items-center justify-center text-center">
-                      <ShoppingBag
-                        className="w-10 h-10 text-neutral-400 stroke-[1.2] mb-2"
-                        aria-hidden="true"
-                      />
-                      <p className="text-xs font-mono uppercase tracking-widest text-neutral-600 font-bold">
-                        Your bag is empty
+                    <div className="py-8 px-4 flex flex-col items-center justify-center text-center select-none">
+                      <div className="w-48 sm:w-52 overflow-hidden rounded-2xl mb-4 border border-neutral-300/80 shadow-md bg-white hover:scale-[1.02] transition-transform duration-300">
+                        <img
+                          src="/images/empty-states/cart-empty.jpg"
+                          alt="Your bag is empty"
+                          className="w-full h-auto object-cover"
+                        />
+                      </div>
+                      <p className="text-xs font-mono uppercase tracking-widest text-neutral-900 font-bold">
+                        YOUR BAG IS EMPTY
                       </p>
-                      <p className="text-xs text-neutral-500 mt-1 max-w-xs font-sans">
-                        Pick a heavyweight piece from the collection.
+                      <p className="text-xs text-neutral-600 mt-1 max-w-xs font-sans leading-relaxed">
+                        Explore our 200 GSM heavyweight cotton drop and discover your next statement tee.
                       </p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onClose();
+                          const el = document.getElementById('shop');
+                          el?.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className="mt-4 px-5 py-2.5 bg-neutral-950 hover:bg-[#FF5722] text-white text-xs font-mono font-bold uppercase tracking-wider rounded-sm transition-colors cursor-pointer"
+                      >
+                        DISCOVER DROP 01
+                      </button>
                     </div>
                   ) : (
                     <div className="space-y-2.5">

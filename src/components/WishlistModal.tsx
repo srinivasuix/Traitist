@@ -74,14 +74,28 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
         {/* Content list */}
         <div className="flex-grow overflow-y-auto py-4 space-y-3">
           {wishlistProducts.length === 0 ? (
-            <div className="py-16 text-center flex flex-col items-center">
-              <Heart className="w-12 h-12 text-neutral-400 stroke-[1.2] mb-3" aria-hidden="true" />
-              <p className="text-xs font-mono uppercase tracking-widest text-neutral-600 font-semibold">
-                YOUR WISHLIST IS EMPTY
+            <div className="py-8 px-4 text-center flex flex-col items-center select-none">
+              <div className="w-48 sm:w-56 overflow-hidden rounded-2xl mb-4 border border-neutral-300/80 shadow-md bg-white hover:scale-[1.02] transition-transform duration-300">
+                <img
+                  src="/images/empty-states/wishlist-empty.jpg"
+                  alt="Your Wishlist is Empty"
+                  className="w-full h-auto object-cover"
+                />
+              </div>
+              <p className="text-xs text-neutral-600 mt-1 max-w-xs mx-auto font-sans leading-relaxed">
+                Save pieces you love to get early access alerts when new sizes and drops release.
               </p>
-              <p className="text-xs text-neutral-600 mt-1 max-w-xs mx-auto font-sans">
-                Heart items in the catalog to save them for drop releases and restocks.
-              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  const el = document.getElementById('shop');
+                  el?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="mt-4 px-5 py-2.5 bg-neutral-950 hover:bg-[#FF5722] text-white text-xs font-mono font-bold uppercase tracking-wider rounded-sm transition-colors cursor-pointer"
+              >
+                EXPLORE COLLECTION
+              </button>
             </div>
           ) : (
             <AnimatePresence initial={false} mode="popLayout">

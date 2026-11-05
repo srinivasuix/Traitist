@@ -66,8 +66,17 @@ export const TraitistReceiptPrinter: React.FC<OrderConfirmationProps> = ({
   return (
     <div className={`w-full max-w-md mx-auto space-y-4 font-mono text-left ${className}`}>
       {/* 1. Order Status Header Card */}
-      <div className="bg-white rounded-sm border border-neutral-300 p-5 shadow-xs">
-        <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+      <div className="bg-white rounded-sm border border-neutral-300 p-5 shadow-xs text-center flex flex-col items-center">
+        {/* Panda Order Successful Illustration */}
+        <div className="w-44 sm:w-52 overflow-hidden rounded-2xl mb-4 border border-neutral-200 shadow-sm bg-white">
+          <img
+            src="/images/empty-states/order-success.jpg"
+            alt="Order Successful!"
+            className="w-full h-auto object-cover"
+          />
+        </div>
+
+        <div className="flex items-center justify-between w-full pb-3 border-b border-neutral-200">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-800">
@@ -79,7 +88,7 @@ export const TraitistReceiptPrinter: React.FC<OrderConfirmationProps> = ({
           </span>
         </div>
 
-        <div className="pt-3 space-y-1">
+        <div className="pt-3 space-y-1 text-left w-full">
           <p className="text-xs text-neutral-600 font-sans">
             Thank you, <span className="font-semibold text-neutral-900">{orderData.customerName}</span>. Your order is confirmed and being prepared for dispatch.
           </p>

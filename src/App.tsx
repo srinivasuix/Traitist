@@ -15,6 +15,8 @@ import { ProductDetailPage } from './components/ProductDetailPage';
 import { SizeGuideModal } from './components/SizeGuideModal';
 import { SearchModal } from './components/SearchModal';
 import { WishlistModal } from './components/WishlistModal';
+import { OrderSuccessModal } from './components/OrderSuccessModal';
+import { NotFoundPage } from './components/NotFoundPage';
 import { Toast } from './components/Toast';
 import { Preloader } from './components/Preloader';
 import { Product, CATALOG_PRODUCTS, ROTATOR_PRODUCTS } from './data/products';
@@ -33,13 +35,16 @@ export default function App() {
       },
     ];
   });
-  const [wishlistIds, setWishlistIds] = useState<string[]>(['cat-01', 'cat-02']);
+  const [wishlistIds, setWishlistIds] = useState<string[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutDirectly, setIsCheckoutDirectly] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isNotFound, setIsNotFound] = useState(false);
+  const [isOrderSuccessOpen, setIsOrderSuccessOpen] = useState(false);
+  const [orderSuccessId, setOrderSuccessId] = useState<string | undefined>();
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Initialize Darkroom Engineering Lenis smooth scroll
@@ -68,14 +73,44 @@ export default function App() {
     };
   }, []);
 
-  // Sync hash routing for dedicated product page (#/product/:id) and #cart
+  // Sync hash routing for dedicated product page (#/product/:id), 404, order success and #cart
   useEffect(() => {
     const handleHashSync = () => {
       const hash = window.location.hash;
+      const searchParams = new URLSearchParams(window.location.search);
+
+      // Handle checkout return callbacks
+      if (
+        searchParams.get('checkout') === 'success' ||
+        searchParams.get('order') === 'success' ||
+        hash === '#/order-success' ||
+        hash === '#order-success'
+      ) {
+        setIsOrderSuccessOpen(true);
+        const ref = searchParams.get('order_id') || searchParams.get('reference');
+        if (ref) setOrderSuccessId(ref);
+        setCartItems([]);
+        window.history.replaceState(null, '', window.location.pathname);
+        return;
+      }
+
+      if (searchParams.get('checkout') === 'cancelled') {
+        setToastMessage('Checkout cancelled. Your bag items are saved.');
+        window.history.replaceState(null, '', window.location.pathname + window.location.hash);
+      }
+
       if (hash === '#cart') {
         setIsCartOpen(true);
         return;
       }
+
+      if (hash === '#/404' || hash === '#404') {
+        setSelectedProduct(null);
+        setIsNotFound(true);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        return;
+      }
+
       if (hash.startsWith('#/product/')) {
         const id = hash.replace('#/product/', '');
         const allProds = [...CATALOG_PRODUCTS, ...ROTATOR_PRODUCTS];
@@ -86,17 +121,16 @@ export default function App() {
         );
         if (found) {
           setSelectedProduct(found);
+          setIsNotFound(false);
           window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          setSelectedProduct(null);
+          setIsNotFound(true);
+          window.scrollTo({ top: 0, behavior: 'instant' });
         }
-      } else if (!hash || hash === '#shop') {
+      } else if (!hash || hash === '#shop' || hash === '#faq' || hash === '#specs' || hash === '#newsletter') {
         setSelectedProduct(null);
-      }
-
-      // Handle checkout return callbacks
-      const searchParams = new URLSearchParams(window.location.search);
-      if (searchParams.get('checkout') === 'cancelled') {
-        setToastMessage('Checkout cancelled. Your bag items are saved.');
-        window.history.replaceState(null, '', window.location.pathname + window.location.hash);
+        setIsNotFound(false);
       }
     };
 
@@ -111,7 +145,7 @@ export default function App() {
 
   useEffect(() => {
     const isAnyModalOpen =
-      isLoading || isCartOpen || isSearchOpen || isWishlistOpen || isSizeGuideOpen;
+      isLoading || isCartOpen || isSearchOpen || isWishlistOpen || isSizeGuideOpen || isOrderSuccessOpen;
     if (isAnyModalOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -120,7 +154,7 @@ export default function App() {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isLoading, isCartOpen, isSearchOpen, isWishlistOpen, isSizeGuideOpen]);
+  }, [isLoading, isCartOpen, isSearchOpen, isWishlistOpen, isSizeGuideOpen, isOrderSuccessOpen]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -132,13 +166,15 @@ export default function App() {
       return;
     }
     setSelectedProduct(product);
+    setIsNotFound(false);
     window.history.pushState(null, '', `#/product/${product.id}`);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleGoHome = useCallback(() => {
     setSelectedProduct(null);
-    if (window.location.hash.startsWith('#/product/')) {
+    setIsNotFound(false);
+    if (window.location.hash.startsWith('#/product/') || window.location.hash.includes('404')) {
       window.history.pushState(null, '', window.location.pathname);
     }
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -278,9 +314,11 @@ export default function App() {
         onGoHome={handleGoHome}
       />
 
-      {/* Main Content Area: Dedicated Product Page OR Homepage with Simple Clean Transition */}
+      {/* Main Content Area: 404 Not Found OR Dedicated Product Page OR Homepage */}
       <AnimatePresence mode="wait">
-        {selectedProduct ? (
+        {isNotFound ? (
+          <NotFoundPage onGoHome={handleGoHome} />
+        ) : selectedProduct ? (
           <motion.main
             key={`product-page-${selectedProduct.id}`}
             initial={{ opacity: 0 }}
@@ -392,6 +430,12 @@ export default function App() {
         onRemoveFromWishlist={handleToggleWishlist}
         onAddToCart={(product, size) => handleAddToCart(product, size, 1)}
         onSelectProduct={handleSelectProduct}
+      />
+
+      <OrderSuccessModal
+        isOpen={isOrderSuccessOpen}
+        onClose={() => setIsOrderSuccessOpen(false)}
+        orderId={orderSuccessId}
       />
 
       {/* Floating Sticky Cart Trigger (Accessible anytime from any section) with Magic UI BorderBeam */}

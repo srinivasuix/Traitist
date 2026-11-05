@@ -13,6 +13,7 @@ import {
   ChevronUp,
   ChevronLeft,
   ChevronRight,
+  Eye,
   Mail,
   Phone,
   Lock,
@@ -22,6 +23,7 @@ import {
 } from 'lucide-react';
 import { Product, CATALOG_PRODUCTS, DEFAULT_SIZES } from '../data/products';
 import { TraitistReceiptPrinter, TraitistReceiptOrderData } from './ReceiptPrinter';
+import { QuickViewModal } from './QuickViewModal';
 import { BorderBeam } from './magicui/border-beam';
 import { isDemoAutofillAvailable } from '../lib/env';
 import { lookupIndianPincode } from '../lib/pincode';
@@ -60,12 +62,23 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   onClearCart,
   onAddToCart,
   onSelectProduct,
+  onOpenSizeGuide,
+  wishlistIds,
+  onToggleWishlist,
 }) => {
-  // Recommendations carousel state
+  // Recommendations carousel state & Quick View preview
   const [recSizes, setRecSizes] = useState<Record<string, string>>({});
   const [activeRecSlide, setActiveRecSlide] = useState(0);
   const [recRecentlyAdded, setRecRecentlyAdded] = useState<Record<string, boolean>>({});
+  const [previewProduct, setPreviewProduct] = useState<Product | null>(null);
   const recCarouselRef = React.useRef<HTMLDivElement>(null);
+
+  // Mouse drag-to-scroll refs
+  const isDraggingRef = React.useRef(false);
+  const startXRef = React.useRef(0);
+  const scrollLeftRef = React.useRef(0);
+  const hasDraggedRef = React.useRef(false);
+  const [isDraggingState, setIsDraggingState] = useState(false);
 
   // Coupon state
   const [promoCode, setPromoCode] = useState('');
@@ -165,15 +178,58 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   const filteredRecs = CATALOG_PRODUCTS.filter((p) => !cartProductIds.includes(p.id));
   const recommendations = filteredRecs.length > 0 ? filteredRecs : CATALOG_PRODUCTS;
 
+  const handleCarouselScroll = () => {
+    if (!recCarouselRef.current) return;
+    const { scrollLeft } = recCarouselRef.current;
+    const cardWidth = 292;
+    const index = Math.round(scrollLeft / cardWidth);
+    setActiveRecSlide(Math.min(Math.max(0, index), recommendations.length - 1));
+  };
+
   const scrollToRecSlide = (index: number) => {
     setActiveRecSlide(index);
     if (recCarouselRef.current) {
-      const cardWidth = 280;
+      const cardWidth = 292;
       recCarouselRef.current.scrollTo({
         left: index * cardWidth,
         behavior: 'smooth',
       });
     }
+  };
+
+  // Drag-to-scroll mouse handlers
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.button !== 0 || !recCarouselRef.current) return;
+    isDraggingRef.current = true;
+    hasDraggedRef.current = false;
+    startXRef.current = e.pageX - recCarouselRef.current.offsetLeft;
+    scrollLeftRef.current = recCarouselRef.current.scrollLeft;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current || !recCarouselRef.current) return;
+    const x = e.pageX - recCarouselRef.current.offsetLeft;
+    const walk = (x - startXRef.current) * 1.25;
+    if (Math.abs(walk) > 4) {
+      hasDraggedRef.current = true;
+      if (!isDraggingState) setIsDraggingState(true);
+    }
+    recCarouselRef.current.scrollLeft = scrollLeftRef.current - walk;
+  };
+
+  const handleMouseUpOrLeave = () => {
+    if (isDraggingRef.current) {
+      isDraggingRef.current = false;
+      setIsDraggingState(false);
+      setTimeout(() => {
+        hasDraggedRef.current = false;
+      }, 70);
+    }
+  };
+
+  const handleProductCardClick = (prod: Product) => {
+    if (hasDraggedRef.current) return;
+    setPreviewProduct(prod);
   };
 
   const handleAddRecommended = (prod: Product) => {
@@ -988,12 +1044,19 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         </div>
                       </div>
 
-                      {/* Horizontal Scrollable Carousel */}
+                      {/* Horizontal Scrollable & Mouse Draggable Carousel */}
                       <div
                         ref={recCarouselRef}
-                        className="flex gap-3 overflow-x-auto pb-2 scroll-smooth no-scrollbar snap-x snap-mandatory touch-pan-x"
+                        onScroll={handleCarouselScroll}
+                        onMouseDown={handleMouseDown}
+                        onMouseMove={handleMouseMove}
+                        onMouseUp={handleMouseUpOrLeave}
+                        onMouseLeave={handleMouseUpOrLeave}
+                        className={`flex gap-3 overflow-x-auto pb-2 scroll-smooth no-scrollbar select-none touch-pan-x ${
+                          isDraggingState ? 'cursor-grabbing snap-none' : 'cursor-grab snap-x snap-mandatory'
+                        }`}
                         tabIndex={0}
-                        aria-label="Recommended products carousel"
+                        aria-label="Recommended products carousel. Click and drag or swipe to explore."
                       >
                         {recommendations.map((prod) => {
                           const currentSelectedSize = recSizes[prod.id] || 'M';
@@ -1004,19 +1067,19 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                               key={prod.id}
                               className="w-[280px] sm:w-[300px] shrink-0 snap-start bg-white border border-neutral-200 rounded-xs p-2.5 flex items-center gap-2.5 shadow-2xs hover:border-neutral-300 transition-all"
                             >
-                              {/* Product Thumbnail */}
+                              {/* Product Thumbnail (Click to view pop up) */}
                               <div
                                 role="button"
                                 tabIndex={0}
-                                onClick={() => onSelectProduct?.(prod)}
+                                onClick={() => handleProductCardClick(prod)}
                                 onKeyDown={(e) => {
                                   if (e.key === 'Enter' || e.key === ' ') {
                                     e.preventDefault();
-                                    onSelectProduct?.(prod);
+                                    handleProductCardClick(prod);
                                   }
                                 }}
                                 className="w-14 h-17 bg-[#DFDDD7] rounded-xs flex items-center justify-center p-1 shrink-0 cursor-pointer overflow-hidden border border-neutral-200 group"
-                                title={`View ${prod.title} details`}
+                                title={`Preview ${prod.title} details`}
                               >
                                 <img
                                   src={prod.image}
@@ -1031,8 +1094,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                               <div className="flex-grow min-w-0 flex flex-col justify-between h-full">
                                 <div>
                                   <h4
-                                    onClick={() => onSelectProduct?.(prod)}
+                                    onClick={() => handleProductCardClick(prod)}
                                     className="text-xs font-bold text-neutral-900 truncate cursor-pointer hover:text-[#FF5722] transition-colors"
+                                    title="Click to view details pop up"
                                   >
                                     {prod.title}
                                   </h4>
@@ -1048,7 +1112,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                                   </div>
                                 </div>
 
-                                {/* Size Dropdown & 1-Click ADD Button */}
+                                {/* Size Dropdown, Preview Eye Button & 1-Click ADD Button */}
                                 <div className="flex items-center gap-1.5 mt-2">
                                   <div className="relative flex-grow min-w-0">
                                     <select
@@ -1071,6 +1135,18 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                                     <ChevronDown className="w-3 h-3 text-neutral-500 absolute right-1 top-1/2 -translate-y-1/2 pointer-events-none" />
                                   </div>
 
+                                  {/* Preview Eye Icon Button */}
+                                  <button
+                                    type="button"
+                                    onClick={() => handleProductCardClick(prod)}
+                                    className="p-1 min-h-[26px] min-w-[26px] rounded-xs border border-neutral-300 bg-white text-neutral-600 hover:text-black hover:border-black transition cursor-pointer flex items-center justify-center active:scale-95 shrink-0"
+                                    title="Preview piece details"
+                                    aria-label={`Preview ${prod.title} details`}
+                                  >
+                                    <Eye className="w-3.5 h-3.5" aria-hidden="true" />
+                                  </button>
+
+                                  {/* 1-Click Add Button */}
                                   <motion.button
                                     type="button"
                                     whileTap={{ scale: 0.92 }}
@@ -1291,6 +1367,23 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 </div>
               </div>
             </div>
+          )}
+          {/* Quick View Preview Pop Up Modal (Opened from Recommended Pieces) */}
+          {previewProduct && (
+            <QuickViewModal
+              product={previewProduct}
+              onClose={() => setPreviewProduct(null)}
+              isWishlisted={wishlistIds?.includes(previewProduct.id) ?? false}
+              onToggleWishlist={onToggleWishlist || (() => {})}
+              onAddToCart={(prod, size, qty) => {
+                if (onAddToCart) {
+                  onAddToCart(prod, size, qty);
+                } else {
+                  onUpdateQuantity(prod.id, size, qty);
+                }
+              }}
+              onOpenSizeGuide={onOpenSizeGuide || (() => {})}
+            />
           )}
         </div>
       )}

@@ -11,6 +11,8 @@ import {
   Check,
   ChevronDown,
   ChevronUp,
+  ChevronLeft,
+  ChevronRight,
   Mail,
   Phone,
   Lock,
@@ -18,7 +20,7 @@ import {
   AlertCircle,
   Loader2,
 } from 'lucide-react';
-import { Product, DEFAULT_SIZES } from '../data/products';
+import { Product, CATALOG_PRODUCTS, DEFAULT_SIZES } from '../data/products';
 import { TraitistReceiptPrinter, TraitistReceiptOrderData } from './ReceiptPrinter';
 import { BorderBeam } from './magicui/border-beam';
 import { isDemoAutofillAvailable } from '../lib/env';
@@ -41,6 +43,7 @@ interface CartDrawerProps {
   onRemoveItem: (productId: string, size: string) => void;
   onClearCart: () => void;
   onAddToCart?: (product: Product, size: string, quantity?: number) => void;
+  onSelectProduct?: (product: Product) => void;
   onOpenSizeGuide?: () => void;
   wishlistIds?: string[];
   onToggleWishlist?: (product: Product) => void;
@@ -55,7 +58,15 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   onUpdateSize,
   onRemoveItem,
   onClearCart,
+  onAddToCart,
+  onSelectProduct,
 }) => {
+  // Recommendations carousel state
+  const [recSizes, setRecSizes] = useState<Record<string, string>>({});
+  const [activeRecSlide, setActiveRecSlide] = useState(0);
+  const [recRecentlyAdded, setRecRecentlyAdded] = useState<Record<string, boolean>>({});
+  const recCarouselRef = React.useRef<HTMLDivElement>(null);
+
   // Coupon state
   const [promoCode, setPromoCode] = useState('');
   const [discountPercent, setDiscountPercent] = useState(0);
@@ -147,6 +158,33 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
       setDiscountPercent(0);
       setPromoMessage('Invalid coupon code. Try "PHD10"');
     }
+  };
+
+  // Filter out products currently in cart for recommendation
+  const cartProductIds = items.map((i) => i.product.id);
+  const filteredRecs = CATALOG_PRODUCTS.filter((p) => !cartProductIds.includes(p.id));
+  const recommendations = filteredRecs.length > 0 ? filteredRecs : CATALOG_PRODUCTS;
+
+  const scrollToRecSlide = (index: number) => {
+    setActiveRecSlide(index);
+    if (recCarouselRef.current) {
+      const cardWidth = 280;
+      recCarouselRef.current.scrollTo({
+        left: index * cardWidth,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const handleAddRecommended = (prod: Product) => {
+    const size = recSizes[prod.id] || 'M';
+    if (onAddToCart) {
+      onAddToCart(prod, size, 1);
+    }
+    setRecRecentlyAdded((prev) => ({ ...prev, [prod.id]: true }));
+    setTimeout(() => {
+      setRecRecentlyAdded((prev) => ({ ...prev, [prod.id]: false }));
+    }, 1800);
   };
 
   const handleInputChange = async (field: string, val: string) => {
@@ -915,6 +953,172 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         ))}
                       </AnimatePresence>
                     </div>
+                  )}
+
+                  {/* RECOMMENDED FOR YOU CAROUSEL */}
+                  {recommendations.length > 0 && (
+                    <section className="pt-3.5 mt-2 border-t border-neutral-300">
+                      <div className="flex items-center justify-between mb-2.5">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#FF5722]" aria-hidden="true" />
+                          <h3 className="text-[10.5px] sm:text-[11px] font-mono uppercase tracking-widest text-neutral-800 font-bold">
+                            RECOMMENDED FOR YOU
+                          </h3>
+                        </div>
+
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => scrollToRecSlide(Math.max(0, activeRecSlide - 1))}
+                            disabled={activeRecSlide === 0}
+                            aria-label="Previous recommendation"
+                            className="w-6 h-6 rounded-xs border border-neutral-300 hover:border-black flex items-center justify-center text-neutral-700 hover:text-black disabled:opacity-30 disabled:pointer-events-none transition cursor-pointer"
+                          >
+                            <ChevronLeft className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => scrollToRecSlide(Math.min(recommendations.length - 1, activeRecSlide + 1))}
+                            disabled={activeRecSlide >= recommendations.length - 1}
+                            aria-label="Next recommendation"
+                            className="w-6 h-6 rounded-xs border border-neutral-300 hover:border-black flex items-center justify-center text-neutral-700 hover:text-black disabled:opacity-30 disabled:pointer-events-none transition cursor-pointer"
+                          >
+                            <ChevronRight className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Horizontal Scrollable Carousel */}
+                      <div
+                        ref={recCarouselRef}
+                        className="flex gap-3 overflow-x-auto pb-2 scroll-smooth no-scrollbar snap-x snap-mandatory touch-pan-x"
+                        tabIndex={0}
+                        aria-label="Recommended products carousel"
+                      >
+                        {recommendations.map((prod) => {
+                          const currentSelectedSize = recSizes[prod.id] || 'M';
+                          const isRecAdded = !!recRecentlyAdded[prod.id];
+
+                          return (
+                            <div
+                              key={prod.id}
+                              className="w-[280px] sm:w-[300px] shrink-0 snap-start bg-white border border-neutral-200 rounded-xs p-2.5 flex items-center gap-2.5 shadow-2xs hover:border-neutral-300 transition-all"
+                            >
+                              {/* Product Thumbnail */}
+                              <div
+                                role="button"
+                                tabIndex={0}
+                                onClick={() => onSelectProduct?.(prod)}
+                                onKeyDown={(e) => {
+                                  if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    onSelectProduct?.(prod);
+                                  }
+                                }}
+                                className="w-14 h-17 bg-[#DFDDD7] rounded-xs flex items-center justify-center p-1 shrink-0 cursor-pointer overflow-hidden border border-neutral-200 group"
+                                title={`View ${prod.title} details`}
+                              >
+                                <img
+                                  src={prod.image}
+                                  alt={prod.title}
+                                  className="w-full h-full object-contain pointer-events-none transition-transform duration-200 group-hover:scale-105"
+                                  style={{ mixBlendMode: prod.blendMode || 'multiply' }}
+                                  loading="lazy"
+                                />
+                              </div>
+
+                              {/* Product Info & Actions */}
+                              <div className="flex-grow min-w-0 flex flex-col justify-between h-full">
+                                <div>
+                                  <h4
+                                    onClick={() => onSelectProduct?.(prod)}
+                                    className="text-xs font-bold text-neutral-900 truncate cursor-pointer hover:text-[#FF5722] transition-colors"
+                                  >
+                                    {prod.title}
+                                  </h4>
+                                  <div className="flex items-baseline gap-1.5 mt-0.5 font-mono">
+                                    <span className="text-xs font-bold text-neutral-950">
+                                      ₹{prod.priceINR.toLocaleString()}
+                                    </span>
+                                    {prod.regularPriceINR && !prod.isSecretDrop && (
+                                      <span className="text-[10px] text-neutral-400 line-through">
+                                        ₹{prod.regularPriceINR.toLocaleString()}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+
+                                {/* Size Dropdown & 1-Click ADD Button */}
+                                <div className="flex items-center gap-1.5 mt-2">
+                                  <div className="relative flex-grow min-w-0">
+                                    <select
+                                      value={currentSelectedSize}
+                                      onChange={(e) =>
+                                        setRecSizes((prev) => ({
+                                          ...prev,
+                                          [prod.id]: e.target.value,
+                                        }))
+                                      }
+                                      className="w-full text-[10.5px] font-mono font-bold uppercase py-1 pl-1.5 pr-4 border border-neutral-300 bg-neutral-50 rounded-xs text-neutral-900 appearance-none cursor-pointer focus:outline-none focus:border-black h-[26px]"
+                                      aria-label={`Select size for ${prod.title}`}
+                                    >
+                                      {(prod.sizes || DEFAULT_SIZES).map((s) => (
+                                        <option key={s} value={s}>
+                                          {s}
+                                        </option>
+                                      ))}
+                                    </select>
+                                    <ChevronDown className="w-3 h-3 text-neutral-500 absolute right-1 top-1/2 -translate-y-1/2 pointer-events-none" />
+                                  </div>
+
+                                  <motion.button
+                                    type="button"
+                                    whileTap={{ scale: 0.92 }}
+                                    onClick={() => handleAddRecommended(prod)}
+                                    className={`px-2.5 py-1 min-h-[26px] text-[10px] font-mono font-bold uppercase tracking-wider rounded-xs transition-all cursor-pointer flex items-center gap-1 shrink-0 ${
+                                      isRecAdded
+                                        ? 'bg-emerald-600 text-white'
+                                        : 'bg-black text-white hover:bg-[#FF5722]'
+                                    }`}
+                                  >
+                                    {isRecAdded ? (
+                                      <>
+                                        <Check className="w-3 h-3 text-white" aria-hidden="true" />
+                                        <span>ADDED</span>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <Plus className="w-3 h-3" aria-hidden="true" />
+                                        <span>ADD</span>
+                                      </>
+                                    )}
+                                  </motion.button>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Pagination Dots */}
+                      {recommendations.length > 1 && (
+                        <div className="flex items-center justify-center gap-1.5 pt-1">
+                          {recommendations.map((_, idx) => (
+                            <button
+                              key={idx}
+                              type="button"
+                              onClick={() => scrollToRecSlide(idx)}
+                              className={`h-1 rounded-full transition-all duration-200 cursor-pointer ${
+                                activeRecSlide === idx
+                                  ? 'w-3.5 bg-neutral-950'
+                                  : 'w-1 bg-neutral-300 hover:bg-neutral-500'
+                              }`}
+                              aria-label={`Scroll to recommendation ${idx + 1}`}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </section>
                   )}
                 </div>
 

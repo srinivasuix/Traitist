@@ -462,6 +462,7 @@ export default function App() {
       <Toast
         message={toastMessage}
         onClose={() => setToastMessage(null)}
+        hasBagButton={!isCartOpen && cartItems.length > 0}
       />
     </div>
   );

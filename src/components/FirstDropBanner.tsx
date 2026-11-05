@@ -7,6 +7,24 @@ interface FirstDropBannerProps {
 }
 
 export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) => {
+  // Automatic launch date switch logic (15 November 2026 IST)
+  const isLive = new Date() >= new Date('2026-11-15T00:00:00+05:30');
+
+  const announcementLabel = isLive
+    ? 'NOW LIVE · THE FIRST TRAITIST DROP'
+    : 'THE FIRST DROP · OFFICIALLY LAUNCHING NOV 15';
+
+  const ctaLabel = isLive ? 'SHOP THE FIRST DROP' : 'EXPLORE THE FIRST DROP';
+
+  const launchDateNote = isLive
+    ? 'Now Live · Dispatches Active'
+    : 'Launching 15 November onwards.';
+
+  const savingsAmount =
+    FIRST_DROP_REGULAR_PRICE && FIRST_DROP_LAUNCH_PRICE
+      ? FIRST_DROP_REGULAR_PRICE - FIRST_DROP_LAUNCH_PRICE
+      : 100;
+
   const handleScroll = () => {
     if (onExplore) {
       onExplore();
@@ -41,40 +59,43 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
         </div>
 
         {/* ========================================================
-            2. CONTENT BLOCK (Fluid Responsive Hierarchy)
-            - Balanced headline scale so it doesn't overpower the product.
-            - Compelling, specific academic streetwear description.
-            - Compelling exclusive launch offer messaging.
-            - Direct shopping-focused CTA ("SHOP THE FIRST DROP").
-            - Compact vertical footprint on mobile.
+            2. CONTENT BLOCK (Fluid Responsive Editorial Layout)
+            A. Announcement Label: Dynamically switches on Nov 15
+            B. Headline: "YOUR RESEARCH. YOUR IDENTITY." unchanged
+            C. Description: Product-specific 200 GSM oversized PhD graphic tees
+            D. Price: Introductory Launch Price ₹799 / ₹899 / SAVE ₹100
+            E. Scarcity: Independent "LIMITED RUN · 150 PIECES PER DESIGN"
+            F. CTA: Context-aware "EXPLORE THE FIRST DROP" -> "SHOP THE FIRST DROP"
             ======================================================== */}
         <div className="relative z-10 p-3.5 min-[360px]:p-4 sm:p-5 md:p-6 lg:p-8 xl:p-9 max-w-lg md:max-w-[340px] lg:max-w-[420px] xl:max-w-xl flex flex-col justify-center space-y-2 sm:space-y-2.5 md:space-y-3 lg:space-y-3.5">
-          {/* Small launch label */}
+          {/* A. Small announcement label */}
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF5722]" aria-hidden="true" />
-            <span className="text-[9.5px] min-[360px]:text-[10px] md:text-[10px] lg:text-[10.5px] font-mono uppercase tracking-widest text-[#FF5722] font-bold">
-              THE FIRST DROP • LIMITED EDITION
+            <span className="text-[9px] min-[360px]:text-[9.5px] md:text-[9.5px] lg:text-[10px] font-mono uppercase tracking-widest text-[#FF5722] font-bold">
+              {announcementLabel}
             </span>
           </div>
 
-          {/* Main headline: Refined restrained scale so the product remains hero */}
+          {/* B. Main headline: Preserved & memorable */}
           <h2 className="text-[18px] min-[360px]:text-[20px] min-[400px]:text-[22px] sm:text-2xl md:text-xl lg:text-2xl xl:text-[28px] font-black font-display tracking-tight uppercase leading-[1.02]">
             <span className="block text-white">YOUR RESEARCH.</span>
             <span className="block text-[#FF5722]">YOUR IDENTITY.</span>
           </h2>
 
-          {/* Short description */}
+          {/* C. Product-specific description */}
           <p className="text-[11px] min-[360px]:text-[11.5px] md:text-[11px] lg:text-xs xl:text-[12.5px] font-mono text-neutral-300 leading-relaxed max-w-sm md:max-w-[290px] lg:max-w-sm">
-            Academic-inspired streetwear for thinkers, researchers and changemakers.
+            200 GSM oversized tees. Inspired by PhD life, research culture and the chaos behind every breakthrough.
           </p>
 
-          {/* Compelling Exclusive Launch Offer */}
-          <div className="space-y-0.5 pt-0.5">
-            <span className="text-[8.5px] min-[360px]:text-[9px] md:text-[9px] lg:text-[9.5px] font-mono uppercase tracking-widest text-[#FF5722] block font-bold">
-              EXCLUSIVE LAUNCH OFFER • SAVE ₹100 ON DROP 01
+          {/* D & E. Launch Price Structure & Limited Scarcity */}
+          <div className="space-y-1 pt-0.5">
+            <span className="text-[8.5px] min-[360px]:text-[9px] md:text-[9px] lg:text-[9.5px] font-mono uppercase tracking-widest text-neutral-400 block font-semibold">
+              INTRODUCTORY LAUNCH PRICE
             </span>
-            <div className="flex items-baseline gap-2">
-              <span className="text-2xl min-[360px]:text-[26px] sm:text-3xl md:text-2xl lg:text-3xl font-black font-mono text-white tracking-tight">
+            
+            {/* Price values with clean savings indicator */}
+            <div className="flex items-baseline gap-2.5">
+              <span className="text-2xl min-[360px]:text-[26px] sm:text-3xl md:text-2xl lg:text-3xl font-black font-mono text-[#FF5722] tracking-tight">
                 ₹{FIRST_DROP_LAUNCH_PRICE}
               </span>
               {FIRST_DROP_REGULAR_PRICE && (
@@ -82,20 +103,31 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
                   ₹{FIRST_DROP_REGULAR_PRICE}
                 </span>
               )}
-              <span className="text-[9px] font-mono uppercase text-neutral-400 hidden min-[380px]:inline">
-                • 150 PCS / DESIGN
+              <span className="text-[10px] min-[360px]:text-[10.5px] font-mono font-bold uppercase tracking-wider text-neutral-200">
+                SAVE ₹{savingsAmount}
+              </span>
+            </div>
+
+            {/* Clear distinction: Limited-period offer vs Stock scarcity */}
+            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-0.5 text-[8.5px] min-[360px]:text-[9px] lg:text-[9.5px] font-mono uppercase tracking-wider pt-0.5">
+              <span className="text-neutral-400">
+                LIMITED-PERIOD OFFER · FIRST DROP
+              </span>
+              <span className="text-neutral-600 hidden min-[400px]:inline" aria-hidden="true">·</span>
+              <span className="text-neutral-300 font-semibold">
+                LIMITED RUN · 150 PIECES PER DESIGN
               </span>
             </div>
           </div>
 
-          {/* Conversion-Focused Shopping CTA & Launch Date */}
+          {/* F. Context-Aware CTA Button & Refined Launch Date */}
           <div className="pt-1 flex flex-col md:flex-col lg:flex-row md:items-start lg:items-center gap-2 md:gap-2 lg:gap-3.5">
             <button
               type="button"
               onClick={handleScroll}
               className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 md:py-2.5 lg:py-2.5 min-h-[44px] bg-white hover:bg-neutral-100 active:scale-[0.98] text-black text-xs font-mono font-bold uppercase tracking-wider rounded-sm transition-all duration-200 cursor-pointer shadow-md group shrink-0"
             >
-              <span>SHOP THE FIRST DROP</span>
+              <span>{ctaLabel}</span>
               <ArrowRight className="w-3.5 h-3.5 text-black transition-transform duration-200 group-hover:translate-x-0.5" />
             </button>
 
@@ -103,7 +135,7 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
             <div className="flex items-center justify-center md:justify-start gap-1.5 lg:pl-3 lg:border-l lg:border-neutral-800 text-neutral-400">
               <Calendar className="w-3.5 h-3.5 text-neutral-400 shrink-0 hidden lg:inline-block" aria-hidden="true" />
               <span className="text-[9.5px] lg:text-[10.5px] font-mono uppercase tracking-wider text-neutral-400 text-center md:text-left">
-                Launching 15 November onwards.
+                {launchDateNote}
               </span>
             </div>
           </div>

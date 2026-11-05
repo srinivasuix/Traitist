@@ -16,103 +16,85 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
     }
   };
 
+  const savingsAmount =
+    FIRST_DROP_REGULAR_PRICE && FIRST_DROP_LAUNCH_PRICE
+      ? FIRST_DROP_REGULAR_PRICE - FIRST_DROP_LAUNCH_PRICE
+      : 100;
+
   return (
     <section
       className="relative max-w-7xl mx-auto px-4 md:px-8 pt-5 sm:pt-6 pb-2"
       aria-label="Promotional Showcase - The First Drop"
     >
-      <div className="relative rounded-sm border border-neutral-800 shadow-xl overflow-hidden bg-neutral-950 flex flex-col md:flex-row md:items-center min-h-[260px] md:min-h-[260px] lg:min-h-[280px] xl:min-h-[290px]">
+      <div className="relative rounded-sm border border-neutral-800 overflow-hidden bg-[#111111] flex flex-col md:flex-row items-stretch min-h-[280px] md:min-h-[300px] lg:min-h-[320px]">
         {/* ========================================================
-            1. DESKTOP & TABLET PHOTOGRAPHY SHOWCASE (Pinned Right)
-            - Tablet (768px-1023px): Positioned object-[82%_center] to ensure all 4 models remain visible without text overlapping.
-            - Desktop (1024px+): Natural panoramic right-anchored composition matching approved editorial design.
-            - Fade: Pure black behind text on left, tapering off by ~48%, leaving all four models in natural daylight.
-            ======================================================== */}
-        <div className="hidden md:block absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none">
-          <img
-            src="/images/first_drop_editorial_banner.png"
-            alt="TRAITIST PhD Research Streetwear - Campus Editorial"
-            className="w-full h-full object-cover object-[82%_center] lg:object-right"
-          />
-          <div
-            className="absolute inset-0 bg-gradient-to-r from-black from-32% via-black/85 via-42% to-transparent to-52%"
-            aria-hidden="true"
-          />
-        </div>
-
-        {/* ========================================================
-            2. CONTENT BLOCK:
-            - Announcement: THE FIRST DROP · NOVEMBER 15
+            1. CONTENT BLOCK (Near-Black, Warm Off-White, Orange #F05A28)
+            - Kicker: THE FIRST DROP · NOVEMBER 15
             - Headline: A NEW DROP. A SPECIAL PRICE.
             - Subline: Your first chance to wear your research identity.
-            - Description: Celebrate the TRAITIST launch with our introductory offer.
-            - Offer: ₹799 instead of ₹899. Save ₹100.
-            - Action: SHOP THE FIRST DROP.
+            - Primary Price: ₹799
+            - Reference Price: ₹899 (crossed-out)
+            - Savings: SAVE ₹100
+            - Action: SHOP THE FIRST DROP
             ======================================================== */}
-        <div className="relative z-10 p-4 min-[360px]:p-5 sm:p-5 md:p-6 lg:p-7 xl:p-8 max-w-lg md:max-w-[340px] lg:max-w-[400px] xl:max-w-[440px] flex flex-col justify-center space-y-2 sm:space-y-2.5 md:space-y-2.5 lg:space-y-3">
-          {/* Launch announcement */}
-          <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 bg-[#FF5722] shrink-0" aria-hidden="true" />
-            <span className="text-[9.5px] min-[360px]:text-[10px] md:text-[9.5px] lg:text-[10.5px] font-mono uppercase tracking-widest text-[#FF5722] font-bold">
+        <div className="w-full md:w-[56%] lg:w-[54%] xl:w-[52%] p-5 sm:p-7 md:p-8 lg:p-10 flex flex-col justify-center space-y-3 sm:space-y-3.5 md:space-y-4">
+          {/* Monospace launch label */}
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-[#F05A28] shrink-0" aria-hidden="true" />
+            <span className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-[#F05A28] font-bold">
               THE FIRST DROP · NOVEMBER 15
             </span>
           </div>
 
-          {/* Headline */}
-          <h2 className="text-[20px] min-[360px]:text-[22px] min-[400px]:text-[24px] sm:text-2xl md:text-xl lg:text-2xl xl:text-[26px] font-black font-display tracking-tight uppercase leading-[1.02]">
-            <span className="block text-white">A NEW DROP.</span>
-            <span className="block text-[#FF5722]">A SPECIAL PRICE.</span>
+          {/* Bold geometric headline */}
+          <h2 className="text-2xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl font-black font-display tracking-tight uppercase leading-[1.02]">
+            <span className="block text-[#ECEBE6]">A NEW DROP.</span>
+            <span className="block text-[#F05A28]">A SPECIAL PRICE.</span>
           </h2>
 
-          {/* Brand subline */}
-          <p className="text-xs sm:text-[12.5px] md:text-xs lg:text-[13px] font-mono font-medium text-neutral-200">
+          {/* Supporting line */}
+          <p className="text-xs sm:text-sm font-mono text-[#ECEBE6]/85 leading-relaxed max-w-md">
             Your first chance to wear your research identity.
           </p>
 
-          {/* Product description & introductory offer */}
-          <p className="text-[11px] min-[360px]:text-[11.5px] md:text-[11px] lg:text-xs xl:text-[12px] font-mono text-neutral-400 leading-relaxed max-w-sm md:max-w-[320px]">
-            Celebrate the TRAITIST launch with our introductory offer. Get your favourite PhD-inspired graphic tees at special launch pricing.
-          </p>
-
-          {/* Offer — ₹799 instead of ₹899. Save ₹100. */}
-          <div className="flex items-baseline gap-2 pt-0.5">
-            <span className="text-2xl min-[360px]:text-[26px] sm:text-3xl md:text-2xl lg:text-[28px] font-black font-mono text-white tracking-tight">
+          {/* Pricing hierarchy: ₹799 primary + ₹899 crossed-out + SAVE ₹100 */}
+          <div className="flex items-baseline gap-2.5 sm:gap-3 pt-0.5">
+            <span className="text-3xl sm:text-4xl lg:text-[42px] font-black font-mono text-[#ECEBE6] tracking-tight">
               ₹{FIRST_DROP_LAUNCH_PRICE}
             </span>
             {FIRST_DROP_REGULAR_PRICE && (
-              <span className="text-xs sm:text-sm md:text-xs lg:text-sm font-mono text-neutral-400 line-through">
+              <span className="text-sm sm:text-base font-mono text-neutral-500 line-through">
                 ₹{FIRST_DROP_REGULAR_PRICE}
               </span>
             )}
-            <span className="text-[9.5px] min-[360px]:text-[10px] font-mono uppercase tracking-wider text-[#FF5722] font-bold">
-              • SAVE ₹100
+            <span className="text-xs sm:text-sm font-mono uppercase tracking-wider text-[#F05A28] font-bold">
+              • SAVE ₹{savingsAmount}
             </span>
           </div>
 
-          {/* Action — SHOP THE FIRST DROP */}
-          <div className="pt-1">
+          {/* Accessible Action Button */}
+          <div className="pt-1.5">
             <button
               type="button"
               onClick={handleScroll}
-              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 md:py-2 lg:py-2.5 min-h-[40px] md:min-h-[38px] lg:min-h-[42px] bg-white hover:bg-neutral-100 active:scale-[0.98] text-black text-xs font-mono font-bold uppercase tracking-wider rounded-sm transition-all duration-200 cursor-pointer shadow-md group shrink-0"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 md:py-3 min-h-[42px] bg-[#ECEBE6] hover:bg-white active:scale-[0.98] text-[#111111] text-xs font-mono font-bold uppercase tracking-wider rounded-sm transition-all duration-200 cursor-pointer shadow-md group shrink-0"
             >
               <span>SHOP THE FIRST DROP</span>
-              <ArrowRight className="w-3.5 h-3.5 text-black transition-transform duration-200 group-hover:translate-x-0.5" />
+              <ArrowRight className="w-3.5 h-3.5 text-[#111111] transition-transform duration-200 group-hover:translate-x-0.5" />
             </button>
           </div>
         </div>
 
         {/* ========================================================
-            3. MOBILE PHOTOGRAPHY SHOWCASE (< 768px)
-            High-prominence photography stage on mobile:
-            - Generous aspect ratio giving the models and T-shirt designs dominant visual prominence.
-            - Centered on the 4 student models wearing actual graphics.
-            - Natural daylight, authentic skin tones, crisp graphic readability.
+            2. PHOTOGRAPHY SHOWCASE (Clean, Crisp, Zero Gradient Mud)
+            - Partitioned column on desktop & tablet
+            - Clear natural daylight, authentic skin tones, readable t-shirts
+            - No fabric textures, no decorative badges, no gradients
             ======================================================== */}
-        <div className="md:hidden relative w-full aspect-[4/3] min-[400px]:aspect-[16/11] min-h-[250px] overflow-hidden border-t border-neutral-900 bg-neutral-950">
+        <div className="w-full md:w-[44%] lg:w-[46%] xl:w-[48%] relative min-h-[240px] sm:min-h-[280px] md:min-h-full overflow-hidden border-t md:border-t-0 md:border-l border-neutral-800 bg-[#0E0E0E]">
           <img
             src="/images/first_drop_editorial_banner.png"
-            alt="TRAITIST PhD Research Streetwear - Four students wearing graphic tees on campus steps"
+            alt="TRAITIST PhD Research Streetwear - Campus Editorial"
             className="w-full h-full object-cover object-[80%_center] select-none pointer-events-none"
             loading="eager"
           />

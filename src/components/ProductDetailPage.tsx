@@ -314,7 +314,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
           {/* RIGHT COLUMN: Product Info, Options & Purchasing (Directly Mirroring Reference) */}
           <div className="lg:col-span-5 flex flex-col">
-            {/* Breadcrumb with SKU & Design ID */}
+            {/* Breadcrumb with SKU */}
             <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono tracking-widest uppercase">
               <span className="text-neutral-500 font-semibold">SHOP / {product.category.toUpperCase()}</span>
               {product.sku && (
@@ -322,14 +322,6 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   <span className="text-neutral-300">•</span>
                   <span className="text-neutral-900 font-bold bg-neutral-200/90 px-1.5 py-0.5 rounded-xs">
                     SKU: {product.sku}
-                  </span>
-                </>
-              )}
-              {product.designId && (
-                <>
-                  <span className="text-neutral-300">•</span>
-                  <span className="text-neutral-600 font-medium">
-                    ID: {product.designId}
                   </span>
                 </>
               )}
@@ -497,14 +489,10 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 {openAccordions.description && (
                   <div id="accordion-panel-description" className="pb-4 text-xs text-neutral-700 font-sans leading-relaxed">
                     <p>{product.description}</p>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 pt-3 border-t border-neutral-200 font-mono text-[11px]">
+                    <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-neutral-200 font-mono text-[11px]">
                       <div>
                         <span className="text-neutral-500 text-[9px] block">SKU</span>
                         <span className="font-semibold text-neutral-900">{product.sku || 'TR-001'}</span>
-                      </div>
-                      <div>
-                        <span className="text-neutral-500 text-[9px] block">DESIGN ID</span>
-                        <span className="font-semibold text-neutral-900">{product.designId || 'DESIGN-001'}</span>
                       </div>
                       <div>
                         <span className="text-neutral-500 text-[9px] block">FABRIC</span>

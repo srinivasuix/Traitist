@@ -116,12 +116,6 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                     </span>
                   </>
                 )}
-                {product.designId && (
-                  <>
-                    <span>•</span>
-                    <span className="text-neutral-600 font-medium">ID: {product.designId}</span>
-                  </>
-                )}
               </div>
               <button
                 type="button"

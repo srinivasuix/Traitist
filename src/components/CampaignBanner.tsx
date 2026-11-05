@@ -66,7 +66,7 @@ export const CampaignBanner: React.FC<CampaignBannerProps> = ({ onExploreCollect
               </span>
               <p className="text-xs font-bold text-white mt-0.5">PhD Progress Tee</p>
               <p className="text-[11px] font-mono text-neutral-300 mt-0.5">
-                ₹ 599 • Expectation vs Reality
+                ₹ 799 • Expectation vs Reality
               </p>
             </div>
           )}
@@ -95,7 +95,7 @@ export const CampaignBanner: React.FC<CampaignBannerProps> = ({ onExploreCollect
               </span>
               <p className="text-xs font-bold text-white mt-0.5">Under Review After Death</p>
               <p className="text-[11px] font-mono text-neutral-300 mt-0.5">
-                ₹ 599 • Skeleton Peer Review
+                ₹ 799 • Skeleton Peer Review
               </p>
             </div>
           )}
@@ -124,7 +124,7 @@ export const CampaignBanner: React.FC<CampaignBannerProps> = ({ onExploreCollect
               </span>
               <p className="text-xs font-bold text-white mt-0.5">PhD Reality Pie Chart</p>
               <p className="text-[11px] font-mono text-neutral-300 mt-0.5">
-                ₹ 599 • What We Actually Are
+                ₹ 799 • What We Actually Are
               </p>
             </div>
           )}
@@ -153,7 +153,7 @@ export const CampaignBanner: React.FC<CampaignBannerProps> = ({ onExploreCollect
               </span>
               <p className="text-xs font-bold text-white mt-0.5">PhD Journey Milestone</p>
               <p className="text-[11px] font-mono text-neutral-300 mt-0.5">
-                ₹ 599 • Every Milestone Nightmare
+                ₹ 799 • Every Milestone Nightmare
               </p>
             </div>
           )}
@@ -182,7 +182,7 @@ export const CampaignBanner: React.FC<CampaignBannerProps> = ({ onExploreCollect
               </span>
               <p className="text-xs font-bold text-white mt-0.5">Blood Sweat Tears Coffee</p>
               <p className="text-[11px] font-mono text-neutral-300 mt-0.5">
-                ₹ 599 • Thesis Survival Grind
+                ₹ 799 • Thesis Survival Grind
               </p>
             </div>
           )}
@@ -211,7 +211,7 @@ export const CampaignBanner: React.FC<CampaignBannerProps> = ({ onExploreCollect
               </span>
               <p className="text-xs font-bold text-white mt-0.5">PhD Scholar Thoughts</p>
               <p className="text-[11px] font-mono text-neutral-300 mt-0.5">
-                ₹ 599 • Mind-Map Heavy Jersey
+                ₹ 799 • Mind-Map Heavy Jersey
               </p>
             </div>
           )}
@@ -236,12 +236,12 @@ export const CampaignBanner: React.FC<CampaignBannerProps> = ({ onExploreCollect
           </p>
           <div className="flex gap-2 overflow-x-auto no-scrollbar -mx-2 px-2 pb-1 touch-pan-x">
             {[
-              { id: 1, color: '#FFB300', title: 'PhD Progress', price: '₹ 599' },
-              { id: 2, color: '#38BDF8', title: 'Under Review', price: '₹ 599' },
-              { id: 3, color: '#A855F7', title: 'Reality Chart', price: '₹ 599' },
-              { id: 4, color: '#FFFFFF', title: 'Milestones', price: '₹ 599' },
-              { id: 5, color: '#FF5722', title: 'Coffee & Tears', price: '₹ 599' },
-              { id: 6, color: '#10B981', title: 'Scholar Thoughts', price: '₹ 599' },
+              { id: 1, color: '#FFB300', title: 'PhD Progress', price: '₹ 799' },
+              { id: 2, color: '#38BDF8', title: 'Under Review', price: '₹ 799' },
+              { id: 3, color: '#A855F7', title: 'Reality Chart', price: '₹ 799' },
+              { id: 4, color: '#FFFFFF', title: 'Milestones', price: '₹ 799' },
+              { id: 5, color: '#FF5722', title: 'Coffee & Tears', price: '₹ 799' },
+              { id: 6, color: '#10B981', title: 'Scholar Thoughts', price: '₹ 799' },
             ].map((look) => (
               <div
                 key={look.id}

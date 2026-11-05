@@ -94,14 +94,22 @@ export const Navbar: React.FC<NavbarProps> = ({
                 e.preventDefault();
                 onGoHome?.();
               }}
-              title="TRAITIST Studios Home"
-              aria-label="TRAITIST Studios Home"
+              title="TRAITIST™ Studios Home"
+              aria-label="TRAITIST™ Studios Home"
             >
-              <img
-                src={BRAND_LOGO_URL}
-                alt="TRAITIST - Threads of Resilience"
-                className="h-6 min-[360px]:h-7 min-[400px]:h-8 min-[480px]:h-10 sm:h-12 md:h-14 lg:h-16 w-auto max-w-[95px] min-[360px]:max-w-[120px] min-[400px]:max-w-[150px] min-[480px]:max-w-[200px] sm:max-w-[320px] md:max-w-[400px] object-contain inline-block transition-transform duration-300 group-hover:scale-105"
-              />
+              <div className="relative inline-flex items-start transition-transform duration-300 group-hover:scale-105">
+                <img
+                  src={BRAND_LOGO_URL}
+                  alt="TRAITIST™ - Threads of Resilience"
+                  className="h-6 min-[360px]:h-7 min-[400px]:h-8 min-[480px]:h-10 sm:h-12 md:h-14 lg:h-16 w-auto max-w-[95px] min-[360px]:max-w-[120px] min-[400px]:max-w-[150px] min-[480px]:max-w-[200px] sm:max-w-[320px] md:max-w-[400px] object-contain inline-block"
+                />
+                <span
+                  aria-label="Trademark"
+                  className="text-[6.5px] min-[360px]:text-[7.5px] min-[400px]:text-[8.5px] min-[480px]:text-[9.5px] sm:text-[10px] md:text-[11px] font-mono font-bold text-neutral-900 tracking-tighter select-none leading-none -ml-0.5 sm:-ml-1 -mt-0.5"
+                >
+                  ™
+                </span>
+              </div>
             </a>
           </div>
 
@@ -175,11 +183,19 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-neutral-300">
-                <img
-                  src={BRAND_LOGO_URL}
-                  alt="TRAITIST - Threads of Resilience"
-                  className="h-8 w-auto object-contain"
-                />
+                <div className="relative inline-flex items-start">
+                  <img
+                    src={BRAND_LOGO_URL}
+                    alt="TRAITIST™ - Threads of Resilience"
+                    className="h-8 w-auto object-contain"
+                  />
+                  <span
+                    aria-label="Trademark"
+                    className="text-[8px] font-mono font-bold text-neutral-900 tracking-tighter select-none leading-none -ml-0.5 -mt-0.5"
+                  >
+                    ™
+                  </span>
+                </div>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
                   className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"

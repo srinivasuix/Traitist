@@ -101,11 +101,19 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       <div className="flex flex-col items-center justify-center px-4 -mt-4 sm:-mt-6">
         {/* Animated Brand Logo Reveal */}
         <div className="relative flex flex-col items-center">
-          <img
-            src={BRAND_LOGO_URL}
-            alt="TRAITIST - Threads of Resilience"
-            className="h-10 min-[380px]:h-12 sm:h-20 md:h-24 w-auto max-w-[200px] min-[380px]:max-w-[260px] sm:max-w-[380px] object-contain transition-transform duration-700 ease-out scale-100"
-          />
+          <div className="relative inline-flex items-start">
+            <img
+              src={BRAND_LOGO_URL}
+              alt="TRAITIST™ - Threads of Resilience"
+              className="h-10 min-[380px]:h-12 sm:h-20 md:h-24 w-auto max-w-[200px] min-[380px]:max-w-[260px] sm:max-w-[380px] object-contain transition-transform duration-700 ease-out scale-100"
+            />
+            <span
+              aria-label="Trademark"
+              className="text-[9px] sm:text-xs md:text-sm font-mono font-bold text-neutral-900 tracking-tighter select-none leading-none -ml-0.5 sm:-ml-1 -mt-0.5 sm:-mt-1"
+            >
+              ™
+            </span>
+          </div>
           <p className="mt-3 sm:mt-4 text-[9px] min-[380px]:text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.2em] sm:tracking-[0.25em] text-neutral-600 text-center">
             HEAVYWEIGHT EDITORIAL STREETWEAR • NIGHT SHIFT
           </p>

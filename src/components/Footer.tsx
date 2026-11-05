@@ -173,17 +173,25 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
         {/* Monumental Brand Display Logo */}
         <div className="w-full text-center overflow-hidden select-none border-b border-neutral-300 pb-8">
           <div className="w-full flex items-center justify-center py-4">
-            <img
-              src={BRAND_LOGO_URL}
-              alt="TRAITIST - Threads of Resilience"
-              className="max-h-16 sm:max-h-24 md:max-h-32 w-auto mx-auto object-contain block opacity-90 hover:opacity-100 transition-opacity"
-            />
+            <div className="relative inline-flex items-start opacity-90 hover:opacity-100 transition-opacity">
+              <img
+                src={BRAND_LOGO_URL}
+                alt="TRAITIST™ - Threads of Resilience"
+                className="max-h-16 sm:max-h-24 md:max-h-32 w-auto mx-auto object-contain block"
+              />
+              <span
+                aria-label="Trademark"
+                className="text-[10px] sm:text-xs md:text-sm font-mono font-bold text-neutral-900 tracking-tighter select-none leading-none -ml-1 sm:-ml-1.5 -mt-0.5 sm:-mt-1"
+              >
+                ™
+              </span>
+            </div>
           </div>
         </div>
 
         {/* Legal & Copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between pt-8 text-[11px] font-mono text-neutral-600 uppercase gap-4 text-center sm:text-left">
-          <p>© 2026 TRAITIST</p>
+          <p>© 2026 TRAITIST™</p>
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-4 sm:gap-x-6 gap-y-2">
             <a className="hover:text-black transition" href="#terms">
               PRIVACY

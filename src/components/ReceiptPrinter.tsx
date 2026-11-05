@@ -329,6 +329,10 @@ export interface TraitistReceiptOrderData {
   currency?: string;
   paymentMethod: 'upi' | 'cod' | 'card';
   deliveryAddress?: string;
+  customerName?: string;
+  customerEmail?: string;
+  customerPhone?: string;
+  trackingNumber?: string;
 }
 
 interface TraitistReceiptPrinterProps {
@@ -538,13 +542,31 @@ export const TraitistReceiptPrinter: React.FC<TraitistReceiptPrinterProps> = ({
                 <span className="text-neutral-600">Order</span>
                 <span className="font-semibold text-neutral-900">{orderDisplayCode}</span>
               </div>
+              {orderData.customerName && (
+                <div className="flex justify-between">
+                  <span className="text-neutral-600">Guest</span>
+                  <span className="text-neutral-800 font-medium">{orderData.customerName}</span>
+                </div>
+              )}
+              {orderData.deliveryAddress && (
+                <div className="flex justify-between gap-2">
+                  <span className="text-neutral-600 shrink-0">Ship to</span>
+                  <span className="text-neutral-800 text-right truncate max-w-[200px]">{orderData.deliveryAddress}</span>
+                </div>
+              )}
+              {orderData.trackingNumber && (
+                <div className="flex justify-between">
+                  <span className="text-neutral-600">AWB Track #</span>
+                  <span className="text-neutral-900 font-bold tracking-wider">{orderData.trackingNumber}</span>
+                </div>
+              )}
               <div className="flex justify-between">
                 <span className="text-neutral-600">Paid with</span>
                 <span className="text-neutral-800">
                   {orderData.paymentMethod === 'upi'
-                    ? 'UPI •••• 8821'
+                    ? 'Instant UPI'
                     : orderData.paymentMethod === 'card'
-                    ? 'Visa •••• 4242'
+                    ? 'Card (Verified)'
                     : 'Cash on Delivery'}
                 </span>
               </div>

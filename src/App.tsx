@@ -35,6 +35,7 @@ export default function App() {
   });
   const [wishlistIds, setWishlistIds] = useState<string[]>(['cat-01', 'cat-02']);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCheckoutDirectly, setIsCheckoutDirectly] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
@@ -287,6 +288,7 @@ export default function App() {
               onAddToCart={handleAddToCart}
               onInstantBuy={(prod, size, qty) => {
                 handleAddToCart(prod, size, qty);
+                setIsCheckoutDirectly(true);
                 setIsCartOpen(true);
               }}
               isWishlisted={wishlistIds.includes(selectedProduct.id)}
@@ -346,7 +348,11 @@ export default function App() {
       {/* Floating Drawers & Modals */}
       <CartDrawer
         isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
+        initialCheckout={isCheckoutDirectly}
+        onClose={() => {
+          setIsCartOpen(false);
+          setIsCheckoutDirectly(false);
+        }}
         items={cartItems}
         onUpdateQuantity={handleUpdateQuantity}
         onUpdateSize={handleUpdateSize}

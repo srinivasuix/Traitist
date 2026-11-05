@@ -9,6 +9,7 @@ interface QuickViewModalProps {
   isWishlisted: boolean;
   onToggleWishlist: (product: Product) => void;
   onAddToCart: (product: Product, size: string, quantity: number) => void;
+  onInstantBuy?: (product: Product, size: string, quantity: number) => void;
   onOpenSizeGuide: () => void;
 }
 
@@ -18,6 +19,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
   isWishlisted,
   onToggleWishlist,
   onAddToCart,
+  onInstantBuy,
   onOpenSizeGuide,
 }) => {
   const [selectedSize, setSelectedSize] = useState('M');
@@ -43,7 +45,11 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
 
   const handleInstantBuy = () => {
     if (!product) return;
-    onAddToCart(product, selectedSize, quantity);
+    if (onInstantBuy) {
+      onInstantBuy(product, selectedSize, quantity);
+    } else {
+      onAddToCart(product, selectedSize, quantity);
+    }
     onClose();
   };
 
@@ -266,7 +272,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                 onClick={handleInstantBuy}
                 className="group w-full py-3 min-h-[46px] bg-[#FF5722] text-white text-xs font-mono uppercase tracking-widest font-bold rounded-sm hover:bg-[#e04818] transition-all duration-200 ease-out hover:scale-[1.01] active:scale-[0.97] cursor-pointer flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
               >
-                <span>Instant 1-Click Buy</span>
+                <span>Buy Now • Guest Checkout</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             )}

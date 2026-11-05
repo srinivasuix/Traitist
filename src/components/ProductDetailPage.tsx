@@ -465,7 +465,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               >
                 <BorderBeam size={100} duration={8} colorFrom="#ffffff" colorTo="#FFB300" />
                 <Zap className="w-4 h-4 fill-white relative z-10" />
-                <span className="relative z-10">1-CLICK INSTANT BUY • ₹ {(product.priceINR * quantity).toLocaleString()}</span>
+                <span className="relative z-10">BUY NOW • GUEST CHECKOUT</span>
                 <ArrowRight className="w-4 h-4 relative z-10 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             </div>

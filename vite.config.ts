@@ -11,9 +11,11 @@ export default defineConfig(() => {
       'import.meta.env.VITE_VERCEL_ENV': JSON.stringify(process.env.VERCEL_ENV || ''),
     },
     resolve: {
-      alias: {
-        '@': path.resolve(import.meta.dirname, '.'),
-      },
+      alias: [
+        { find: /^@\/components\/(.*)$/, replacement: path.resolve(import.meta.dirname, 'src/components/$1') },
+        { find: /^@\/lib\/(.*)$/, replacement: path.resolve(import.meta.dirname, 'src/lib/$1') },
+        { find: '@', replacement: path.resolve(import.meta.dirname, '.') },
+      ],
     },
     build: {
       chunkSizeWarningLimit: 1200,

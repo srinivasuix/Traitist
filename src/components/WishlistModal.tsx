@@ -1,5 +1,6 @@
-import React from 'react';
-import { X, Heart, Trash2, ShoppingBag } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { X, Heart, Trash2, ShoppingBag, Check } from 'lucide-react';
 import { Product } from '../data/products';
 
 interface WishlistModalProps {
@@ -19,6 +20,16 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
   onAddToCart,
   onSelectProduct,
 }) => {
+  const [addedIds, setAddedIds] = useState<Record<string, boolean>>({});
+
+  const handleAdd = (product: Product) => {
+    onAddToCart(product, 'M');
+    setAddedIds((prev) => ({ ...prev, [product.id]: true }));
+    setTimeout(() => {
+      setAddedIds((prev) => ({ ...prev, [product.id]: false }));
+    }, 1800);
+  };
+
   // Handle keyboard Escape
   React.useEffect(() => {
     if (!isOpen) return;
@@ -111,31 +122,61 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
                       <p className="text-[10px] font-mono text-neutral-600">
                         {product.edition || product.category} • {product.gsm}
                       </p>
-                      <p className="text-xs font-mono font-semibold text-neutral-900 mt-1">
-                        {product.isSecretDrop ? 'Soon' : price}
-                      </p>
+                      <div className="flex items-center gap-1.5 mt-1 font-mono">
+                        {product.regularPriceDisplayINR && !product.isSecretDrop && (
+                          <span className="text-[11px] text-neutral-400 line-through">
+                            {product.regularPriceDisplayINR}
+                          </span>
+                        )}
+                        <span className="text-xs font-bold text-neutral-950">
+                          {product.isSecretDrop ? 'Soon' : price}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2 shrink-0">
                     {!product.isSecretDrop && (
-                      <button
+                      <motion.button
                         type="button"
-                        onClick={() => onAddToCart(product, 'M')}
-                        aria-label={`Add size M of ${product.title} to bag`}
-                        className="p-2 min-h-[44px] rounded-sm bg-black text-white hover:bg-neutral-800 active:scale-[0.97] hover:scale-[1.01] transition-all duration-200 ease-out cursor-pointer flex items-center gap-1.5 text-xs font-mono font-semibold"
+                        whileHover={{ scale: 1.04 }}
+                        whileTap={{ scale: 0.92 }}
+                        transition={{ type: 'spring', stiffness: 450, damping: 20 }}
+                        onClick={() => handleAdd(product)}
+                        aria-label={addedIds[product.id] ? `Added ${product.title} to bag` : `Add size M of ${product.title} to bag`}
+                        className={`px-3 py-2 min-h-[40px] rounded-sm transition-colors duration-200 cursor-pointer flex items-center gap-1.5 text-xs font-mono font-bold shadow-xs ${
+                          addedIds[product.id]
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-neutral-950 text-white hover:bg-[#FF5722]'
+                        }`}
                       >
-                        <ShoppingBag className="w-3.5 h-3.5" aria-hidden="true" />
-                        <span className="hidden sm:inline">Add</span>
-                      </button>
+                        <motion.div
+                          key={addedIds[product.id] ? 'check' : 'bag'}
+                          initial={{ scale: 0.6, rotate: -20 }}
+                          animate={{ scale: [0.6, 1.25, 1], rotate: [-20, 0, 0] }}
+                          transition={{ type: 'spring', stiffness: 500, damping: 22 }}
+                          className="flex items-center"
+                        >
+                          {addedIds[product.id] ? (
+                            <Check className="w-3.5 h-3.5 text-white" aria-hidden="true" />
+                          ) : (
+                            <ShoppingBag className="w-3.5 h-3.5 text-white" aria-hidden="true" />
+                          )}
+                        </motion.div>
+                        <span>{addedIds[product.id] ? 'Added!' : 'Add'}</span>
+                      </motion.button>
                     )}
-                    <button
+
+                    <motion.button
+                      whileHover={{ scale: 1.15 }}
+                      whileTap={{ scale: 0.88 }}
+                      transition={{ type: 'spring', stiffness: 450, damping: 20 }}
                       onClick={() => onRemoveFromWishlist(product)}
                       aria-label={`Remove ${product.title} from wishlist`}
-                      className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-neutral-500 hover:text-[#FF5722] transition cursor-pointer"
+                      className="p-2 min-h-[40px] min-w-[40px] flex items-center justify-center text-neutral-500 hover:text-[#FF5722] hover:bg-neutral-200/60 rounded-sm transition cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" aria-hidden="true" />
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
               );

@@ -33,18 +33,18 @@ export const FaqCard: React.FC<{
 }> = ({ question, answer, category, className = '' }) => {
   return (
     <div
-      className={`flex flex-col justify-start p-6 sm:p-7 bg-white/95 rounded-sm border border-neutral-300 hover:border-black shadow-xs hover:shadow-md transition-all duration-300 w-[300px] sm:w-[380px] md:w-[420px] flex-shrink-0 text-left select-none ${className}`}
+      className={`flex flex-col justify-start p-5 sm:p-6 bg-[#DFDDD7]/50 hover:bg-[#DFDDD7]/80 rounded-sm border border-neutral-300/80 hover:border-neutral-900 transition-all duration-200 w-[290px] sm:w-[350px] md:w-[390px] flex-shrink-0 text-left select-none ${className}`}
     >
-      <div className="flex items-center gap-2 mb-2.5">
+      <div className="flex items-center gap-2 mb-2">
         <span className="w-1.5 h-1.5 bg-[#FF5722] shrink-0" aria-hidden="true" />
-        <span className="font-mono text-[10px] uppercase tracking-widest text-[#FF5722] font-bold">
+        <span className="font-mono text-[10px] uppercase tracking-wider text-neutral-600 font-semibold">
           {category || 'PHD COLLECTION // ARCHIVE'}
         </span>
       </div>
-      <h3 className="font-display font-bold text-base sm:text-lg text-neutral-950 tracking-tight leading-snug">
+      <h3 className="font-display font-bold text-sm sm:text-base text-neutral-950 tracking-tight leading-snug">
         {question}
       </h3>
-      <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed mt-2.5">
+      <p className="font-sans text-xs text-neutral-600 leading-relaxed mt-2">
         {answer}
       </p>
     </div>
@@ -91,23 +91,29 @@ export const FaqSection: React.FC<{
   className?: string;
 }> = ({ data, className = '' }) => {
   return (
-    <section className={`relative flex flex-col items-center gap-8 sm:gap-10 py-12 sm:py-16 w-full max-w-7xl mx-auto px-4 overflow-hidden ${className}`}>
-      <div className="flex flex-col items-center text-center z-10 max-w-2xl px-4">
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <span className="w-1.5 h-1.5 bg-[#FF5722] shrink-0" aria-hidden="true" />
-          <span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-[#FF5722] font-bold">
-            {data.smallLabel || 'FREQUENTLY ASKED QUESTIONS'}
-          </span>
+    <section
+      className={`relative flex flex-col gap-6 sm:gap-7 py-8 sm:py-10 w-full max-w-7xl mx-auto px-4 md:px-8 overflow-hidden ${className}`}
+    >
+      {/* Sleek, Store-Consistent Section Header (Matches ProductGrid layout, removes oversized landing-page hero block) */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-neutral-300 pb-4 gap-3">
+        <div>
+          <div className="flex items-center gap-1.5 mb-1.5">
+            <span className="w-1.5 h-1.5 bg-[#FF5722] shrink-0" aria-hidden="true" />
+            <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-600 font-semibold">
+              {data.smallLabel || 'THE IMPORTANT STUFF · NO PEER REVIEW REQUIRED'}
+            </span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-neutral-950 uppercase leading-tight">
+            {data.mainTitle}
+          </h2>
         </div>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-neutral-950 uppercase tracking-tight leading-tight">
-          {data.mainTitle}
-        </h2>
-        <p className="text-xs sm:text-sm font-sans text-neutral-600 mt-2.5 leading-relaxed max-w-xl">
+        <p className="text-xs text-neutral-600 font-sans max-w-md sm:text-right leading-relaxed">
           {data.mainSubtitle}
         </p>
       </div>
 
-      <div className="flex flex-col gap-5 sm:gap-6 z-10 w-full">
+      {/* 2 Continuous Horizontal Scroller Rows */}
+      <div className="flex flex-col gap-3.5 sm:gap-4 z-10 w-full">
         {data.rows.map((row) => (
           <HorizontalScroller key={row.id} speed={row.speed} direction={row.direction}>
             {row.faqItems.map((item) => (

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ArrowUp, Instagram, Youtube, Twitter, Check } from 'lucide-react';
+import React from 'react';
+import { ArrowUp, Instagram, Youtube, Twitter } from 'lucide-react';
 import { BRAND_LOGO_URL } from '../data/products';
 
 interface FooterProps {
@@ -8,68 +8,29 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide, onOpenNotFound }) => {
-  const [quickEmail, setQuickEmail] = useState('');
-  const [signedUp, setSignedUp] = useState(false);
-
-  const handleQuickSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (quickEmail && quickEmail.includes('@')) {
-      setSignedUp(true);
-      setQuickEmail('');
-    }
-  };
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <footer
-      className="border-t border-neutral-300 pt-16 pb-12 px-4 md:px-8 bg-[#ECEBE6]"
+      className="border-t border-neutral-300/80 pt-12 pb-10 px-4 md:px-8 bg-[#ECEBE6]"
       data-purpose="site-footer"
     >
       <div className="max-w-7xl mx-auto">
         {/* Top Columns */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-          {/* Studio Info & Quick Box */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+          {/* Studio Info */}
           <div className="col-span-2 md:col-span-1">
-            <p className="text-xs font-mono font-semibold text-neutral-900 uppercase mb-3">
-              TRAITIST STUDIOS • TORONTO
+            <p className="text-xs font-mono font-semibold text-neutral-900 uppercase mb-2.5">
+              TRAITIST STUDIOS
             </p>
-            <p className="text-xs text-neutral-600 mb-4 leading-relaxed font-sans">
-              Heavyweight streetwear in limited drops.
-              <br />
-              All releases announced to the list first.
+            <p className="text-xs text-neutral-600 leading-relaxed font-sans max-w-xs">
+              Academic survival streetwear cut from 200 GSM heavyweight combed cotton. Limited drops engineered for researchers, scholars, and late-night writers.
             </p>
-
-            {signedUp ? (
-              <p className="text-xs font-mono text-[#10B981] font-semibold flex items-center">
-                <Check className="w-3.5 h-3.5 inline mr-1 text-[#10B981]" aria-hidden="true" />
-                <span>Joined the early drop list.</span>
-              </p>
-            ) : (
-              <form onSubmit={handleQuickSubmit} className="flex items-center w-full max-w-xs">
-                <label htmlFor="footer-quick-email" className="visually-hidden">
-                  Email for early drop list
-                </label>
-                <input
-                  id="footer-quick-email"
-                  className="bg-[#DFDDD7] border border-neutral-300 text-xs px-3 py-2 flex-grow min-w-0 placeholder-neutral-500 focus:outline-none focus:border-black font-mono min-h-[44px]"
-                  placeholder="Email for the list"
-                  type="email"
-                  autoComplete="email"
-                  value={quickEmail}
-                  onChange={(e) => setQuickEmail(e.target.value)}
-                  required
-                />
-                <button
-                  type="submit"
-                  className="bg-black text-white text-xs px-4 py-2 font-semibold hover:bg-neutral-800 transition cursor-pointer font-mono min-h-[44px] shrink-0"
-                >
-                  JOIN
-                </button>
-              </form>
-            )}
+            <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-wider mt-3">
+              EST. 2026 // THREADS OF RESILIENCE
+            </p>
           </div>
 
           {/* Shop Links */}

@@ -21,18 +21,18 @@ export const NewsletterSection: React.FC = () => {
 
   return (
     <section
-      className="relative max-w-4xl mx-auto px-4 py-14 sm:py-20 md:py-24 text-center overflow-hidden"
+      className="relative max-w-3xl mx-auto px-4 pt-10 sm:pt-14 pb-12 sm:pb-16 text-center overflow-hidden"
       data-purpose="newsletter-subscription"
       id="newsletter"
     >
-      {/* Magic UI Ambient Background */}
+      {/* Magic UI Ambient Background with subtle edge fade */}
       <DotPattern
         width={22}
         height={22}
         cx={1}
         cy={1}
         cr={1}
-        className="opacity-30 [mask-image:radial-gradient(circle_at_center,white,transparent_80%)]"
+        className="opacity-20 [mask-image:radial-gradient(ellipse_at_center,white_30%,transparent_75%)]"
       />
 
       <div className="relative z-10">
@@ -46,13 +46,13 @@ export const NewsletterSection: React.FC = () => {
         </BlurFade>
 
         <BlurFade delay={0.1} inView>
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold font-display tracking-tight text-neutral-950 uppercase mb-4 leading-tight max-w-3xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-display tracking-tight text-neutral-950 uppercase mb-2.5 leading-tight max-w-xl mx-auto">
             BEAT YOUR SUPERVISOR TO THE DROP.
           </h2>
         </BlurFade>
 
         <BlurFade delay={0.15} inView>
-          <p className="text-xs md:text-sm text-neutral-600 max-w-lg mx-auto mb-8 leading-relaxed font-sans">
+          <p className="text-xs sm:text-sm text-neutral-600 max-w-md mx-auto mb-6 leading-relaxed font-sans">
             Get 24-hour early access, secret drop codes and PhD-approved streetwear. Finally, an email worth opening.
           </p>
         </BlurFade>

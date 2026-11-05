@@ -321,3 +321,4 @@ Use this practical decision checklist to approve milestone transitions:
 1. Review the refined live website at `http://localhost:3000/`.
 2. Connect production Shopify Storefront API keys when your Shopify admin store is configured.
 3. Proceed to public launch.
+

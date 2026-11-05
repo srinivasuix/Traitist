@@ -160,6 +160,8 @@ Traitist/
 | **ISS-05** | Technical SEO | **P2 (Medium)** | `index.html` | Missing Open Graph image, site name, theme color, and JSON-LD structured data. | Injected meta tags and Schema.org `ClothingStore` JSON-LD payload. |
 | **ISS-06** | Responsive UX | **P1 (High)** | `src/components/FirstDropBanner.tsx` | Dark overlay on promotional banner obscured student models and T-shirt graphics on mobile. | Created 3-tier dedicated responsive layout with unhindered mobile photography block. |
 | **ISS-07** | Responsive UX | **P1 (High)** | `src/components/ProductGrid.tsx` | Catalog grid displayed single column or uneven specs on smaller viewports. | Standardized responsive grid: 2 cols (mobile) → 3 cols (tablet) → 4 cols (desktop). |
+| **ISS-08** | UX / State | **P2 (Medium)** | `src/components/CartDrawer.tsx` | Closing drawer during guest checkout left state stuck on checkout for subsequent cart opens. | Added automatic cleanup effect and reset handler to return to bag view on drawer close. |
+| **ISS-09** | UI / Pricing | **P2 (Medium)** | `src/components/HeroRotator.tsx` | Hero rotator displayed plain price without crossed-out regular price comparison. | Synchronized pricing presentation with catalog grid (`₹799` and crossed out `₹899`). |
 
 ---
 

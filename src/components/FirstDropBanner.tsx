@@ -1,6 +1,5 @@
 import React from 'react';
-import { ArrowDown } from 'lucide-react';
-import { FIRST_DROP_LAUNCH_PRICE, FIRST_DROP_REGULAR_PRICE } from '../data/products';
+import { ArrowRight, Calendar } from 'lucide-react';
 
 interface FirstDropBannerProps {
   onExplore?: () => void;
@@ -19,70 +18,84 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
   return (
     <section
       className="relative max-w-7xl mx-auto px-4 md:px-8 pt-8 pb-4"
-      aria-label="The First Drop Launch Offer"
+      aria-label="The First Drop Limited Launch Offer"
     >
-      <div className="relative rounded-sm border border-neutral-800 shadow-xl overflow-hidden min-h-[340px] sm:min-h-[380px] md:min-h-[400px] flex items-center bg-neutral-950">
+      <div className="relative rounded-sm border border-neutral-800 shadow-2xl overflow-hidden min-h-[460px] sm:min-h-[500px] md:min-h-[540px] flex items-center bg-black">
         {/* Editorial Background Image with Models */}
         <img
           src="/images/first_drop_editorial_banner.png"
-          alt="TRAITIST PhD Research Streetwear Collection"
+          alt="TRAITIST PhD Research Streetwear - Campus Editorial"
           className="absolute inset-0 w-full h-full object-cover object-right md:object-right-top select-none pointer-events-none"
         />
 
-        {/* Cinematic Linear & Radial Gradients to ensure pristine text contrast */}
+        {/* Cinematic Linear Gradients to match the high-contrast mockup */}
         <div
-          className="absolute inset-0 bg-gradient-to-r from-black via-black/85 md:via-black/75 to-transparent pointer-events-none"
+          className="absolute inset-0 bg-gradient-to-r from-black via-black/90 md:via-black/80 to-transparent pointer-events-none"
           aria-hidden="true"
         />
         <div
-          className="absolute inset-0 bg-black/30 md:bg-transparent pointer-events-none"
+          className="absolute inset-0 bg-black/40 sm:bg-black/20 pointer-events-none"
           aria-hidden="true"
         />
 
-        {/* Content Container */}
-        <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12 max-w-xl md:max-w-2xl flex flex-col justify-between h-full">
-          <div className="space-y-2.5 sm:space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#FF5722] animate-pulse" aria-hidden="true" />
-              <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-[#FF5722] font-bold">
-                THE FIRST DROP.
-              </span>
-            </div>
-
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-black font-display tracking-tight text-white leading-tight">
-              Your Research. <br className="hidden sm:inline" />Your Identity.
-            </h2>
-
-            <p className="text-xs sm:text-sm text-neutral-300 font-sans leading-relaxed max-w-lg">
-              Celebrate the PhD journey with our first collection of academic-inspired streetwear.
-            </p>
+        {/* Foreground Content Block */}
+        <div className="relative z-10 p-6 sm:p-10 md:p-12 lg:p-16 max-w-xl md:max-w-2xl flex flex-col justify-center space-y-6 sm:space-y-7">
+          {/* Tag: THE FIRST DROP • LIMITED LAUNCH OFFER */}
+          <div className="flex items-center gap-2.5 text-xs sm:text-[13px] font-mono uppercase tracking-widest text-neutral-300 font-bold">
+            <span className="text-white">THE FIRST DROP</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5722]" aria-hidden="true" />
+            <span className="text-neutral-300">LIMITED LAUNCH OFFER</span>
           </div>
 
-          <div className="pt-6 mt-6 border-t border-white/20 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-            <div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 block font-semibold">
-                SPECIAL LAUNCH OFFER
-              </span>
-              <p className="text-xs sm:text-sm font-mono font-bold text-white mt-0.5">
-                INTRODUCTORY PRICE <span className="text-[#FF5722] font-extrabold">₹{FIRST_DROP_LAUNCH_PRICE}</span>{' '}
-                <span className="text-neutral-400 line-through font-normal text-xs">
-                  (Regular ₹{FIRST_DROP_REGULAR_PRICE})
-                </span>
-              </p>
-            </div>
+          {/* Monumental Headline: YOUR RESEARCH. YOUR IDENTITY. */}
+          <h2 className="text-3xl min-[400px]:text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-black font-display tracking-tight uppercase leading-[0.95]">
+            <span className="block text-white">YOUR RESEARCH.</span>
+            <span className="block text-[#FF5722]">YOUR IDENTITY.</span>
+          </h2>
 
+          {/* Subtitle */}
+          <p className="text-xs sm:text-sm md:text-base font-mono text-neutral-300 leading-relaxed max-w-lg">
+            Academic-inspired streetwear for<br className="hidden sm:inline" /> PhD thinkers and changemakers.
+          </p>
+
+          {/* Price & Offer Block */}
+          <div className="space-y-2 pt-1 sm:pt-2">
+            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-neutral-400 block font-bold">
+              EXCLUSIVE LAUNCH PRICE
+            </span>
+            <div className="flex items-baseline sm:items-center gap-3 sm:gap-4 flex-wrap">
+              <span className="text-4xl min-[400px]:text-5xl sm:text-6xl font-black font-mono text-[#FF5722] tracking-tight">
+                ₹799
+              </span>
+              <span className="text-xl sm:text-2xl font-mono text-neutral-400 line-through">
+                ₹899
+              </span>
+              <span className="bg-[#FF5722] text-white font-mono font-bold text-xs sm:text-sm px-3.5 py-1.5 rounded-sm tracking-wider uppercase shadow-md self-center">
+                SAVE ₹100
+              </span>
+            </div>
+          </div>
+
+          {/* Bottom Action Row: Button & Launch Date Notice */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 pt-3 sm:pt-4">
             <button
               type="button"
               onClick={handleScroll}
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[44px] bg-white hover:bg-neutral-100 text-black text-xs font-mono font-bold uppercase tracking-wider rounded-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-lg group"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white hover:bg-neutral-100 text-black text-xs sm:text-sm font-mono font-bold uppercase tracking-wider rounded-md transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-lg group"
             >
               <span>EXPLORE THE FIRST DROP</span>
-              <ArrowDown className="w-3.5 h-3.5 text-neutral-900 transition-transform duration-200 group-hover:translate-y-0.5" />
+              <ArrowRight className="w-4 h-4 text-black transition-transform duration-200 group-hover:translate-x-1" />
             </button>
+
+            <div className="flex items-center gap-3 sm:pl-5 sm:border-l sm:border-neutral-700/80 text-neutral-300">
+              <Calendar className="w-5 h-5 text-white shrink-0" aria-hidden="true" />
+              <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-neutral-200 font-bold">
+                LAUNCHING 15 NOVEMBER ONWARDS
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
 };
-

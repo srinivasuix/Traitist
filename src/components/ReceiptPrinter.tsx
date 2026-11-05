@@ -491,7 +491,7 @@ export const TraitistReceiptPrinter: React.FC<TraitistReceiptPrinterProps> = ({
                       <span>{formatPrice(itemPrice * item.quantity)}</span>
                     </div>
                     <div className="text-[11px] text-neutral-500 mt-0.5">
-                      Size {item.size} {item.quantity > 1 ? `· Qty: ${item.quantity}` : ''} · Heavyweight
+                      Size {item.size} {item.quantity > 1 ? `· Qty: ${item.quantity}` : ''} {item.product.sku ? `· SKU: ${item.product.sku}` : ''} · Heavyweight
                     </div>
                   </div>
                 );

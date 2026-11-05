@@ -169,7 +169,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                     onClick={(e) => e.stopPropagation()}
                   >
                     <div className="flex items-center gap-1.5" role="group" aria-label={`Sizes for ${product.title}`}>
-                      {['S', 'M', 'L', 'XL'].map((size) => (
+                      {(product.sizes || ['S', 'M', 'L', 'XL', 'XXL']).map((size) => (
                         <button
                           key={size}
                           type="button"
@@ -234,7 +234,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                       {product.title}
                     </h3>
                     <p className="text-[10px] font-mono text-neutral-600 uppercase mt-0.5">
-                      {product.edition || product.category}
+                      {product.sku ? `${product.sku} • ` : ''}{product.edition || product.category}
                     </p>
                   </div>
                   <span className="text-xs font-mono font-semibold text-neutral-900 whitespace-nowrap">

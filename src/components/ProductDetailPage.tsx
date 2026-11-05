@@ -17,7 +17,7 @@ import {
   ArrowRight,
   X,
 } from 'lucide-react';
-import { Product, CATALOG_PRODUCTS } from '../data/products';
+import { Product, CATALOG_PRODUCTS, DEFAULT_SIZES, SIZE_TO_VARIANT } from '../data/products';
 import { BorderBeam } from './magicui/border-beam';
 
 interface ProductDetailPageProps {
@@ -314,9 +314,25 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
           {/* RIGHT COLUMN: Product Info, Options & Purchasing (Directly Mirroring Reference) */}
           <div className="lg:col-span-5 flex flex-col">
-            {/* Breadcrumb */}
-            <div className="text-[10px] font-mono tracking-widest text-neutral-400 uppercase">
-              SHOP / {product.category.toUpperCase()}
+            {/* Breadcrumb with SKU & Design ID */}
+            <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono tracking-widest uppercase">
+              <span className="text-neutral-500 font-semibold">SHOP / {product.category.toUpperCase()}</span>
+              {product.sku && (
+                <>
+                  <span className="text-neutral-300">•</span>
+                  <span className="text-neutral-900 font-bold bg-neutral-200/90 px-1.5 py-0.5 rounded-xs">
+                    SKU: {product.sku}
+                  </span>
+                </>
+              )}
+              {product.designId && (
+                <>
+                  <span className="text-neutral-300">•</span>
+                  <span className="text-neutral-600 font-medium">
+                    ID: {product.designId}
+                  </span>
+                </>
+              )}
             </div>
 
             {/* Title */}
@@ -325,7 +341,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             </h1>
 
             {/* Price */}
-            <div className="text-lg sm:text-xl font-mono text-neutral-900 mt-2">
+            <div className="text-lg sm:text-xl font-mono text-neutral-900 mt-2 font-bold">
               ₹ {product.priceINR.toLocaleString()}
             </div>
 
@@ -335,14 +351,14 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             {/* Colour Section */}
             <div className="space-y-2">
               <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 font-semibold block">
-                COLOUR: {cleanColor}
+                COLOUR: {product.colorway || cleanColor}
               </span>
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   className="w-6 h-6 rounded-full bg-neutral-900 ring-2 ring-offset-2 ring-neutral-950 transition cursor-default"
-                  title={cleanColor}
-                  aria-label={`Color ${cleanColor}`}
+                  title={product.colorway || cleanColor}
+                  aria-label={`Color ${product.colorway || cleanColor}`}
                 />
               </div>
             </div>
@@ -350,11 +366,11 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             {/* Divider */}
             <hr className="border-neutral-300/80 my-4" />
 
-            {/* Size Section */}
+            {/* Size Section with Variants */}
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 font-semibold">
-                  SIZE {selectedSize}
+                  VARIANT: <span className="text-neutral-900 font-bold">{SIZE_TO_VARIANT[selectedSize] || selectedSize}</span> ({selectedSize})
                 </span>
                 <button
                   onClick={onOpenSizeGuide}
@@ -367,14 +383,14 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               </div>
 
               {/* Size Buttons Grid */}
-              <div className="flex items-center gap-2" role="group" aria-label="Sizes">
-                {['S', 'M', 'L', 'XL'].map((size) => (
+              <div className="flex items-center gap-2 flex-wrap" role="group" aria-label="Sizes">
+                {(product.sizes || DEFAULT_SIZES).map((size) => (
                   <button
                     key={size}
                     type="button"
                     onClick={() => setSelectedSize(size)}
                     aria-pressed={selectedSize === size}
-                    className={`w-10 h-10 text-xs font-mono uppercase font-bold rounded flex items-center justify-center transition cursor-pointer ${
+                    className={`min-w-[42px] h-10 px-2.5 text-xs font-mono uppercase font-bold rounded flex items-center justify-center transition cursor-pointer ${
                       selectedSize === size
                         ? 'bg-neutral-950 text-white shadow-xs'
                         : 'bg-white/60 border border-neutral-300 text-neutral-900 hover:border-black'
@@ -481,7 +497,15 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 {openAccordions.description && (
                   <div id="accordion-panel-description" className="pb-4 text-xs text-neutral-700 font-sans leading-relaxed">
                     <p>{product.description}</p>
-                    <div className="grid grid-cols-2 gap-2 mt-3 pt-3 border-t border-neutral-200 font-mono text-[11px]">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 pt-3 border-t border-neutral-200 font-mono text-[11px]">
+                      <div>
+                        <span className="text-neutral-500 text-[9px] block">SKU</span>
+                        <span className="font-semibold text-neutral-900">{product.sku || 'TR-001'}</span>
+                      </div>
+                      <div>
+                        <span className="text-neutral-500 text-[9px] block">DESIGN ID</span>
+                        <span className="font-semibold text-neutral-900">{product.designId || 'DESIGN-001'}</span>
+                      </div>
                       <div>
                         <span className="text-neutral-500 text-[9px] block">FABRIC</span>
                         <span className="font-semibold text-neutral-900">{product.fabric}</span>

@@ -1,5 +1,7 @@
 export interface Product {
   id: string;
+  sku?: string;
+  designId?: string;
   title: string;
   priceUSD: number;
   priceINR: number;
@@ -16,7 +18,28 @@ export interface Product {
   isSecretDrop?: boolean;
   blendMode?: 'normal' | 'multiply';
   scale?: number;
+  variants?: string[];
+  sizes?: string[];
 }
+
+export const DEFAULT_VARIANTS = ["Small", "Medium", "Large", "XL", "XXL"] as const;
+export const DEFAULT_SIZES = ["S", "M", "L", "XL", "XXL"] as const;
+
+export const SIZE_TO_VARIANT: Record<string, string> = {
+  S: "Small",
+  M: "Medium",
+  L: "Large",
+  XL: "XL",
+  XXL: "XXL",
+};
+
+export const VARIANT_TO_SIZE: Record<string, string> = {
+  Small: "S",
+  Medium: "M",
+  Large: "L",
+  XL: "XL",
+  XXL: "XXL",
+};
 
 export interface LookItem {
   id: string;
@@ -39,12 +62,14 @@ export const BRAND_LOGO_RAW_URL = "/assets/aistudio/Blend_b48afb1a.png";
 export const ROTATOR_PRODUCTS: Product[] = [
   {
     id: "01",
+    sku: "TR-001",
+    designId: "DESIGN-001",
     title: "PhD Progress Tee",
-    priceUSD: 48.0,
-    priceINR: 599,
-    priceDisplayUSD: "$48.00",
-    priceDisplayINR: "₹ 599",
-    colorway: "PITCH BLACK • EDITION 01",
+    priceUSD: 59.0,
+    priceINR: 799,
+    priceDisplayUSD: "$59.00",
+    priceDisplayINR: "₹ 799",
+    colorway: "Black",
     edition: "EDITION 01 • EXPECTATION VS REALITY",
     badge: "FLAGSHIP",
     category: "PhD Series",
@@ -54,9 +79,13 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     id: "02",
+    sku: "TR-002",
+    designId: "DESIGN-002",
     title: "PhD Scholar Thoughts (Femme)",
     priceUSD: 48.0,
     priceINR: 599,
@@ -72,9 +101,13 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     id: "03",
+    sku: "TR-003",
+    designId: "DESIGN-003",
     title: "PhD Scholar Thoughts (Color Core)",
     priceUSD: 48.0,
     priceINR: 599,
@@ -90,9 +123,13 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     id: "04",
+    sku: "TR-004",
+    designId: "DESIGN-004",
     title: "PhD Milestone Nightmare Tee",
     priceUSD: 48.0,
     priceINR: 599,
@@ -107,9 +144,13 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Super-Combed Cotton",
     blendMode: "normal",
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     id: "05",
+    sku: "TR-005",
+    designId: "DESIGN-005",
     title: "PhD Reality Pie Chart Tee",
     priceUSD: 48.0,
     priceINR: 599,
@@ -124,9 +165,13 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     id: "06",
+    sku: "TR-006",
+    designId: "DESIGN-006",
     title: "Blood Sweat Tears Coffee (Femme)",
     priceUSD: 48.0,
     priceINR: 599,
@@ -141,9 +186,13 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Combed Compact Cotton",
     blendMode: "normal",
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     id: "07",
+    sku: "TR-007",
+    designId: "DESIGN-007",
     title: "Blood Sweat Tears Coffee (Classic)",
     priceUSD: 48.0,
     priceINR: 599,
@@ -158,9 +207,13 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Pure Combed Cotton",
     blendMode: "normal",
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     id: "08",
+    sku: "TR-008",
+    designId: "DESIGN-008",
     title: "Under Review After Death Tee",
     priceUSD: 48.0,
     priceINR: 599,
@@ -176,18 +229,22 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Heavy Combed Cotton",
     blendMode: "normal",
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
 ];
 
 export const CATALOG_PRODUCTS: Product[] = [
   {
     id: "cat-01",
+    sku: "TR-001",
+    designId: "DESIGN-001",
     title: "PhD Progress Tee",
-    priceUSD: 48,
-    priceINR: 599,
-    priceDisplayUSD: "$48.00",
-    priceDisplayINR: "₹ 599",
-    colorway: "PITCH BLACK",
+    priceUSD: 59,
+    priceINR: 799,
+    priceDisplayUSD: "$59.00",
+    priceDisplayINR: "₹ 799",
+    colorway: "Black",
     edition: "EDITION 01 • EXPECTATION VS REALITY",
     badge: "FLAGSHIP",
     category: "PhD Series",
@@ -198,9 +255,13 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Pure Bio-Washed Cotton",
     blendMode: "normal",
     scale: 1.15,
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     id: "cat-02",
+    sku: "TR-002",
+    designId: "DESIGN-002",
     title: "PhD Scholar Thoughts (Femme)",
     priceUSD: 48,
     priceINR: 599,
@@ -217,9 +278,13 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Super-Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     id: "cat-03",
+    sku: "TR-003",
+    designId: "DESIGN-003",
     title: "PhD Scholar Thoughts (Color Core)",
     priceUSD: 48,
     priceINR: 599,
@@ -236,9 +301,13 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     id: "cat-04",
+    sku: "TR-004",
+    designId: "DESIGN-004",
     title: "PhD Milestone Nightmare Tee",
     priceUSD: 48,
     priceINR: 599,
@@ -254,9 +323,13 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     id: "cat-05",
+    sku: "TR-005",
+    designId: "DESIGN-005",
     title: "PhD Reality Pie Chart Tee",
     priceUSD: 48,
     priceINR: 599,
@@ -272,9 +345,13 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Pure Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     id: "cat-06",
+    sku: "TR-006",
+    designId: "DESIGN-006",
     title: "Blood Sweat Tears Coffee (Femme)",
     priceUSD: 48,
     priceINR: 599,
@@ -290,9 +367,13 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     id: "cat-07",
+    sku: "TR-007",
+    designId: "DESIGN-007",
     title: "Blood Sweat Tears Coffee (Classic)",
     priceUSD: 48,
     priceINR: 599,
@@ -308,9 +389,13 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Pure Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     id: "cat-08",
+    sku: "TR-008",
+    designId: "DESIGN-008",
     title: "Under Review After Death Tee",
     priceUSD: 48,
     priceINR: 599,
@@ -327,6 +412,8 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
+    variants: ["Small", "Medium", "Large", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],
   },
 ];
 

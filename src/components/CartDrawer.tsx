@@ -449,7 +449,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                             </span>
                           </div>
                           <p className="text-[11px] text-neutral-500 mt-0.5 font-sans">
-                            Colour: {getCleanColor(item.product.colorway)}, Size: {item.size}
+                            Colour: {getCleanColor(item.product.colorway)}, Size: {item.size} {item.product.sku ? `· ${item.product.sku}` : ''}
                           </p>
 
                           {/* Stepper & Trash Controls */}
@@ -609,10 +609,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                                 className="w-full text-[11px] font-mono py-1 px-2 border border-neutral-300 bg-white rounded-sm text-neutral-800 appearance-none pr-6 cursor-pointer focus:outline-none focus:border-black"
                                 aria-label={`Select size for ${prod.title}`}
                               >
-                                <option value="S">Size S</option>
-                                <option value="M">Size M</option>
-                                <option value="L">Size L</option>
+                                <option value="S">Size S (Small)</option>
+                                <option value="M">Size M (Medium)</option>
+                                <option value="L">Size L (Large)</option>
                                 <option value="XL">Size XL</option>
+                                <option value="XXL">Size XXL</option>
                               </select>
                               <ChevronDown className="w-3 h-3 text-neutral-500 absolute right-1.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                             </div>

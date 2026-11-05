@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Heart, ShieldCheck, Truck, RefreshCw, Plus, Minus, ArrowRight } from 'lucide-react';
-import { Product } from '../data/products';
+import { Product, DEFAULT_SIZES, SIZE_TO_VARIANT } from '../data/products';
 
 interface QuickViewModalProps {
   product: Product | null;
@@ -106,9 +106,23 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
         <div className="w-full md:w-1/2 p-5 sm:p-8 flex flex-col justify-between overflow-y-auto">
           <div>
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-600 font-semibold">
-                {product.edition || product.category}
-              </span>
+              <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono tracking-widest text-neutral-600 uppercase font-semibold">
+                <span>{product.edition || product.category}</span>
+                {product.sku && (
+                  <>
+                    <span>•</span>
+                    <span className="text-neutral-900 font-bold bg-neutral-200/90 px-1.5 py-0.5 rounded-xs">
+                      SKU: {product.sku}
+                    </span>
+                  </>
+                )}
+                {product.designId && (
+                  <>
+                    <span>•</span>
+                    <span className="text-neutral-600 font-medium">ID: {product.designId}</span>
+                  </>
+                )}
+              </div>
               <button
                 type="button"
                 onClick={() => onToggleWishlist(product)}
@@ -130,7 +144,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
 
             <div className="flex items-baseline gap-3 mt-2">
               <span className="text-xl font-mono font-bold text-neutral-950">
-                {product.isSecretDrop ? '???' : displayPrice}
+                {product.isSecretDrop ? '???' : `₹ ${product.priceINR.toLocaleString()}`}
               </span>
               {!product.isSecretDrop && (
                 <span className="text-xs font-mono text-neutral-400 line-through">
@@ -151,6 +165,9 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
             {/* Spec tags */}
             <div className="flex flex-wrap gap-2 mt-4 text-[10px] font-mono text-neutral-700">
               <span className="bg-[#DFDDD7] px-2 py-1 rounded border border-neutral-300">
+                Colour: {product.colorway || 'Black'}
+              </span>
+              <span className="bg-[#DFDDD7] px-2 py-1 rounded border border-neutral-300">
                 {product.gsm} Heavyweight
               </span>
               <span className="bg-[#DFDDD7] px-2 py-1 rounded border border-neutral-300">
@@ -165,7 +182,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
             <div className="mt-5 pt-4 border-t border-neutral-300">
               <div className="flex items-center justify-between mb-2">
                 <label className="text-xs font-mono font-bold uppercase text-neutral-900">
-                  Select Size: <span className="text-neutral-500 font-normal">({selectedSize})</span>
+                  Variant: <span className="text-neutral-950 font-bold">{SIZE_TO_VARIANT[selectedSize] || selectedSize}</span> <span className="text-neutral-500 font-normal">({selectedSize})</span>
                 </label>
                 <button
                   type="button"
@@ -176,17 +193,17 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                 </button>
               </div>
 
-              <div className="grid grid-cols-4 gap-2" role="group" aria-label="Available sizes">
-                {['S', 'M', 'L', 'XL'].map((size) => (
+              <div className="grid grid-cols-5 gap-1.5 sm:gap-2" role="group" aria-label="Available sizes">
+                {(product.sizes || DEFAULT_SIZES).map((size) => (
                   <button
                     key={size}
                     type="button"
                     aria-pressed={selectedSize === size}
                     aria-label={`Select size ${size}`}
                     onClick={() => setSelectedSize(size)}
-                    className={`py-2 min-h-[44px] text-xs font-mono uppercase font-semibold rounded transition cursor-pointer border ${
+                    className={`py-2 min-h-[42px] text-xs font-mono uppercase font-semibold rounded transition cursor-pointer border ${
                       selectedSize === size
-                        ? 'bg-black text-white border-black'
+                        ? 'bg-black text-white border-black shadow-xs'
                         : 'bg-[#DFDDD7]/60 text-neutral-800 border-neutral-300 hover:border-black'
                     }`}
                   >

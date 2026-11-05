@@ -27,6 +27,7 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose 
     { size: 'M', chestIn: '42"', chestCm: '107 cm', lengthIn: '29"', lengthCm: '73.5 cm', shoulderIn: '20.5"', shoulderCm: '52 cm', sleeveIn: '9.0"', sleeveCm: '23 cm' },
     { size: 'L', chestIn: '44"', chestCm: '112 cm', lengthIn: '30"', lengthCm: '76 cm', shoulderIn: '21.5"', shoulderCm: '54.5 cm', sleeveIn: '9.5"', sleeveCm: '24 cm' },
     { size: 'XL', chestIn: '46"', chestCm: '117 cm', lengthIn: '31"', lengthCm: '78.5 cm', shoulderIn: '22.5"', shoulderCm: '57 cm', sleeveIn: '10.0"', sleeveCm: '25.5 cm' },
+    { size: 'XXL', chestIn: '48"', chestCm: '122 cm', lengthIn: '32"', lengthCm: '81 cm', shoulderIn: '23.5"', shoulderCm: '59.5 cm', sleeveIn: '10.5"', sleeveCm: '26.5 cm' },
   ];
 
   return (

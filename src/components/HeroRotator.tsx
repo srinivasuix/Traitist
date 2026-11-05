@@ -404,7 +404,7 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
             id="product-meta-container"
           >
             <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-neutral-600 mb-0.5">
-              {currentProduct.colorway}
+              {currentProduct.sku ? `${currentProduct.sku} • ` : ''}{currentProduct.colorway}
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight font-display text-neutral-900 group-hover:text-[#FF5722] transition-colors">
               {currentProduct.title}

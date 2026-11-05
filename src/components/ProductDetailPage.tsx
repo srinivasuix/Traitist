@@ -17,6 +17,7 @@ import {
   ArrowRight,
   X,
   AlertTriangle,
+  ShoppingBag,
 } from 'lucide-react';
 import { Product, CATALOG_PRODUCTS, DEFAULT_SIZES, SIZE_TO_VARIANT } from '../data/products';
 import { BorderBeam } from './magicui/border-beam';
@@ -27,6 +28,7 @@ interface ProductDetailPageProps {
   onAddToCart: (product: Product, size: string, quantity: number) => void;
   onInstantBuy: (product: Product, size: string, quantity: number) => void;
   isWishlisted: boolean;
+  wishlistIds?: string[];
   onToggleWishlist: (product: Product) => void;
   onSelectProduct: (product: Product) => void;
   onOpenSizeGuide: () => void;
@@ -38,6 +40,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   onAddToCart,
   onInstantBuy,
   isWishlisted,
+  wishlistIds = [],
   onToggleWishlist,
   onSelectProduct,
   onOpenSizeGuide,
@@ -55,6 +58,26 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
   // 3D perspective mouse tilt on primary stage
   const [stageTilt, setStageTilt] = useState({ x: 0, y: 0 });
+
+  // Related products interactive size & quick add state
+  const [relatedSelectedSizes, setRelatedSelectedSizes] = useState<Record<string, string>>({});
+  const [relatedAddedIds, setRelatedAddedIds] = useState<Record<string, boolean>>({});
+
+  const handleRelatedSizeClick = (e: React.MouseEvent, productId: string, size: string) => {
+    e.stopPropagation();
+    setRelatedSelectedSizes((prev) => ({ ...prev, [productId]: size }));
+  };
+
+  const handleRelatedQuickAdd = (e: React.MouseEvent, prod: Product) => {
+    e.stopPropagation();
+    const chosenSize = relatedSelectedSizes[prod.id] || 'M';
+    onAddToCart(prod, chosenSize, 1);
+
+    setRelatedAddedIds((prev) => ({ ...prev, [prod.id]: true }));
+    setTimeout(() => {
+      setRelatedAddedIds((prev) => ({ ...prev, [prod.id]: false }));
+    }, 1800);
+  };
 
   const handleStageMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -615,55 +638,167 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-            {relatedProducts.map((rel) => (
-              <div
-                key={rel.id}
-                role="button"
-                tabIndex={0}
-                onClick={() => onSelectProduct(rel)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    onSelectProduct(rel);
-                  }
-                }}
-                className="group flex flex-col cursor-pointer focus-visible:outline-2 focus-visible:outline-black rounded"
-                aria-label={`View dedicated page for ${rel.title}`}
-              >
-                <div className="relative bg-[#DFDDD7] aspect-[3/4] overflow-hidden flex items-center justify-center p-3 rounded-xs border border-neutral-300/80 transition-all duration-300 group-hover:border-neutral-500">
-                  {rel.badge && (
-                    <span className="absolute top-2.5 left-2.5 text-[9px] font-mono uppercase bg-black text-white px-1.5 py-0.5 z-10">
-                      {rel.badge}
-                    </span>
-                  )}
-                  <img
-                    src={rel.image}
-                    alt={rel.title}
-                    loading="lazy"
-                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
-                    style={{
-                      mixBlendMode: rel.blendMode || 'normal',
-                    }}
-                  />
-                  <div className="absolute bottom-2 right-2 bg-black text-white text-[10px] font-mono uppercase px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                    VIEW PIECE →
+            {relatedProducts.map((rel) => {
+              const currentSize = relatedSelectedSizes[rel.id] || 'M';
+              const isAdded = relatedAddedIds[rel.id] || false;
+              const isRelWishlisted = wishlistIds.includes(rel.id);
+
+              return (
+                <div
+                  key={rel.id}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => onSelectProduct(rel)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onSelectProduct(rel);
+                    }
+                  }}
+                  className="group flex flex-col text-left cursor-pointer focus-visible:outline-2 focus-visible:outline-black rounded select-none relative"
+                  aria-label={`View dedicated page for ${rel.title}`}
+                >
+                  <div className="relative bg-[#DFDDD7] aspect-[3/4] overflow-hidden flex items-center justify-center p-2 sm:p-3 rounded-xs border border-neutral-300/60 transition-all duration-300 group-hover:border-neutral-400">
+                    {/* Badge */}
+                    {rel.badge && !isAdded && (
+                      <span className="absolute top-2.5 left-2.5 text-[9px] font-mono uppercase bg-black text-white px-1.5 py-0.5 z-10">
+                        {rel.badge}
+                      </span>
+                    )}
+
+                    {/* Floating "Added to Bag" Hint Badge */}
+                    {isAdded && (
+                      <div className="absolute top-2.5 left-2.5 z-20 bg-black text-white text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-1 rounded shadow-lg flex items-center gap-1.5 border border-neutral-700 pointer-events-none animate-fade-in">
+                        <ShoppingBag className="w-3 h-3 text-[#10B981]" aria-hidden="true" />
+                        <span>ADDED</span>
+                      </div>
+                    )}
+
+                    {/* Wishlist Button */}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleWishlist(rel);
+                      }}
+                      aria-label={isRelWishlisted ? `Remove ${rel.title} from wishlist` : `Add ${rel.title} to wishlist`}
+                      className="absolute top-2 right-2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/80 backdrop-blur-sm border border-black/10 hover:bg-white flex items-center justify-center transition z-10 cursor-pointer shadow-xs"
+                    >
+                      <Heart
+                        className={`w-3.5 h-3.5 transition-colors ${
+                          isRelWishlisted
+                            ? 'fill-[#FF5722] text-[#FF5722]'
+                            : 'text-neutral-700 hover:text-black'
+                        }`}
+                        aria-hidden="true"
+                      />
+                    </button>
+
+                    {/* Garment Image */}
+                    <img
+                      src={rel.image}
+                      alt={rel.title}
+                      loading="lazy"
+                      className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
+                      style={{
+                        mixBlendMode: rel.blendMode || 'multiply',
+                        transform: `scale(${rel.scale || 1.15})`,
+                      }}
+                    />
+
+                    {/* Desktop & Tablet Size Selector Hover Pill Bar */}
+                    <div
+                      className="hidden md:flex absolute bottom-2.5 left-2.5 right-2.5 items-center justify-between backdrop-blur-md bg-[#e6e5df]/90 border border-white/60 text-[#121212] rounded-2xl px-3 sm:px-4 py-1.5 shadow-sm opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-300 ease-out z-10"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="flex items-center gap-1.5" role="group" aria-label={`Sizes for ${rel.title}`}>
+                        {(rel.sizes || DEFAULT_SIZES).map((size) => (
+                          <button
+                            key={size}
+                            type="button"
+                            aria-pressed={currentSize === size}
+                            aria-label={`Select size ${size} for ${rel.title}`}
+                            onClick={(e) => handleRelatedSizeClick(e, rel.id, size)}
+                            className={`font-mono text-[11px] uppercase font-medium tracking-wider px-2 py-1 rounded-sm transition duration-150 cursor-pointer min-h-[30px] ${
+                              currentSize === size
+                                ? 'font-bold bg-black text-white'
+                                : 'hover:text-black text-neutral-700'
+                            }`}
+                          >
+                            {size}
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Add to bag icon button */}
+                      <button
+                        type="button"
+                        onClick={(e) => handleRelatedQuickAdd(e, rel)}
+                        aria-label={isAdded ? `Added ${rel.title} to bag` : `Add size ${currentSize} of ${rel.title} to bag`}
+                        className={`p-1.5 min-w-[32px] min-h-[32px] flex items-center justify-center rounded-full transition-all cursor-pointer ${
+                          isAdded
+                            ? 'bg-[#10B981] text-white scale-105'
+                            : 'bg-black text-white hover:bg-[#FF5722]'
+                        }`}
+                      >
+                        {isAdded ? (
+                          <Check className="w-3.5 h-3.5" aria-hidden="true" />
+                        ) : (
+                          <Plus className="w-3.5 h-3.5" aria-hidden="true" />
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Mobile Quick Action Button */}
+                    <button
+                      type="button"
+                      onClick={(e) => handleRelatedQuickAdd(e, rel)}
+                      aria-label={isAdded ? `Added ${rel.title} to bag` : `Add ${rel.title} to bag`}
+                      className={`md:hidden absolute bottom-2 right-2 z-20 min-w-[38px] min-h-[38px] rounded-full flex items-center justify-center shadow-md transition-all active:scale-90 cursor-pointer ${
+                        isAdded
+                          ? 'bg-[#10B981] text-white scale-105'
+                          : 'bg-black/90 backdrop-blur-sm text-white hover:bg-black'
+                      }`}
+                    >
+                      {isAdded ? (
+                        <ShoppingBag className="w-4 h-4 text-white animate-scale-in" aria-hidden="true" />
+                      ) : (
+                        <Plus className="w-4 h-4" aria-hidden="true" />
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Product Info */}
+                  <div className="flex justify-between items-start mt-3 gap-2">
+                    <div className="min-w-0 pr-1">
+                      <h4 className="text-xs font-semibold uppercase tracking-tight text-neutral-900 group-hover:text-neutral-700 transition">
+                        {rel.title}
+                      </h4>
+                      <p className="text-[10px] font-mono text-neutral-600 uppercase mt-0.5 truncate">
+                        {rel.sku ? `${rel.sku} • ` : ''}{rel.edition || rel.category}
+                      </p>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <div className="flex items-center justify-end gap-1.5 flex-wrap">
+                        {rel.regularPriceDisplayINR && !rel.isSecretDrop && (
+                          <span className="text-[11px] font-mono text-neutral-400 line-through">
+                            {rel.regularPriceDisplayINR}
+                          </span>
+                        )}
+                        <span className="text-xs font-mono font-bold text-neutral-900 whitespace-nowrap">
+                          {rel.isSecretDrop ? '???' : rel.priceDisplayINR}
+                        </span>
+                      </div>
+                      {rel.isLaunchPrice && !rel.isSecretDrop && (
+                        <span className="inline-block text-[9px] font-mono font-bold tracking-wider text-[#FF5722] uppercase mt-0.5">
+                          LAUNCH PRICE
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
-                <div className="flex justify-between items-start mt-2.5">
-                  <div>
-                    <h4 className="text-xs font-bold uppercase tracking-tight text-neutral-900 group-hover:text-[#FF5722] transition-colors">
-                      {rel.title}
-                    </h4>
-                    <p className="text-[10px] font-mono text-neutral-600 uppercase mt-0.5">
-                      {rel.gsm} • {rel.colorway}
-                    </p>
-                  </div>
-                  <span className="text-xs font-mono font-bold text-neutral-950 whitespace-nowrap">
-                    {rel.priceDisplayINR}
-                  </span>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
       </div>

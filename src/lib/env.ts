@@ -70,3 +70,4 @@ export function isDemoAutofillAvailable(): boolean {
     return false;
   }
 }
+

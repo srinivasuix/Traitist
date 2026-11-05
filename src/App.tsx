@@ -299,6 +299,7 @@ export default function App() {
                 setIsCartOpen(true);
               }}
               isWishlisted={wishlistIds.includes(selectedProduct.id)}
+              wishlistIds={wishlistIds}
               onToggleWishlist={handleToggleWishlist}
               onSelectProduct={handleSelectProduct}
               onOpenSizeGuide={() => setIsSizeGuideOpen(true)}

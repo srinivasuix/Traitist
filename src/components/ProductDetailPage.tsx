@@ -648,11 +648,15 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   key={rel.id}
                   role="button"
                   tabIndex={0}
-                  onClick={() => onSelectProduct(rel)}
+                  onClick={() => {
+                    onSelectProduct(rel);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
                       onSelectProduct(rel);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
                     }
                   }}
                   className="group flex flex-col text-left cursor-pointer focus-visible:outline-2 focus-visible:outline-black rounded select-none relative"

@@ -7,6 +7,7 @@ import { HeroRotator } from './components/HeroRotator';
 import { FirstDropBanner } from './components/FirstDropBanner';
 import { ProductGrid } from './components/ProductGrid';
 import { MetricsSection } from './components/MetricsSection';
+import { FAQSection } from './components/FAQSection';
 import { NewsletterSection } from './components/NewsletterSection';
 import { Footer } from './components/Footer';
 import { CartDrawer, CartItem } from './components/CartDrawer';
@@ -341,6 +342,9 @@ export default function App() {
 
             {/* 6. Specifications & Metrics (200 GSM, 150 Run size, etc.) */}
             <MetricsSection />
+
+            {/* 7. Frequently Asked Questions */}
+            <FAQSection />
 
             {/* 9. Join The List Newsletter Section */}
             <NewsletterSection />

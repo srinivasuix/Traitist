@@ -115,7 +115,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
                 </button>
               </li>
               <li>
-                <a className="hover:text-black transition" href="#newsletter">
+                <a className="hover:text-black transition" href="#faq">
                   FAQ & Care
                 </a>
               </li>

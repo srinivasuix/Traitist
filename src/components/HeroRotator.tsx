@@ -409,9 +409,16 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight font-display text-neutral-900 group-hover:text-[#FF5722] transition-colors">
               {currentProduct.title}
             </h2>
-            <p className="text-base sm:text-lg font-mono-subtle text-neutral-900 mt-0.5 font-semibold">
-              {currentProduct.priceDisplayINR}
-            </p>
+            <div className="flex items-baseline justify-center gap-2 mt-0.5">
+              <span className="text-base sm:text-lg font-mono text-neutral-900 font-bold">
+                {currentProduct.priceDisplayINR}
+              </span>
+              {currentProduct.regularPriceINR && !currentProduct.isSecretDrop && (
+                <span className="text-xs sm:text-sm font-mono text-neutral-400 line-through">
+                  ₹{currentProduct.regularPriceINR.toLocaleString()}
+                </span>
+              )}
+            </div>
           </div>
 
           {/* Slider Pagination, Duration Progress & Arrow Controls */}

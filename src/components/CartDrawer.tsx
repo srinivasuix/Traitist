@@ -100,6 +100,17 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     }
   }, [isOpen, initialCheckout]);
 
+  // Reset checkout view when drawer is closed so next open starts cleanly at bag
+  useEffect(() => {
+    if (!isOpen) {
+      const timer = setTimeout(() => {
+        setIsCheckingOut(false);
+        setCheckoutError(null);
+      }, 250);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
   // Keyboard Escape listener to close cart
   useEffect(() => {
     if (!isOpen) return;
@@ -323,8 +334,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 onClick={() => {
                   if (orderComplete) {
                     setOrderComplete(false);
-                    setIsCheckingOut(false);
                   }
+                  setIsCheckingOut(false);
                   onClose();
                 }}
                 className="min-w-[40px] min-h-[40px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer text-neutral-800"

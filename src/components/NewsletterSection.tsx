@@ -40,29 +40,20 @@ export const NewsletterSection: React.FC = () => {
           <div className="flex items-center justify-center gap-2 mb-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF5722] animate-pulse" aria-hidden="true" />
             <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-600 font-semibold">
-              THE LIST •{' '}
-              <WordRotate
-                words={[
-                  '24H EARLY ACCESS',
-                  'LIMITED DROP ALERTS',
-                  'NEW DROP ACCESS',
-                  'ZERO DISCOUNT SPAM',
-                ]}
-                className="text-neutral-900 font-bold"
-              />
+              THE LIST · EXCLUSIVE ACCESS
             </span>
           </div>
         </BlurFade>
 
         <BlurFade delay={0.1} inView>
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold font-display tracking-tight text-neutral-950 uppercase mb-4 leading-tight max-w-3xl mx-auto">
-            MORE INTERESTING THAN YOUR SUPERVISOR'S EMAILS.
+            BEAT YOUR SUPERVISOR TO THE DROP.
           </h2>
         </BlurFade>
 
         <BlurFade delay={0.15} inView>
           <p className="text-xs md:text-sm text-neutral-600 max-w-lg mx-auto mb-8 leading-relaxed font-sans">
-            Early access 24 hours before every drop, secret passcodes, and academic survival streetwear. Zero passive-aggressive calendar invites.
+            Get 24-hour early access, secret drop codes and PhD-approved streetwear. Finally, an email worth opening.
           </p>
         </BlurFade>
 
@@ -75,7 +66,7 @@ export const NewsletterSection: React.FC = () => {
             <div className="w-5 h-5 rounded-full bg-black text-white flex items-center justify-center">
               <Check className="w-3 h-3 text-[#10B981]" aria-hidden="true" />
             </div>
-            <span>ACCEPTED! MORE INTERESTING THAN YOUR SUPERVISOR'S EMAILS.</span>
+            <span>ACCEPTED! BEAT YOUR SUPERVISOR TO THE DROP.</span>
           </div>
         ) : (
           <BlurFade delay={0.2} inView>
@@ -84,12 +75,12 @@ export const NewsletterSection: React.FC = () => {
               onSubmit={handleSubmit}
             >
               <label htmlFor="newsletter-email" className="visually-hidden">
-                Email address for 24h early access
+                Your email address goes here
               </label>
               <input
                 id="newsletter-email"
-                className="bg-transparent border-0 flex-grow min-w-0 px-3.5 sm:px-5 py-2.5 text-xs text-neutral-900 placeholder-neutral-500 focus:ring-0 focus:outline-none"
-                placeholder="Email address for 24h early access"
+                className="bg-transparent border-0 flex-grow min-w-0 px-3.5 sm:px-5 py-2.5 text-xs text-neutral-900 placeholder-neutral-500 focus:ring-0 focus:outline-none font-mono"
+                placeholder="Your email address goes here"
                 type="email"
                 autoComplete="email"
                 aria-invalid={!!error}
@@ -104,7 +95,7 @@ export const NewsletterSection: React.FC = () => {
                 className="bg-black text-white text-xs font-mono font-semibold uppercase tracking-wider px-5 sm:px-6 py-2.5 rounded-sm hover:bg-[#FF5722] transition-all duration-200 ease-out hover:scale-[1.01] active:scale-[0.97] cursor-pointer min-h-[44px] shrink-0"
                 type="submit"
               >
-                KEEP ME POSTED →
+                COUNT ME IN →
               </button>
             </form>
           </BlurFade>

@@ -125,3 +125,4 @@ export const FaqSection: React.FC<{
 };
 
 export default FaqSection;
+

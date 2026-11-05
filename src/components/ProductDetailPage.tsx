@@ -215,36 +215,6 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           </button>
 
           <div className="flex items-center gap-2">
-            <motion.button
-              type="button"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.88 }}
-              transition={{ type: 'spring', stiffness: 450, damping: 20 }}
-              onClick={() => onToggleWishlist(product)}
-              className="p-2 rounded hover:bg-neutral-200 transition text-neutral-700 hover:text-[#FF5722] cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center gap-1.5"
-              aria-label={isWishlisted ? 'Remove from wishlist' : 'Save to wishlist'}
-              title="Save to wishlist"
-            >
-              <motion.div
-                key={isWishlisted ? 'top-liked' : 'top-unliked'}
-                initial={{ scale: isWishlisted ? 0.7 : 1.15 }}
-                animate={{
-                  scale: isWishlisted ? [0.7, 1.38, 0.92, 1.05, 1] : [1.15, 0.78, 1],
-                  rotate: isWishlisted ? [0, -12, 8, -4, 0] : [0, 8, -6, 0],
-                }}
-                transition={{ duration: isWishlisted ? 0.4 : 0.28, ease: 'easeOut' }}
-              >
-                <Heart
-                  className={`w-4 h-4 transition-colors ${
-                    isWishlisted ? 'fill-[#FF5722] text-[#FF5722] drop-shadow-[0_2px_8px_rgba(255,87,34,0.35)]' : ''
-                  }`}
-                />
-              </motion.div>
-              <span className="text-[10px] font-mono uppercase hidden sm:inline">
-                {isWishlisted ? 'SAVED' : 'SAVE'}
-              </span>
-            </motion.button>
-
             <button
               onClick={handleShare}
               className="p-2 rounded hover:bg-neutral-200 transition text-neutral-700 hover:text-black cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"

@@ -153,8 +153,23 @@ export const SearchModal: React.FC<SearchModalProps> = ({
               Type to search the Traitist streetwear catalog...
             </div>
           ) : searchResults.length === 0 ? (
-            <div className="py-8 text-center text-xs font-mono text-neutral-600">
-              No pieces found matching "{query}". Try "PhD" or "Manuscript".
+            <div className="py-10 text-center flex flex-col items-center select-none px-4">
+              <p className="text-xs font-mono uppercase tracking-widest text-neutral-900 font-bold mb-1">
+                NO RESULTS. BLAME THE ALGORITHM.
+              </p>
+              <p className="text-xs text-neutral-600 max-w-xs mx-auto font-sans leading-relaxed">
+                We searched the entire literature and found 0 citations matching "{query}". Check your spelling or reset the search.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setQuery('');
+                  inputRef.current?.focus();
+                }}
+                className="mt-4 px-5 py-2.5 bg-neutral-950 hover:bg-[#FF5722] text-white text-xs font-mono font-bold uppercase tracking-wider rounded-sm transition-colors cursor-pointer"
+              >
+                TRY AGAIN →
+              </button>
             </div>
           ) : (
             searchResults.map((product) => {

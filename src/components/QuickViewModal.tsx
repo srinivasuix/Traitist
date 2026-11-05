@@ -252,13 +252,23 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
 
           {/* Action buttons */}
           <div className="mt-6 pt-4 border-t border-neutral-300 space-y-2.5">
-            <button
-              type="button"
-              onClick={handleAdd}
-              className="w-full py-3.5 min-h-[46px] bg-black text-white text-xs font-mono uppercase tracking-widest font-bold rounded-sm hover:bg-neutral-800 transition-all duration-200 ease-out hover:scale-[1.01] active:scale-[0.97] cursor-pointer shadow-sm hover:shadow-md"
-            >
-              Add to Bag • {product.isSecretDrop ? 'Soon' : displayPrice}
-            </button>
+            {product.isSecretDrop ? (
+              <button
+                type="button"
+                onClick={onClose}
+                className="w-full py-3.5 min-h-[46px] bg-neutral-900 text-white text-xs font-mono uppercase tracking-widest font-bold rounded-sm hover:bg-[#FF5722] transition-colors cursor-pointer"
+              >
+                THIS TEE HAS LEFT THE LAB. • FIND ANOTHER →
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={handleAdd}
+                className="w-full py-3.5 min-h-[46px] bg-black text-white text-xs font-mono uppercase tracking-widest font-bold rounded-sm hover:bg-neutral-800 transition-all duration-200 ease-out hover:scale-[1.01] active:scale-[0.97] cursor-pointer shadow-sm hover:shadow-md"
+              >
+                Add to Bag • {displayPrice}
+              </button>
+            )}
 
             {!product.isSecretDrop && (
               <button

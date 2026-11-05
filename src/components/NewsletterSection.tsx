@@ -55,14 +55,14 @@ export const NewsletterSection: React.FC = () => {
         </BlurFade>
 
         <BlurFade delay={0.1} inView>
-          <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold font-display tracking-tight text-neutral-950 uppercase mb-4 leading-none">
-            JOIN THE LIST
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold font-display tracking-tight text-neutral-950 uppercase mb-4 leading-tight max-w-3xl mx-auto">
+            MORE INTERESTING THAN YOUR SUPERVISOR'S EMAILS.
           </h2>
         </BlurFade>
 
         <BlurFade delay={0.15} inView>
-          <p className="text-xs md:text-sm text-neutral-600 max-w-md mx-auto mb-8 leading-relaxed font-sans">
-            Early access 24 hours before every drop, release dates first, and nothing else. No discount spam.
+          <p className="text-xs md:text-sm text-neutral-600 max-w-lg mx-auto mb-8 leading-relaxed font-sans">
+            Early access 24 hours before every drop, secret passcodes, and academic survival streetwear. Zero passive-aggressive calendar invites.
           </p>
         </BlurFade>
 
@@ -75,7 +75,7 @@ export const NewsletterSection: React.FC = () => {
             <div className="w-5 h-5 rounded-full bg-black text-white flex items-center justify-center">
               <Check className="w-3 h-3 text-[#10B981]" aria-hidden="true" />
             </div>
-            <span>YOU'RE ON THE LIST. 24H EARLY ACCESS INCOMING.</span>
+            <span>ACCEPTED! MORE INTERESTING THAN YOUR SUPERVISOR'S EMAILS.</span>
           </div>
         ) : (
           <BlurFade delay={0.2} inView>
@@ -101,10 +101,10 @@ export const NewsletterSection: React.FC = () => {
                 }}
               />
               <button
-                className="bg-black text-white text-xs font-mono font-semibold uppercase tracking-wider px-5 sm:px-6 py-2.5 rounded-sm hover:bg-neutral-800 transition-all duration-200 ease-out hover:scale-[1.01] active:scale-[0.97] cursor-pointer min-h-[44px] shrink-0"
+                className="bg-black text-white text-xs font-mono font-semibold uppercase tracking-wider px-5 sm:px-6 py-2.5 rounded-sm hover:bg-[#FF5722] transition-all duration-200 ease-out hover:scale-[1.01] active:scale-[0.97] cursor-pointer min-h-[44px] shrink-0"
                 type="submit"
               >
-                JOIN
+                KEEP ME POSTED →
               </button>
             </form>
           </BlurFade>

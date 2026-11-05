@@ -520,29 +520,49 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
             {/* Action Buttons: Add to Bag & Instant 1-Click Buy */}
             <div className="mt-5 space-y-2.5">
-              {/* Add to Bag Button */}
-              <button
-                type="button"
-                onClick={handleAdd}
-                className="group w-full bg-neutral-950 hover:bg-neutral-800 active:scale-[0.97] hover:scale-[1.01] text-white py-3.5 px-6 rounded-sm flex items-center justify-between font-mono text-xs uppercase tracking-wider font-bold transition-all duration-200 ease-out shadow-md hover:shadow-lg cursor-pointer min-h-[48px]"
-              >
-                <span>
-                  {isAddedFeedback ? '✓ ADDED TO BAG!' : `ADD TO BAG • ${selectedSize}${quantity > 1 ? ` (×${quantity})` : ''}`}
-                </span>
-                <span>₹{(product.priceINR * quantity).toLocaleString()}</span>
-              </button>
+              {product.isSecretDrop ? (
+                <div className="p-4 bg-neutral-900 text-white rounded-sm text-center space-y-2">
+                  <p className="font-mono text-xs uppercase tracking-widest text-[#FF5722] font-bold">
+                    THIS TEE HAS LEFT THE LAB.
+                  </p>
+                  <p className="text-xs text-neutral-400 font-sans">
+                    Initial archival allocation has departed. Explore available pieces from Drop 01.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={onBack}
+                    className="mt-2 w-full py-3 bg-white text-black hover:bg-[#FF5722] hover:text-white text-xs font-mono uppercase tracking-widest font-bold rounded-sm transition-colors cursor-pointer"
+                  >
+                    FIND ANOTHER →
+                  </button>
+                </div>
+              ) : (
+                <>
+                  {/* Add to Bag Button */}
+                  <button
+                    type="button"
+                    onClick={handleAdd}
+                    className="group w-full bg-neutral-950 hover:bg-neutral-800 active:scale-[0.97] hover:scale-[1.01] text-white py-3.5 px-6 rounded-sm flex items-center justify-between font-mono text-xs uppercase tracking-wider font-bold transition-all duration-200 ease-out shadow-md hover:shadow-lg cursor-pointer min-h-[48px]"
+                  >
+                    <span>
+                      {isAddedFeedback ? '✓ ADDED TO BAG!' : `ADD TO BAG • ${selectedSize}${quantity > 1 ? ` (×${quantity})` : ''}`}
+                    </span>
+                    <span>₹{(product.priceINR * quantity).toLocaleString()}</span>
+                  </button>
 
-              {/* Instant 1-Click Buy Now with Magic UI BorderBeam */}
-              <button
-                type="button"
-                onClick={handleInstantBuy}
-                className="group relative overflow-hidden w-full bg-[#FF5722] hover:bg-[#e04818] active:scale-[0.97] hover:scale-[1.01] text-white py-3.5 px-6 rounded-sm flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-wider font-bold transition-all duration-200 ease-out shadow-md hover:shadow-lg cursor-pointer min-h-[48px]"
-              >
-                <BorderBeam size={100} duration={8} colorFrom="#ffffff" colorTo="#FFB300" />
-                <Zap className="w-4 h-4 fill-white relative z-10" />
-                <span className="relative z-10">BUY NOW • GUEST CHECKOUT</span>
-                <ArrowRight className="w-4 h-4 relative z-10 transition-transform duration-200 group-hover:translate-x-1" />
-              </button>
+                  {/* Instant 1-Click Buy Now with Magic UI BorderBeam */}
+                  <button
+                    type="button"
+                    onClick={handleInstantBuy}
+                    className="group relative overflow-hidden w-full bg-[#FF5722] hover:bg-[#e04818] active:scale-[0.97] hover:scale-[1.01] text-white py-3.5 px-6 rounded-sm flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-wider font-bold transition-all duration-200 ease-out shadow-md hover:shadow-lg cursor-pointer min-h-[48px]"
+                  >
+                    <BorderBeam size={100} duration={8} colorFrom="#ffffff" colorTo="#FFB300" />
+                    <Zap className="w-4 h-4 fill-white relative z-10" />
+                    <span className="relative z-10">BUY NOW • GUEST CHECKOUT</span>
+                    <ArrowRight className="w-4 h-4 relative z-10 transition-transform duration-200 group-hover:translate-x-1" />
+                  </button>
+                </>
+              )}
             </div>
 
             {/* 3-Column Confidence Badges */}

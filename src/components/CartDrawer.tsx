@@ -791,10 +791,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         />
                       </div>
                       <p className="text-xs font-mono uppercase tracking-widest text-neutral-900 font-bold">
-                        YOUR BAG IS STILL IN THE LAB.
+                        YOUR CART HAS TRUST ISSUES.
                       </p>
                       <p className="text-xs text-neutral-600 mt-1 max-w-xs font-sans leading-relaxed">
-                        Your next favourite tee is waiting. Explore our 200 GSM heavyweight collection and wear your research story with pride.
+                        It's questioning its existence and waiting for hypothesis testing. Fill it with our 200 GSM heavyweight drop.
                       </p>
                       <button
                         type="button"
@@ -805,7 +805,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         }}
                         className="mt-4 px-5 py-2.5 bg-neutral-950 hover:bg-[#FF5722] text-white text-xs font-mono font-bold uppercase tracking-wider rounded-sm transition-colors cursor-pointer"
                       >
-                        EXPLORE THE DROP →
+                        FIX THE CART →
                       </button>
                     </div>
                   ) : (

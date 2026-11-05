@@ -83,10 +83,10 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
                 />
               </div>
               <p className="text-xs font-mono uppercase tracking-widest text-neutral-900 font-bold mb-1">
-                YOUR WISHLIST IS EMPTY
+                EVEN YOUR WISHLIST IS UNDER REVIEW.
               </p>
               <p className="text-xs text-neutral-600 max-w-xs mx-auto font-sans leading-relaxed">
-                Save pieces you love to get early access alerts when new sizes and drops release.
+                Reviewer 2 hasn't approved any pieces yet. Save tees to get early access alerts when new sizes and drops release.
               </p>
               <button
                 type="button"
@@ -97,7 +97,7 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
                 }}
                 className="mt-4 px-5 py-2.5 bg-neutral-950 hover:bg-[#FF5722] text-white text-xs font-mono font-bold uppercase tracking-wider rounded-sm transition-colors cursor-pointer"
               >
-                EXPLORE COLLECTION
+                SUBMIT YOUR STYLE →
               </button>
             </div>
           ) : (

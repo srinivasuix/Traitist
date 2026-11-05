@@ -64,7 +64,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
               id="order-success-title"
               className="text-2xl font-display font-black uppercase tracking-tight text-neutral-900"
             >
-              Order Confirmed!
+              ACCEPTED! NO REVISIONS NEEDED.
             </h2>
 
             <div className="mt-2 inline-flex items-center gap-2 bg-neutral-200/70 border border-neutral-300 px-3 py-1 rounded font-mono text-xs text-neutral-800">
@@ -98,8 +98,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
                 className="relative overflow-hidden w-full bg-neutral-950 hover:bg-[#FF5722] text-white py-3.5 px-6 rounded-sm font-mono text-xs uppercase tracking-wider font-bold transition-all duration-200 ease-out shadow-md cursor-pointer flex items-center justify-center gap-2 group min-h-[48px]"
               >
                 <BorderBeam size={80} duration={8} colorFrom="#FF5722" colorTo="#ffffff" />
-                <span className="relative z-10">CONTINUE EXPLORING</span>
-                <ArrowRight className="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1" />
+                <span className="relative z-10">TRACK MY ORDER →</span>
               </button>
             </div>
           </motion.div>

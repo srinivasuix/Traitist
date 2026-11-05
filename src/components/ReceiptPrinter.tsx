@@ -80,7 +80,7 @@ export const TraitistReceiptPrinter: React.FC<OrderConfirmationProps> = ({
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-800">
-              ORDER CONFIRMED
+              ACCEPTED! NO REVISIONS NEEDED
             </span>
           </div>
           <span className="text-[11px] font-bold text-neutral-900 bg-neutral-100 px-2 py-0.5 rounded">

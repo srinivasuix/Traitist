@@ -6,7 +6,6 @@ import { Navbar } from './components/Navbar';
 import { HeroRotator } from './components/HeroRotator';
 import { ProductGrid } from './components/ProductGrid';
 import { CampaignBanner } from './components/CampaignBanner';
-import { CommunitySection } from './components/CommunitySection';
 import { MetricsSection } from './components/MetricsSection';
 import { NewsletterSection } from './components/NewsletterSection';
 import { Footer } from './components/Footer';
@@ -330,10 +329,7 @@ export default function App() {
               }}
             />
 
-            {/* 6. Community Feed ("Worn by you") */}
-            <CommunitySection />
-
-            {/* 8. Specifications & Metrics (200 GSM, 150 Run size, etc.) */}
+            {/* 6. Specifications & Metrics (200 GSM, 150 Run size, etc.) */}
             <MetricsSection />
 
             {/* 9. Join The List Newsletter Section */}

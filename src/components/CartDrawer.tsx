@@ -336,7 +336,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   setIsCheckingOut(false);
                   onClose();
                 }}
-                className="min-w-[40px] min-h-[40px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer text-neutral-800"
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer text-neutral-800"
                 aria-label="Close cart"
               >
                 <X className="w-5 h-5" aria-hidden="true" />
@@ -768,7 +768,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   <button
                     type="button"
                     onClick={() => setIsCheckingOut(false)}
-                    className="text-xs font-mono text-neutral-600 hover:text-black underline cursor-pointer min-h-[40px] inline-flex items-center"
+                    className="text-xs font-mono text-neutral-600 hover:text-black underline cursor-pointer min-h-[44px] inline-flex items-center"
                   >
                     ← Return to Shopping Bag
                   </button>

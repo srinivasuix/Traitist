@@ -40,39 +40,50 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
-
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="wishlist-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-sm animate-fade-in"
-    >
-      <div
-        className="fixed inset-0 bg-transparent"
-        onClick={onClose}
-        aria-hidden="true"
-      />
-      <div data-lenis-prevent className="relative max-w-xl w-full max-h-[88vh] bg-[#ECEBE6] rounded-sm p-4 sm:p-7 shadow-2xl border border-neutral-300 flex flex-col z-10">
-        <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-neutral-300">
-          <div className="flex items-center gap-2">
-            <Heart className="w-5 h-5 text-[#FF5722] fill-[#FF5722]" aria-hidden="true" />
-            <h2 id="wishlist-modal-title" className="text-sm font-mono font-bold uppercase tracking-wider text-neutral-900">
-              WISHLIST ({wishlistProducts.length})
-            </h2>
-          </div>
-          <button
+    <AnimatePresence>
+      {isOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="wishlist-modal-title"
+          className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4"
+        >
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            className="fixed inset-0 bg-black/75 backdrop-blur-sm"
             onClick={onClose}
-            className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"
-            aria-label="Close wishlist"
+            aria-hidden="true"
+          />
+          <motion.div
+            data-lenis-prevent
+            initial={{ opacity: 0, scale: 0.98, y: 8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.98, y: 6, transition: { duration: 0.16 } }}
+            transition={{ type: 'spring', damping: 28, stiffness: 320 }}
+            className="relative max-w-xl w-full max-h-[88vh] bg-[#ECEBE6] rounded-sm p-4 sm:p-7 shadow-2xl border border-neutral-300 flex flex-col z-10"
           >
-            <X className="w-5 h-5 text-neutral-800" aria-hidden="true" />
-          </button>
-        </div>
+            <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-neutral-300">
+              <div className="flex items-center gap-2">
+                <Heart className="w-5 h-5 text-[#FF5722] fill-[#FF5722]" aria-hidden="true" />
+                <h2 id="wishlist-modal-title" className="text-sm font-mono font-bold uppercase tracking-wider text-neutral-900">
+                  WISHLIST ({wishlistProducts.length})
+                </h2>
+              </div>
+              <button
+                onClick={onClose}
+                className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"
+                aria-label="Close wishlist"
+              >
+                <X className="w-5 h-5 text-neutral-800" aria-hidden="true" />
+              </button>
+            </div>
 
-        {/* Content list */}
-        <div className="flex-grow overflow-y-auto py-4 space-y-3">
+            {/* Content list */}
+            <div className="flex-grow overflow-y-auto py-4 space-y-3">
           {wishlistProducts.length === 0 ? (
             <div className="py-8 px-4 text-center flex flex-col items-center select-none">
               <div className="w-48 sm:w-56 mx-auto mb-4 hover:scale-[1.03] transition-transform duration-300 flex items-center justify-center">
@@ -243,7 +254,9 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
             </button>
           </div>
         )}
-      </div>
-    </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 };

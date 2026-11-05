@@ -67,3 +67,4 @@
 - **Tactile Physics:** 180ms ease transitions, active button scale `0.975`, smooth Lenis scroll.
 - **Mobile First Touch Targets:** Minimum 44×44px interactive tap area on all touch surfaces.
 - **Accessibility:** Full WCAG 2.2 Level AA compliance, semantic HTML, visible keyboard focus rings.
+

@@ -157,114 +157,124 @@ export const Navbar: React.FC<NavbarProps> = ({
       </header>
 
       {/* Mobile Menu Slide-Over */}
-      {mobileMenuOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Mobile Navigation"
-          className="fixed inset-0 z-50 flex"
-        >
+      <AnimatePresence>
+        {mobileMenuOpen && (
           <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
-            onClick={() => setMobileMenuOpen(false)}
-            aria-hidden="true"
-          />
-          <div
-            data-lenis-prevent
-            className="relative w-full max-w-[280px] min-[400px]:max-w-xs bg-[#ECEBE6] h-full shadow-2xl flex flex-col justify-between p-5 sm:p-6 z-10 border-r border-neutral-300 overflow-y-auto"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile Navigation"
+            className="fixed inset-0 z-50 flex"
           >
-            <div>
-              <div className="flex items-center justify-between pb-4 border-b border-neutral-300">
-                <img
-                  src={BRAND_LOGO_URL}
-                  alt="TRAITIST™ - Threads of Resilience"
-                  className="h-8 w-auto object-contain"
-                />
-                <button
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"
-                  aria-label="Close menu"
-                >
-                  <X className="w-5 h-5 text-neutral-800" aria-hidden="true" />
-                </button>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
+            <motion.div
+              data-lenis-prevent
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+              className="relative w-full max-w-[280px] min-[400px]:max-w-xs bg-[#ECEBE6] h-full shadow-2xl flex flex-col justify-between p-5 sm:p-6 z-10 border-r border-neutral-300 overflow-y-auto"
+            >
+              <div>
+                <div className="flex items-center justify-between pb-4 border-b border-neutral-300">
+                  <img
+                    src={BRAND_LOGO_URL}
+                    alt="TRAITIST™ - Threads of Resilience"
+                    className="h-8 w-auto object-contain"
+                  />
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"
+                    aria-label="Close menu"
+                  >
+                    <X className="w-5 h-5 text-neutral-800" aria-hidden="true" />
+                  </button>
+                </div>
+
+                <nav className="mt-6 flex flex-col space-y-1 font-mono text-xs sm:text-sm tracking-wider uppercase font-semibold">
+                  <a
+                    href="#shop"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onGoHome?.();
+                    }}
+                    className="py-3 px-3 rounded hover:bg-neutral-200/80 transition flex items-center justify-between min-h-[44px]"
+                  >
+                    <span>Shop Latest Pieces</span>
+                    <span className="text-[10px] font-mono text-neutral-600">08 PIECES</span>
+                  </a>
+                  <a
+                    href="#hero-showcase"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onGoHome?.();
+                    }}
+                    className="py-3 px-3 rounded hover:bg-neutral-200/80 transition flex items-center justify-between min-h-[44px]"
+                  >
+                    <span>Collection Showcase</span>
+                    <span className="text-[10px] bg-black text-white px-2 py-0.5 rounded-full font-sans">
+                      NEW
+                    </span>
+                  </a>
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onOpenSizeGuide();
+                    }}
+                    className="text-left py-3 px-3 rounded hover:bg-neutral-200/80 transition text-neutral-600 cursor-pointer min-h-[44px] flex items-center"
+                  >
+                    Size & Fit Guide
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onOpenCart();
+                    }}
+                    className="py-3 px-3 rounded bg-black text-white hover:bg-neutral-800 transition flex items-center justify-between min-h-[44px] cursor-pointer mt-2 font-mono text-xs uppercase"
+                  >
+                    <span className="flex items-center gap-2">
+                      <ShoppingBag className="w-4 h-4 text-white" />
+                      <span>View Shopping Bag</span>
+                    </span>
+                    <span className="text-[10px] bg-[#FF5722] text-white px-2 py-0.5 rounded-full font-mono font-bold">
+                      {cartCount}
+                    </span>
+                  </button>
+                </nav>
               </div>
 
-              <nav className="mt-6 flex flex-col space-y-1 font-mono text-xs sm:text-sm tracking-wider uppercase font-semibold">
-                <a
-                  href="#shop"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onGoHome?.();
-                  }}
-                  className="py-3 px-3 rounded hover:bg-neutral-200/80 transition flex items-center justify-between min-h-[44px]"
-                >
-                  <span>Shop Latest Pieces</span>
-                  <span className="text-[10px] font-mono text-neutral-600">08 PIECES</span>
-                </a>
-                <a
-                  href="#hero-showcase"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onGoHome?.();
-                  }}
-                  className="py-3 px-3 rounded hover:bg-neutral-200/80 transition flex items-center justify-between min-h-[44px]"
-                >
-                  <span>Collection Showcase</span>
-                  <span className="text-[10px] bg-black text-white px-2 py-0.5 rounded-full font-sans">
-                    NEW
-                  </span>
-                </a>
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenSizeGuide();
-                  }}
-                  className="text-left py-3 px-3 rounded hover:bg-neutral-200/80 transition text-neutral-600 cursor-pointer min-h-[44px] flex items-center"
-                >
-                  Size & Fit Guide
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenCart();
-                  }}
-                  className="py-3 px-3 rounded bg-black text-white hover:bg-neutral-800 transition flex items-center justify-between min-h-[44px] cursor-pointer mt-2 font-mono text-xs uppercase"
-                >
-                  <span className="flex items-center gap-2">
-                    <ShoppingBag className="w-4 h-4 text-white" />
-                    <span>View Shopping Bag</span>
-                  </span>
-                  <span className="text-[10px] bg-[#FF5722] text-white px-2 py-0.5 rounded-full font-mono font-bold">
-                    {cartCount}
-                  </span>
-                </button>
-              </nav>
-            </div>
-
-            <div className="pt-6 border-t border-neutral-300 text-[11px] font-mono text-neutral-600 space-y-2">
-              <p className="font-semibold text-neutral-900">
-                TRAITIST STUDIOS • TORONTO / BENGALURU
-              </p>
-              <p>200 GSM wearable resilience.</p>
-              <div className="pt-2 flex items-center gap-4 text-xs font-semibold text-neutral-900">
-                <a href="#shop" className="hover:underline">
-                  INSTAGRAM
-                </a>
-                <span>•</span>
-                <a href="#shop" className="hover:underline">
-                  TIKTOK
-                </a>
-                <span>•</span>
-                <a href="#shop" className="hover:underline">
-                  DISCORD
-                </a>
+              <div className="pt-6 border-t border-neutral-300 text-[11px] font-mono text-neutral-600 space-y-2">
+                <p className="font-semibold text-neutral-900">
+                  TRAITIST STUDIOS • TORONTO / BENGALURU
+                </p>
+                <p>200 GSM wearable resilience.</p>
+                <div className="pt-2 flex items-center gap-4 text-xs font-semibold text-neutral-900">
+                  <a href="#shop" className="hover:underline">
+                    INSTAGRAM
+                  </a>
+                  <span>•</span>
+                  <a href="#shop" className="hover:underline">
+                    TIKTOK
+                  </a>
+                  <span>•</span>
+                  <a href="#shop" className="hover:underline">
+                    DISCORD
+                  </a>
+                </div>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </>
   );
 };

@@ -192,3 +192,4 @@ export const EMAIL_TEMPLATES: Record<string, EmailTemplate> = {
     `,
   },
 };
+

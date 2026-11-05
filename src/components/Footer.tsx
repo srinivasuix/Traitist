@@ -108,7 +108,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide, onOpenNotFound 
                       window.location.hash = '#/404';
                     }
                   }}
-                  className="hover:text-black transition cursor-pointer text-[#FF5722] hover:underline font-mono text-[11px] font-semibold"
+                  className="hover:text-black transition cursor-pointer"
                 >
                   404 Page
                 </a>

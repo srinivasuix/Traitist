@@ -334,8 +334,20 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             </h1>
 
             {/* Price */}
-            <div className="text-lg sm:text-xl font-mono text-neutral-900 mt-2 font-bold">
-              ₹ {product.priceINR.toLocaleString()}
+            <div className="flex items-baseline gap-3 mt-2.5 flex-wrap">
+              <span className="text-xl sm:text-2xl font-mono text-neutral-950 font-bold">
+                ₹ {product.priceINR.toLocaleString()}
+              </span>
+              {product.regularPriceINR && !product.isSecretDrop && (
+                <span className="text-sm font-mono text-neutral-400 line-through">
+                  ₹ {product.regularPriceINR.toLocaleString()}
+                </span>
+              )}
+              {product.isLaunchPrice && !product.isSecretDrop && (
+                <span className="inline-flex items-center text-[10px] font-mono font-bold uppercase tracking-wider text-[#FF5722] bg-[#FF5722]/10 border border-[#FF5722]/20 px-2 py-0.5 rounded-sm">
+                  LAUNCH PRICE · SAVE ₹ {((product.regularPriceINR || 899) - product.priceINR).toLocaleString()}
+                </span>
+              )}
             </div>
 
             {/* Product Description */}

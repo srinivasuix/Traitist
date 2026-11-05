@@ -4,6 +4,7 @@ import { ShoppingBag } from 'lucide-react';
 import { AnnouncementBar } from './components/AnnouncementBar';
 import { Navbar } from './components/Navbar';
 import { HeroRotator } from './components/HeroRotator';
+import { FirstDropBanner } from './components/FirstDropBanner';
 import { ProductGrid } from './components/ProductGrid';
 import { CampaignBanner } from './components/CampaignBanner';
 import { MetricsSection } from './components/MetricsSection';
@@ -311,6 +312,14 @@ export default function App() {
             {/* 3. Hero 3D Rotator Showcase */}
             <HeroRotator
               onSelectProduct={handleSelectProduct}
+            />
+
+            {/* 3.5. First Drop Launch Promotion Banner */}
+            <FirstDropBanner
+              onExplore={() => {
+                const el = document.getElementById('shop');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
             />
 
             {/* 4. Product Catalog Grid ("Latest pieces") */}

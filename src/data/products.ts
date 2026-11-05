@@ -4,6 +4,9 @@ export interface Product {
   title: string;
   priceUSD: number;
   priceINR: number;
+  regularPriceINR?: number;
+  regularPriceDisplayINR?: string;
+  isLaunchPrice?: boolean;
   priceDisplayUSD: string;
   priceDisplayINR: string;
   colorway: string;
@@ -20,6 +23,10 @@ export interface Product {
   variants?: string[];
   sizes?: string[];
 }
+
+export const FIRST_DROP_REGULAR_PRICE = 899;
+export const FIRST_DROP_LAUNCH_PRICE = 799;
+export const FIRST_DROP_SAVINGS = FIRST_DROP_REGULAR_PRICE - FIRST_DROP_LAUNCH_PRICE; // 100
 
 export const DEFAULT_VARIANTS = ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"] as const;
 export const DEFAULT_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL"] as const;
@@ -70,6 +77,9 @@ export const ROTATOR_PRODUCTS: Product[] = [
     priceUSD: 59.0,
     priceINR: 799,
     priceDisplayUSD: "$59.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 01 • EXPECTATION VS REALITY",
@@ -91,6 +101,9 @@ export const ROTATOR_PRODUCTS: Product[] = [
     priceUSD: 48.0,
     priceINR: 799,
     priceDisplayUSD: "$48.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 02 • FEMME",
@@ -112,6 +125,9 @@ export const ROTATOR_PRODUCTS: Product[] = [
     priceUSD: 48.0,
     priceINR: 799,
     priceDisplayUSD: "$48.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 02 • CORE",
@@ -133,6 +149,9 @@ export const ROTATOR_PRODUCTS: Product[] = [
     priceUSD: 48.0,
     priceINR: 799,
     priceDisplayUSD: "$48.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 03 • MOUNTAIN",
@@ -153,6 +172,9 @@ export const ROTATOR_PRODUCTS: Product[] = [
     priceUSD: 48.0,
     priceINR: 799,
     priceDisplayUSD: "$48.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 04 • CHART",
@@ -173,6 +195,9 @@ export const ROTATOR_PRODUCTS: Product[] = [
     priceUSD: 48.0,
     priceINR: 799,
     priceDisplayUSD: "$48.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 05 • FEMME",
@@ -193,6 +218,9 @@ export const ROTATOR_PRODUCTS: Product[] = [
     priceUSD: 48.0,
     priceINR: 799,
     priceDisplayUSD: "$48.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 05 • CLASSIC",
@@ -213,6 +241,9 @@ export const ROTATOR_PRODUCTS: Product[] = [
     priceUSD: 48.0,
     priceINR: 799,
     priceDisplayUSD: "$48.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 06 • PEER REVIEW",
@@ -237,6 +268,9 @@ export const CATALOG_PRODUCTS: Product[] = [
     priceUSD: 59,
     priceINR: 799,
     priceDisplayUSD: "$59.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 01 • EXPECTATION VS REALITY",
@@ -259,6 +293,9 @@ export const CATALOG_PRODUCTS: Product[] = [
     priceUSD: 48,
     priceINR: 799,
     priceDisplayUSD: "$48.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 02 • FEMME",
@@ -281,6 +318,9 @@ export const CATALOG_PRODUCTS: Product[] = [
     priceUSD: 48,
     priceINR: 799,
     priceDisplayUSD: "$48.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 02 • CORE",
@@ -303,6 +343,9 @@ export const CATALOG_PRODUCTS: Product[] = [
     priceUSD: 48,
     priceINR: 799,
     priceDisplayUSD: "$48.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 03 • MOUNTAIN",
@@ -324,6 +367,9 @@ export const CATALOG_PRODUCTS: Product[] = [
     priceUSD: 48,
     priceINR: 799,
     priceDisplayUSD: "$48.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 04 • CHART",
@@ -345,6 +391,9 @@ export const CATALOG_PRODUCTS: Product[] = [
     priceUSD: 48,
     priceINR: 799,
     priceDisplayUSD: "$48.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 05 • FEMME",
@@ -366,6 +415,9 @@ export const CATALOG_PRODUCTS: Product[] = [
     priceUSD: 48,
     priceINR: 799,
     priceDisplayUSD: "$48.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 05 • CLASSIC",
@@ -387,6 +439,9 @@ export const CATALOG_PRODUCTS: Product[] = [
     priceUSD: 48,
     priceINR: 799,
     priceDisplayUSD: "$48.00",
+    regularPriceINR: 899,
+    regularPriceDisplayINR: "₹ 899",
+    isLaunchPrice: true,
     priceDisplayINR: "₹ 799",
     colorway: "Black",
     edition: "EDITION 06 • PEER REVIEW",

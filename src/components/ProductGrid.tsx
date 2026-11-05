@@ -228,20 +228,32 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                 </div>
 
                 {/* Product Info */}
-                <div className="flex justify-between items-start mt-3">
-                  <div className="pr-2">
+                <div className="flex justify-between items-start mt-3 gap-2">
+                  <div className="min-w-0 pr-1">
                     <h3 className="text-xs font-semibold uppercase tracking-tight text-neutral-900 group-hover:text-neutral-700 transition">
                       {product.title}
                     </h3>
-                    <p className="text-[10px] font-mono text-neutral-600 uppercase mt-0.5">
+                    <p className="text-[10px] font-mono text-neutral-600 uppercase mt-0.5 truncate">
                       {product.sku ? `${product.sku} • ` : ''}{product.edition || product.category}
                     </p>
                   </div>
-                  <span className="text-xs font-mono font-semibold text-neutral-900 whitespace-nowrap">
-                    {product.isSecretDrop
-                      ? '???'
-                      : product.priceDisplayINR}
-                  </span>
+                  <div className="text-right shrink-0">
+                    <div className="flex items-center justify-end gap-1.5 flex-wrap">
+                      {product.regularPriceDisplayINR && !product.isSecretDrop && (
+                        <span className="text-[11px] font-mono text-neutral-400 line-through">
+                          {product.regularPriceDisplayINR}
+                        </span>
+                      )}
+                      <span className="text-xs font-mono font-bold text-neutral-900 whitespace-nowrap">
+                        {product.isSecretDrop ? '???' : product.priceDisplayINR}
+                      </span>
+                    </div>
+                    {product.isLaunchPrice && !product.isSecretDrop && (
+                      <span className="inline-block text-[9px] font-mono font-bold tracking-wider text-[#FF5722] uppercase mt-0.5">
+                        LAUNCH PRICE
+                      </span>
+                    )}
+                  </div>
                 </div>
               </article>
             </BlurFade>

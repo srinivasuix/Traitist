@@ -20,20 +20,20 @@ export const AnnouncementBar: React.FC = () => {
         >
           <Marquee
             pauseOnHover={true}
-            className="py-0 [--duration:28s]"
+            className="py-0 [--duration:34s]"
             style={{
               animationPlayState: isPaused ? 'paused' : 'running',
             }}
           >
             <div className="flex items-center gap-8 px-4 font-mono">
-              <span>NIGHT SHIFT • STREETWEAR SERIES</span>
-              <span className="text-neutral-500" aria-hidden="true">•</span>
-              <span>FREE EXPRESS SHIPPING ACROSS INDIA</span>
-              <span className="text-neutral-500" aria-hidden="true">•</span>
-              <span>NEW ARRIVALS — PHD STREETWEAR SERIES</span>
-              <span className="text-neutral-500" aria-hidden="true">•</span>
-              <span>JOIN THE LIST FOR 24H EARLY ACCESS</span>
-              <span className="text-neutral-500" aria-hidden="true">•</span>
+              <span>NIGHT SHIFT UNIFORM. DAYTIME ATTITUDE.</span>
+              <span className="text-[#FF5722] font-bold" aria-hidden="true">•</span>
+              <span>NEW DROPS. ZERO PEER REVIEW REQUIRED.</span>
+              <span className="text-[#FF5722] font-bold" aria-hidden="true">•</span>
+              <span>YOUR THESIS ISN'T THE ONLY THING THAT NEEDS A REVISION.</span>
+              <span className="text-[#FF5722] font-bold" aria-hidden="true">•</span>
+              <span>JOIN THE LIST. GET 24H EARLY ACCESS.</span>
+              <span className="text-[#FF5722] font-bold" aria-hidden="true">•</span>
             </div>
           </Marquee>
         </div>

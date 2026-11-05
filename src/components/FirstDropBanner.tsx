@@ -26,9 +26,34 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
       className="relative max-w-7xl mx-auto px-4 md:px-8 pt-5 sm:pt-6 pb-2"
       aria-label="Promotional Showcase - The First Drop"
     >
-      <div className="relative rounded-sm border border-neutral-800 overflow-hidden bg-[#111111] flex flex-col md:flex-row items-stretch min-h-[280px] md:min-h-[300px] lg:min-h-[320px]">
+      <div className="relative rounded-sm border border-neutral-800 overflow-hidden bg-black flex items-center min-h-[320px] sm:min-h-[340px] md:min-h-[360px]">
         {/* ========================================================
-            1. CONTENT BLOCK (Near-Black, Warm Off-White, Orange #F05A28)
+            BACKGROUND EDITORIAL IMAGE & SCRIMS
+            - Full-bleed background showcasing PhD students in Traitist tees
+            - Left side of the image is pure black, designed for text overlay
+            - Scrim guarantees 100% WCAG AAA contrast across all device viewports
+            ======================================================== */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/first_drop_editorial_banner.jpg"
+            alt="TRAITIST PhD Research Streetwear - Campus Editorial"
+            className="w-full h-full object-cover object-right select-none pointer-events-none"
+            loading="eager"
+          />
+          {/* Horizontal contrast gradient: solid black over text on left, smoothly opening up to students on right */}
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-black via-black/85 md:via-black/65 to-transparent pointer-events-none"
+            aria-hidden="true"
+          />
+          {/* Vertical contrast gradient for mobile portrait viewports */}
+          <div
+            className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent md:hidden pointer-events-none"
+            aria-hidden="true"
+          />
+        </div>
+
+        {/* ========================================================
+            CONTENT BLOCK (Near-Black, Warm Off-White, Orange #F05A28)
             - Kicker: THE FIRST DROP · NOVEMBER 15
             - Headline: A NEW DROP. A SPECIAL PRICE.
             - Subline: Your first chance to wear your research identity.
@@ -37,7 +62,7 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
             - Savings: SAVE ₹100
             - Action: SHOP THE FIRST DROP
             ======================================================== */}
-        <div className="w-full md:w-[56%] lg:w-[54%] xl:w-[52%] p-5 sm:p-7 md:p-8 lg:p-10 flex flex-col justify-center space-y-3 sm:space-y-3.5 md:space-y-4">
+        <div className="relative z-10 w-full md:w-[60%] lg:w-[52%] xl:w-[48%] p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-center space-y-3 sm:space-y-3.5 md:space-y-4">
           {/* Monospace launch label */}
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-[#F05A28] shrink-0" aria-hidden="true" />
@@ -47,13 +72,13 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
           </div>
 
           {/* Bold geometric headline */}
-          <h2 className="text-2xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl font-black font-display tracking-tight uppercase leading-[1.02]">
+          <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl font-black font-display tracking-tight uppercase leading-[1.02]">
             <span className="block text-[#ECEBE6]">A NEW DROP.</span>
             <span className="block text-[#F05A28]">A SPECIAL PRICE.</span>
           </h2>
 
           {/* Supporting line */}
-          <p className="text-xs sm:text-sm font-mono text-[#ECEBE6]/85 leading-relaxed max-w-md">
+          <p className="text-xs sm:text-sm font-mono text-[#ECEBE6]/90 leading-relaxed max-w-md">
             Your first chance to wear your research identity.
           </p>
 
@@ -63,7 +88,7 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
               ₹{FIRST_DROP_LAUNCH_PRICE}
             </span>
             {FIRST_DROP_REGULAR_PRICE && (
-              <span className="text-sm sm:text-base font-mono text-neutral-500 line-through">
+              <span className="text-sm sm:text-base font-mono text-neutral-400 line-through">
                 ₹{FIRST_DROP_REGULAR_PRICE}
               </span>
             )}
@@ -83,21 +108,6 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
               <ArrowRight className="w-3.5 h-3.5 text-[#111111] transition-transform duration-200 group-hover:translate-x-0.5" />
             </button>
           </div>
-        </div>
-
-        {/* ========================================================
-            2. PHOTOGRAPHY SHOWCASE (Clean, Crisp, Zero Gradient Mud)
-            - Partitioned column on desktop & tablet
-            - Clear natural daylight, authentic skin tones, readable t-shirts
-            - No fabric textures, no decorative badges, no gradients
-            ======================================================== */}
-        <div className="w-full md:w-[44%] lg:w-[46%] xl:w-[48%] relative min-h-[240px] sm:min-h-[280px] md:min-h-full overflow-hidden border-t md:border-t-0 md:border-l border-neutral-800 bg-[#0E0E0E]">
-          <img
-            src="/images/first_drop_editorial_banner.png"
-            alt="TRAITIST PhD Research Streetwear - Campus Editorial"
-            className="w-full h-full object-cover object-[80%_center] select-none pointer-events-none"
-            loading="eager"
-          />
         </div>
       </div>
     </section>

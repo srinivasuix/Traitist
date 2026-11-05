@@ -652,7 +652,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             </button>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {relatedProducts.map((rel) => {
               const currentSize = relatedSelectedSizes[rel.id] || 'M';
               const isAdded = relatedAddedIds[rel.id] || false;
@@ -713,23 +713,27 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                       }}
                     />
 
-                    {/* Desktop & Tablet Size Selector Hover Pill Bar */}
+                    {/* Desktop & Tablet Size Selector Hover Pill Bar (Optimized, High Contrast & Non-Clipped) */}
                     <div
-                      className="hidden md:flex absolute bottom-2.5 left-2.5 right-2.5 items-center justify-between backdrop-blur-md bg-[#e6e5df]/90 border border-white/60 text-[#121212] rounded-2xl px-3 sm:px-4 py-1.5 shadow-sm opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-300 ease-out z-10"
+                      className="hidden md:flex absolute bottom-2 left-1.5 right-1.5 sm:left-2 sm:right-2 items-center justify-between bg-white/95 backdrop-blur-md border border-neutral-300/80 rounded-full px-2 py-1 shadow-[0_4px_16px_rgba(0,0,0,0.12)] opacity-0 translate-y-1.5 group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-200 ease-out z-20 pointer-events-auto"
                       onClick={(e) => e.stopPropagation()}
+                      onPointerDown={(e) => e.stopPropagation()}
                     >
-                      <div className="flex items-center gap-1.5" role="group" aria-label={`Sizes for ${rel.title}`}>
+                      <div className="flex items-center justify-between flex-grow min-w-0 pr-1" role="group" aria-label={`Sizes for ${rel.title}`}>
                         {(rel.sizes || DEFAULT_SIZES).map((size) => (
                           <button
                             key={size}
                             type="button"
                             aria-pressed={currentSize === size}
                             aria-label={`Select size ${size} for ${rel.title}`}
-                            onClick={(e) => handleRelatedSizeClick(e, rel.id, size)}
-                            className={`font-mono text-[11px] uppercase font-medium tracking-wider px-2 py-1 rounded-sm transition duration-150 cursor-pointer min-h-[30px] ${
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRelatedSizeClick(e, rel.id, size);
+                            }}
+                            className={`font-mono text-[10px] sm:text-[11px] uppercase font-bold transition-all duration-150 rounded-full cursor-pointer h-6 sm:h-7 px-1 sm:px-1.5 flex items-center justify-center shrink-0 ${
                               currentSize === size
-                                ? 'font-bold bg-black text-white'
-                                : 'hover:text-black text-neutral-700'
+                                ? 'bg-neutral-950 text-white shadow-xs'
+                                : 'text-neutral-700 hover:text-black hover:bg-neutral-200/80'
                             }`}
                           >
                             {size}
@@ -740,18 +744,21 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                       {/* Add to bag icon button */}
                       <button
                         type="button"
-                        onClick={(e) => handleRelatedQuickAdd(e, rel)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRelatedQuickAdd(e, rel);
+                        }}
                         aria-label={isAdded ? `Added ${rel.title} to bag` : `Add size ${currentSize} of ${rel.title} to bag`}
-                        className={`p-1.5 min-w-[32px] min-h-[32px] flex items-center justify-center rounded-full transition-all cursor-pointer ${
+                        className={`w-6 h-6 sm:w-7 sm:h-7 shrink-0 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-xs ${
                           isAdded
-                            ? 'bg-[#10B981] text-white scale-105'
-                            : 'bg-black text-white hover:bg-[#FF5722]'
+                            ? 'bg-emerald-600 text-white scale-105'
+                            : 'bg-neutral-950 hover:bg-[#FF5722] text-white active:scale-90'
                         }`}
                       >
                         {isAdded ? (
-                          <Check className="w-3.5 h-3.5" aria-hidden="true" />
+                          <Check className="w-3.5 h-3.5 text-white" aria-hidden="true" />
                         ) : (
-                          <Plus className="w-3.5 h-3.5" aria-hidden="true" />
+                          <Plus className="w-3.5 h-3.5 text-white" aria-hidden="true" />
                         )}
                       </button>
                     </div>

@@ -86,3 +86,4 @@ export const WishlistHeartButton: React.FC<WishlistHeartButtonProps> = ({
     </motion.button>
   );
 };
+

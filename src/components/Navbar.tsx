@@ -83,13 +83,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FF5722]" aria-hidden="true"></span>
               </a>
               <a
-                className="hover:text-black transition tracking-wider"
-                href="#campaign"
-                onClick={() => onGoHome?.()}
-              >
-                CAMPAIGN
-              </a>
-              <a
                 className="hover:text-black transition tracking-wider text-neutral-600 hover:text-black"
                 href="#archive"
                 onClick={() => onGoHome?.()}
@@ -227,13 +220,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <span className="text-[10px] bg-black text-white px-2 py-0.5 rounded-full font-sans">
                     NEW
                   </span>
-                </a>
-                <a
-                  href="#campaign"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="py-3 px-3 rounded hover:bg-neutral-200/80 transition min-h-[44px] flex items-center"
-                >
-                  Campaign SS26
                 </a>
                 <a
                   href="#archive"

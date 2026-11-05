@@ -92,11 +92,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
                   Archive
                 </a>
               </li>
-              <li>
-                <a className="hover:text-black transition" href="#campaign">
-                  Campaign SS26
-                </a>
-              </li>
             </ul>
           </div>
 
@@ -107,12 +102,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
             </p>
             <ul className="space-y-2 text-xs text-neutral-600 font-sans">
               <li>
-                <a className="hover:text-black transition" href="#campaign">
+                <a className="hover:text-black transition" href="#shop">
                   Shipping (Free over ₹999)
                 </a>
               </li>
               <li>
-                <a className="hover:text-black transition" href="#campaign">
+                <a className="hover:text-black transition" href="#shop">
                   7-Day Size Exchanges (No Returns)
                 </a>
               </li>

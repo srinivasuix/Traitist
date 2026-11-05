@@ -6,7 +6,6 @@ import { Navbar } from './components/Navbar';
 import { HeroRotator } from './components/HeroRotator';
 import { FirstDropBanner } from './components/FirstDropBanner';
 import { ProductGrid } from './components/ProductGrid';
-import { CampaignBanner } from './components/CampaignBanner';
 import { MetricsSection } from './components/MetricsSection';
 import { NewsletterSection } from './components/NewsletterSection';
 import { Footer } from './components/Footer';
@@ -88,7 +87,7 @@ export default function App() {
           setSelectedProduct(found);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-      } else if (!hash || hash === '#shop' || hash === '#campaign' || hash === '#archive') {
+      } else if (!hash || hash === '#shop' || hash === '#archive') {
         setSelectedProduct(null);
       }
 
@@ -336,14 +335,6 @@ export default function App() {
               onToggleWishlist={handleToggleWishlist}
               onAddToCart={(product, size) => handleAddToCart(product, size, 1)}
               onSelectProduct={handleSelectProduct}
-            />
-
-            {/* 5. Campaign Banner ("MADE FOR THE LONG NIGHT.") */}
-            <CampaignBanner
-              onExploreCollection={() => {
-                const el = document.getElementById('shop');
-                el?.scrollIntoView({ behavior: 'smooth' });
-              }}
             />
 
             {/* 6. Specifications & Metrics (200 GSM, 150 Run size, etc.) */}

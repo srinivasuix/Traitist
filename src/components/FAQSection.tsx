@@ -4,7 +4,7 @@ import FaqSection, { FaqData } from './ui/habit-faq-scroller';
 const TRAITIST_FAQ_DATA: FaqData = {
   mainTitle: 'FREQUENTLY ASKED QUESTIONS',
   mainSubtitle:
-    'Drop 01 fit details, heavyweight 200 GSM cotton jersey specifications, order tracking timelines, and hassle-free size exchanges.',
+    'PhD Collection fit details, heavyweight 200 GSM cotton jersey specifications, order tracking timelines, and hassle-free size exchanges.',
   rows: [
     {
       id: 'row-fit-fabric',
@@ -55,10 +55,10 @@ const TRAITIST_FAQ_DATA: FaqData = {
         },
         {
           id: 'launch-offer',
-          category: 'PRICE // SPECIAL DROP OFFER',
+          category: 'PRICE // LAUNCH OFFER',
           question: 'How long is the ₹799 introductory price valid?',
           answer:
-            'The ₹799 price (regularly ₹899) is an exclusive launch offer reserved for Drop 01 orders until initial quantities sell out. Once the first drop closes, standard pricing will apply.',
+            'The ₹799 price (regularly ₹899) is an exclusive launch offer reserved for PhD Collection orders until initial allocation sells out. Once the launch edition closes, standard pricing will apply.',
         },
       ],
     },

@@ -37,7 +37,7 @@ export const FaqCard: React.FC<{
       <div className="flex items-center gap-2 mb-2.5">
         <span className="w-1.5 h-1.5 bg-[#FF5722] shrink-0" aria-hidden="true" />
         <span className="font-mono text-[10px] uppercase tracking-widest text-[#FF5722] font-bold">
-          {category || 'DROP 01 // ARCHIVE'}
+          {category || 'PHD COLLECTION // ARCHIVE'}
         </span>
       </div>
       <h3 className="font-display font-bold text-base sm:text-lg text-neutral-950 tracking-tight leading-snug">

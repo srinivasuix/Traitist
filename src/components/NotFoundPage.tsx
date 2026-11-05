@@ -62,7 +62,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ onGoHome }) => {
             className="w-full sm:w-auto px-6 py-3 border border-neutral-300 hover:border-black bg-white hover:bg-neutral-100 text-neutral-900 text-xs font-mono uppercase tracking-wider font-semibold rounded-sm transition-colors duration-150 flex items-center justify-center gap-2 cursor-pointer"
           >
             <ShoppingBag className="w-4 h-4 text-neutral-700" aria-hidden="true" />
-            <span>BROWSE DROP 01</span>
+            <span>BROWSE PHD COLLECTION</span>
           </button>
         </div>
       </div>

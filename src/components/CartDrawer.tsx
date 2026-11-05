@@ -792,7 +792,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         YOUR CART HAS TRUST ISSUES.
                       </p>
                       <p className="text-xs text-neutral-600 mt-1 max-w-xs font-sans leading-relaxed">
-                        It's questioning its existence and waiting for hypothesis testing. Fill it with our 200 GSM heavyweight drop.
+                        It's questioning its existence and waiting for hypothesis testing. Fill it with our 200 GSM heavyweight PhD Collection.
                       </p>
                       <button
                         type="button"

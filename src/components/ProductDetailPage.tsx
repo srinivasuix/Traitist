@@ -526,7 +526,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     THIS TEE HAS LEFT THE LAB.
                   </p>
                   <p className="text-xs text-neutral-400 font-sans">
-                    Initial archival allocation has departed. Explore available pieces from Drop 01.
+                    Initial archival allocation has departed. Explore available pieces from the PhD Collection.
                   </p>
                   <button
                     type="button"

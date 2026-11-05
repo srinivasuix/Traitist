@@ -28,11 +28,11 @@ export const MetricsSection: React.FC = () => {
               WEIGHT
             </dt>
             <dd className="text-4xl md:text-6xl font-black font-display text-neutral-950 mb-2 tracking-tighter flex items-baseline">
-              <NumberTicker value={480} />
+              <NumberTicker value={200} />
               <span className="text-xl md:text-2xl font-mono text-neutral-500 ml-1">GSM</span>
             </dd>
             <dd className="text-xs text-neutral-600 leading-relaxed font-sans">
-              Heavyweight loopback fleece on every garment. It holds its heavy drape and structural shape after fifty washes.
+              200 GSM bio-washed combed cotton on every garment. It holds its structural shape and boxy drape after fifty washes.
             </dd>
           </div>
         </BlurFade>

@@ -405,9 +405,9 @@ export const TraitistReceiptPrinter: React.FC<TraitistReceiptPrinterProps> = ({
   const primaryTitle = firstItem ? firstItem.product.title : 'Traitist Heavyweight Tee';
   const primarySubtitle =
     orderData.items.length > 1
-      ? `${orderData.items.length} items · Heavyweight 240 GSM`
+      ? `${orderData.items.length} items · 200 GSM Combed Jersey`
       : firstItem
-      ? `Size: ${firstItem.size} · Heavyweight 240 GSM`
+      ? `Size: ${firstItem.size} · 200 GSM Combed Jersey`
       : 'Heavyweight Wearable Resilience';
 
   // Short order code for barcode label e.g. "ORD-2048" or "TRT-5975"

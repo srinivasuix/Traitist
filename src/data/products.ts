@@ -77,8 +77,8 @@ export const ROTATOR_PRODUCTS: Product[] = [
     category: "PhD Series",
     image: "/images/products/tee_progress.png",
     description:
-      "The flagship viral Traitist graphic: Expectation vs Reality curve. 'I would have started writing my thesis in kindergarten if I knew Ph.D was like this!!!!' High-density screenprint on custom pre-shrunk 240 GSM combed cotton.",
-    gsm: "240 GSM",
+      "The flagship viral Traitist graphic: Expectation vs Reality curve. 'I would have started writing my thesis in kindergarten if I knew Ph.D was like this!!!!' High-density screenprint on custom pre-shrunk 200 GSM combed cotton.",
+    gsm: "200 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
@@ -98,8 +98,8 @@ export const ROTATOR_PRODUCTS: Product[] = [
     category: "PhD Series",
     image: "/images/products/tee_scholar_thoughts_femme.png",
     description:
-      "'Everyday thoughts of a Ph.D Scholar: So, When I will be finishing my Ph.D??? There is a lot of work which is pending!! When I will be publishing my manuscript?? How about my future??' 240 GSM heavy combed jersey.",
-    gsm: "240 GSM",
+      "'Everyday thoughts of a Ph.D Scholar: So, When I will be finishing my Ph.D??? There is a lot of work which is pending!! When I will be publishing my manuscript?? How about my future??' 200 GSM heavy combed jersey.",
+    gsm: "200 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
@@ -120,7 +120,7 @@ export const ROTATOR_PRODUCTS: Product[] = [
     image: "/images/products/tee_scholar_thoughts_core.png",
     description:
       "Color edition featuring red blood cells, DNA helix, molecular diagrams, desk lamp, and towering stacks of doctoral manuscripts. Vibrant direct-to-garment print.",
-    gsm: "240 GSM",
+    gsm: "200 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
@@ -140,7 +140,7 @@ export const ROTATOR_PRODUCTS: Product[] = [
     image: "/images/products/tee_milestone.png",
     description:
       "'In an adventurous journey called Doctor of Philosophy (Ph.D.) Where every milestone feels like a NIGHTMARE!!!!' Climbing the rocky steps of Experiments Failed, Deadlines, Synopsis, Thesis, Viva Mock, and Final Award.",
-    gsm: "240 GSM",
+    gsm: "200 GSM",
     fabric: "100% Super-Combed Cotton",
     blendMode: "normal",
     variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
@@ -160,7 +160,7 @@ export const ROTATOR_PRODUCTS: Product[] = [
     image: "/images/products/tee_pie_chart.png",
     description:
       "'What the world thinks we are: Student vs What we actually are: Graphic designer, Reviewer, Author, Analyst, Project Manager, Technician, Statistician, Scientist, Philosopher, Documenter, Sales Representative.'",
-    gsm: "240 GSM",
+    gsm: "200 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
@@ -180,7 +180,7 @@ export const ROTATOR_PRODUCTS: Product[] = [
     image: "/images/products/tee_coffee_femme.png",
     description:
       "'MY THESIS IS BEING WRITTEN IN..... Blood, Tears, Sweat, Coffee: oh, boy you need me...' 4-panel comic strip art documenting the thesis survival grind.",
-    gsm: "240 GSM",
+    gsm: "200 GSM",
     fabric: "100% Combed Compact Cotton",
     blendMode: "normal",
     variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
@@ -200,7 +200,7 @@ export const ROTATOR_PRODUCTS: Product[] = [
     image: "/images/products/tee_coffee_classic.png",
     description:
       "The classic 4-stage thesis grind: late nights, desperate revisions, bandaged fingers, stacks of papers, and coffee savior.",
-    gsm: "240 GSM",
+    gsm: "200 GSM",
     fabric: "100% Pure Combed Cotton",
     blendMode: "normal",
     variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
@@ -221,7 +221,7 @@ export const ROTATOR_PRODUCTS: Product[] = [
     image: "/images/products/tee_under_review.png",
     description:
       "'Me and My lab colleague discussing after death: What happened to that paper you was trying to publish?? Ahhhhhh, it is still under review.....' Skeleton researcher conversation artwork.",
-    gsm: "240 GSM",
+    gsm: "200 GSM",
     fabric: "100% Heavy Combed Cotton",
     blendMode: "normal",
     variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
@@ -244,8 +244,8 @@ export const CATALOG_PRODUCTS: Product[] = [
     category: "PhD Series",
     image: "/images/products/tee_progress.png",
     description:
-      "The quintessential existential academic graphic tee. 'I would have started writing my thesis in kindergarten if I knew Ph.D was like this!!!!' Boxy relaxed drape, reinforced ribbed neckband, and 240 GSM heavy combed jersey.",
-    gsm: "240 GSM",
+      "The quintessential existential academic graphic tee. 'I would have started writing my thesis in kindergarten if I knew Ph.D was like this!!!!' Boxy relaxed drape, reinforced ribbed neckband, and 200 GSM heavy combed jersey.",
+    gsm: "200 GSM",
     fabric: "100% Pure Bio-Washed Cotton",
     blendMode: "normal",
     scale: 1.15,
@@ -267,7 +267,7 @@ export const CATALOG_PRODUCTS: Product[] = [
     image: "/images/products/tee_scholar_thoughts_femme.png",
     description:
       "Illustrative mind-map of imposter syndrome, literature reviews, and thesis deadlines. 'So, When I will be finishing my Ph.D??? When I will be publishing my manuscript?? How about my future??'",
-    gsm: "240 GSM",
+    gsm: "200 GSM",
     fabric: "100% Super-Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
@@ -289,7 +289,7 @@ export const CATALOG_PRODUCTS: Product[] = [
     image: "/images/products/tee_scholar_thoughts_core.png",
     description:
       "Color edition featuring red blood cells, DNA helix, molecular diagrams, desk lamp, and towering stacks of doctoral manuscripts. Vibrant direct-to-garment print.",
-    gsm: "240 GSM",
+    gsm: "200 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
@@ -310,7 +310,7 @@ export const CATALOG_PRODUCTS: Product[] = [
     image: "/images/products/tee_milestone.png",
     description:
       "A stark architectural staircase representing academic progression through trial by fire. 'In an adventurous journey called Doctor of Philosophy (Ph.D.) Where every milestone feels like a NIGHTMARE!!!!'",
-    gsm: "240 GSM",
+    gsm: "200 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
@@ -331,7 +331,7 @@ export const CATALOG_PRODUCTS: Product[] = [
     image: "/images/products/tee_pie_chart.png",
     description:
       "High-contrast color-coded reality breakdown chart. 'What the world thinks we are: Student vs What we actually are: Graphic designer, Reviewer, Author, Analyst, Project Manager, Technician...'",
-    gsm: "240 GSM",
+    gsm: "200 GSM",
     fabric: "100% Pure Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
@@ -352,7 +352,7 @@ export const CATALOG_PRODUCTS: Product[] = [
     image: "/images/products/tee_coffee_femme.png",
     description:
       "Heavyweight graphic print paying homage to the Holy Trinity of research and coding sprints: coffee, sweat, and persistence. 'MY THESIS IS BEING WRITTEN IN..... Blood, Tears, Sweat, Coffee'",
-    gsm: "240 GSM",
+    gsm: "200 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
@@ -373,7 +373,7 @@ export const CATALOG_PRODUCTS: Product[] = [
     image: "/images/products/tee_coffee_classic.png",
     description:
       "The classic 4-stage thesis grind: late nights, desperate revisions, bandaged fingers, stacks of papers, and coffee savior.",
-    gsm: "240 GSM",
+    gsm: "200 GSM",
     fabric: "100% Pure Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
@@ -395,7 +395,7 @@ export const CATALOG_PRODUCTS: Product[] = [
     image: "/images/products/tee_under_review.png",
     description:
       "'Me and My lab colleague discussing after death: What happened to that paper you was trying to publish?? Ahhhhhh, it is still under review.....' Archival comic panel artwork.",
-    gsm: "240 GSM",
+    gsm: "200 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
@@ -438,7 +438,7 @@ export const LOOKBOOK_ITEMS: LookItem[] = [
   {
     id: "look-05",
     title: "DETAIL",
-    subtitle: "240 GSM BIO-WASH",
+    subtitle: "200 GSM BIO-WASH",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuBvp6V7n6HvdWnZHjbpXsu9swx2QAnuguw1rRilxWitFv2EU9YZbmaHBhsgpzHId6Zoc7F9EnC0cXfJ0gzhlX6RNA-HPzn_ZeVxStjgQh-TB9SdnzV2zrO2UbBKYZ__HeXxUjyhQi5n--baGgsTs65pII_tue-uJrJIADOxPoUVyyBkNUmwNeCwaiOQSTLk0jAChj9ZmBWyPHdeUf-_5o3x-f8sEv9iT_I6p1AFtBk",
   },

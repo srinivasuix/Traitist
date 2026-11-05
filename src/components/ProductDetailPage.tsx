@@ -571,7 +571,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 </button>
                 {openAccordions.care && (
                   <div id="accordion-panel-care" className="pb-4 text-xs text-neutral-700 font-mono leading-relaxed space-y-1.5 text-[11px]">
-                    <p>• 100% Super-Combed Cotton, 240 GSM heavy jersey knit.</p>
+                    <p>• 100% Super-Combed Cotton, 200 GSM heavy jersey knit.</p>
                     <p>• Machine wash cold inside out with similar colors.</p>
                     <p>• Line dry in shade to preserve relaxed street drape.</p>
                     <p>• Warm iron inside out; do not iron directly over the graphic print.</p>

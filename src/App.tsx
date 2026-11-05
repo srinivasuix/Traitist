@@ -333,7 +333,7 @@ export default function App() {
             {/* 6. Community Feed ("Worn by you") */}
             <CommunitySection />
 
-            {/* 8. Specifications & Metrics (480 GSM, 150 Run size, etc.) */}
+            {/* 8. Specifications & Metrics (200 GSM, 150 Run size, etc.) */}
             <MetricsSection />
 
             {/* 9. Join The List Newsletter Section */}

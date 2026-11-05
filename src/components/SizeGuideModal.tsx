@@ -63,7 +63,7 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose 
           Boxy Streetwear Fit Guide
         </h2>
         <p className="text-xs text-neutral-600 mt-1 font-sans">
-          All Traitist tees are cut with an intentional drop-shoulder boxy drape in 240 GSM bio-washed heavy cotton.
+          All Traitist tees are cut with an intentional drop-shoulder boxy drape in 200 GSM bio-washed heavy cotton.
         </p>
 
         {/* Units toggle */}

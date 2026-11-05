@@ -265,7 +265,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <p className="font-semibold text-neutral-900">
                 TRAITIST STUDIOS • TORONTO / BENGALURU
               </p>
-              <p>Heavyweight 240–480 GSM wearable resilience.</p>
+              <p>200 GSM wearable resilience.</p>
               <div className="pt-2 flex items-center gap-4 text-xs font-semibold text-neutral-900">
                 <a href="#shop" className="hover:underline">
                   INSTAGRAM

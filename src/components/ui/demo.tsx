@@ -45,25 +45,6 @@ export default function DemoOne() {
               'Life happens! Missing a day won\'t break your streak. Our app focuses on long-term consistency, not 100% perfection.'
           }
         ]
-      },
-      {
-        id: 'row3',
-        speed: '70s',
-        direction: 'left' as const,
-        faqItems: [
-          {
-            id: 'q5',
-            question: 'Is there a free trial?',
-            answer:
-              'Yes, you can try all our Pro features for 7 days, no credit card required. You can downgrade to the Free plan at any time.'
-          },
-          {
-            id: 'q6',
-            question: 'How do I cancel my subscription?',
-            answer:
-              'You can cancel your subscription at any time from your account settings page. Your access will continue until the end of your billing period.'
-          }
-        ]
       }
     ]
   };

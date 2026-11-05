@@ -62,34 +62,6 @@ const TRAITIST_FAQ_DATA: FaqData = {
         },
       ],
     },
-    {
-      id: 'row-care-community',
-      speed: '44s',
-      direction: 'left',
-      faqItems: [
-        {
-          id: 'care',
-          category: 'CARE // COLD WASH ONLY',
-          question: 'How should I wash and care for my T-shirt?',
-          answer:
-            'Machine wash cold inside out with similar colours, and line dry in the shade. Never iron directly over the graphic print to maintain the high-density ink texture.',
-        },
-        {
-          id: 'packaging',
-          category: 'ARCHIVAL // KRAFT UNBOXING',
-          question: 'How are orders packaged and shipped?',
-          answer:
-            'Every tee arrives in a custom matte protective sleeve and sealed kraft box, complete with collectible PhD stickers and an authenticity packing slip.',
-        },
-        {
-          id: 'early-access',
-          category: 'DROP // PASSCODES',
-          question: 'How do I get early access to future drops?',
-          answer:
-            'Subscribe to our newsletter below or save items to your wishlist to receive private drop passcodes 2 hours before public releases.',
-        },
-      ],
-    },
   ],
 };
 

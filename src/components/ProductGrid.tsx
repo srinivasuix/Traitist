@@ -126,7 +126,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                     isWishlisted={isWishlisted}
                     onToggle={() => onToggleWishlist(product)}
                     title={product.title}
-                    className="absolute top-2 right-2"
+                    className="absolute top-2.5 right-2.5 z-20"
                   />
 
                   {/* Garment Image */}
@@ -152,13 +152,13 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                     </div>
                   )}
 
-                  {/* Desktop & Tablet Size Selector Hover Pill Bar (Optimized, High Contrast & Non-Clipped) */}
+                  {/* Desktop & Tablet Size Selector Hover Pill Bar (Non-Clipped, Even Spacing, Perfect Fit) */}
                   <div
-                    className="hidden md:flex absolute bottom-2 left-1.5 right-1.5 sm:left-2 sm:right-2 items-center justify-between bg-white/95 backdrop-blur-md border border-neutral-300/80 rounded-full px-2 py-1 shadow-[0_4px_16px_rgba(0,0,0,0.12)] opacity-0 translate-y-1.5 group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-200 ease-out z-20 pointer-events-auto"
+                    className="hidden md:flex absolute bottom-2.5 sm:bottom-3 left-2 right-2 items-center justify-between bg-white/95 backdrop-blur-md border border-neutral-300/90 rounded-full p-1 shadow-[0_4px_16px_rgba(0,0,0,0.12)] opacity-0 translate-y-1.5 group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-200 ease-out z-20 pointer-events-auto"
                     onClick={(e) => e.stopPropagation()}
                     onPointerDown={(e) => e.stopPropagation()}
                   >
-                    <div className="flex items-center justify-between flex-grow min-w-0 pr-1" role="group" aria-label={`Sizes for ${product.title}`}>
+                    <div className="flex items-center flex-1 min-w-0 gap-0.5" role="group" aria-label={`Sizes for ${product.title}`}>
                       {(product.sizes || DEFAULT_SIZES).map((size) => (
                         <button
                           key={size}
@@ -169,7 +169,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                             e.stopPropagation();
                             handleSizeClick(e, product.id, size);
                           }}
-                          className={`font-mono text-[10px] sm:text-[11px] uppercase font-bold transition-all duration-150 rounded-full cursor-pointer h-6 sm:h-7 px-1 sm:px-1.5 flex items-center justify-center shrink-0 ${
+                          className={`flex-1 min-w-0 font-mono text-[9px] min-[400px]:text-[10px] sm:text-[10.5px] uppercase font-bold transition-all duration-150 rounded-full cursor-pointer h-6 sm:h-6.5 px-0.5 flex items-center justify-center leading-none tracking-tight ${
                             currentSize === size
                               ? 'bg-neutral-950 text-white shadow-xs'
                               : 'text-neutral-700 hover:text-black hover:bg-neutral-200/80'
@@ -188,7 +188,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                         handleQuickAdd(e, product);
                       }}
                       aria-label={isAdded ? `Added ${product.title} to bag` : `Add size ${currentSize} of ${product.title} to bag`}
-                      className={`w-6 h-6 sm:w-7 sm:h-7 shrink-0 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-xs ${
+                      className={`w-6 h-6 sm:w-6.5 sm:h-6.5 shrink-0 ml-1 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-xs ${
                         isAdded
                           ? 'bg-emerald-600 text-white scale-105'
                           : 'bg-neutral-950 hover:bg-[#FF5722] text-white active:scale-90'

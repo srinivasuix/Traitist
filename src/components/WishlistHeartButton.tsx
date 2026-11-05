@@ -29,11 +29,14 @@ export const WishlistHeartButton: React.FC<WishlistHeartButtonProps> = ({
     lg: 'w-4.5 h-4.5',
   };
 
+  const hasCustomPosition = /\b(absolute|fixed|sticky|static)\b/.test(className);
+  const positionClass = hasCustomPosition ? '' : 'relative';
+
   return (
     <motion.button
       type="button"
-      whileHover={{ scale: 1.08 }}
-      whileTap={{ scale: 0.82 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.85 }}
       transition={{ type: 'spring', stiffness: 450, damping: 20 }}
       onClick={(e) => {
         e.stopPropagation();
@@ -41,7 +44,7 @@ export const WishlistHeartButton: React.FC<WishlistHeartButtonProps> = ({
       }}
       aria-label={isWishlisted ? `Remove ${title} from wishlist` : `Add ${title} to wishlist`}
       aria-pressed={isWishlisted}
-      className={`relative rounded-full bg-white/90 backdrop-blur-sm border border-black/10 hover:bg-white flex items-center justify-center transition-colors z-10 cursor-pointer shadow-xs active:shadow-none select-none ${sizeClasses[size]} ${className}`}
+      className={`${positionClass} rounded-full bg-white/95 backdrop-blur-sm border border-neutral-300/80 hover:bg-white flex items-center justify-center transition-colors z-20 cursor-pointer shadow-sm hover:shadow-md active:shadow-none select-none ${sizeClasses[size]} ${className}`}
     >
       {/* Subtle expanding ping pulse when favorited */}
       <AnimatePresence>

@@ -41,34 +41,40 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
         </div>
 
         {/* ========================================================
-            2. CONTENT BLOCK — 5 ESSENTIAL ELEMENTS:
-            1. Launch announcement – THE FIRST DROP · NOV 15
-            2. Brand statement – YOUR RESEARCH. YOUR IDENTITY.
-            3. Product explanation – PhD-inspired graphic tees.
-            4. Offer – ₹799 instead of ₹899.
-            5. Action – SHOP THE FIRST DROP.
+            2. CONTENT BLOCK:
+            - Announcement: THE FIRST DROP · NOVEMBER 15
+            - Headline: A NEW DROP. A SPECIAL PRICE.
+            - Subline: Your first chance to wear your research identity.
+            - Description: Celebrate the TRAITIST launch with our introductory offer.
+            - Offer: ₹799 instead of ₹899. Save ₹100.
+            - Action: SHOP THE FIRST DROP.
             ======================================================== */}
-        <div className="relative z-10 p-4 min-[360px]:p-5 sm:p-5 md:p-6 lg:p-7 xl:p-8 max-w-lg md:max-w-[340px] lg:max-w-[390px] xl:max-w-[420px] flex flex-col justify-center space-y-2 sm:space-y-2.5 md:space-y-2.5 lg:space-y-3">
-          {/* 1. Launch announcement */}
+        <div className="relative z-10 p-4 min-[360px]:p-5 sm:p-5 md:p-6 lg:p-7 xl:p-8 max-w-lg md:max-w-[340px] lg:max-w-[400px] xl:max-w-[440px] flex flex-col justify-center space-y-2 sm:space-y-2.5 md:space-y-2.5 lg:space-y-3">
+          {/* Launch announcement */}
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 bg-[#FF5722] shrink-0" aria-hidden="true" />
             <span className="text-[9.5px] min-[360px]:text-[10px] md:text-[9.5px] lg:text-[10.5px] font-mono uppercase tracking-widest text-[#FF5722] font-bold">
-              THE FIRST DROP · NOV 15
+              THE FIRST DROP · NOVEMBER 15
             </span>
           </div>
 
-          {/* 2. Brand statement */}
+          {/* Headline */}
           <h2 className="text-[20px] min-[360px]:text-[22px] min-[400px]:text-[24px] sm:text-2xl md:text-xl lg:text-2xl xl:text-[26px] font-black font-display tracking-tight uppercase leading-[1.02]">
-            <span className="block text-white">YOUR RESEARCH.</span>
-            <span className="block text-[#FF5722]">YOUR IDENTITY.</span>
+            <span className="block text-white">A NEW DROP.</span>
+            <span className="block text-[#FF5722]">A SPECIAL PRICE.</span>
           </h2>
 
-          {/* 3. Product explanation */}
-          <p className="text-[11.5px] min-[360px]:text-xs md:text-[11.5px] lg:text-xs xl:text-[12.5px] font-mono text-neutral-300 leading-relaxed">
-            PhD-inspired graphic tees.
+          {/* Brand subline */}
+          <p className="text-xs sm:text-[12.5px] md:text-xs lg:text-[13px] font-mono font-medium text-neutral-200">
+            Your first chance to wear your research identity.
           </p>
 
-          {/* 4. Offer — ₹799 instead of ₹899 */}
+          {/* Product description & introductory offer */}
+          <p className="text-[11px] min-[360px]:text-[11.5px] md:text-[11px] lg:text-xs xl:text-[12px] font-mono text-neutral-400 leading-relaxed max-w-sm md:max-w-[320px]">
+            Celebrate the TRAITIST launch with our introductory offer. Get your favourite PhD-inspired graphic tees at special launch pricing.
+          </p>
+
+          {/* Offer — ₹799 instead of ₹899. Save ₹100. */}
           <div className="flex items-baseline gap-2 pt-0.5">
             <span className="text-2xl min-[360px]:text-[26px] sm:text-3xl md:text-2xl lg:text-[28px] font-black font-mono text-white tracking-tight">
               ₹{FIRST_DROP_LAUNCH_PRICE}
@@ -78,9 +84,12 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
                 ₹{FIRST_DROP_REGULAR_PRICE}
               </span>
             )}
+            <span className="text-[9.5px] min-[360px]:text-[10px] font-mono uppercase tracking-wider text-[#FF5722] font-bold">
+              • SAVE ₹100
+            </span>
           </div>
 
-          {/* 5. Action — SHOP THE FIRST DROP */}
+          {/* Action — SHOP THE FIRST DROP */}
           <div className="pt-1">
             <button
               type="button"

@@ -63,9 +63,9 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
             <span className="block text-[#FF5722]">YOUR IDENTITY.</span>
           </h2>
 
-          {/* Concrete, distinctive product description */}
+          {/* Short description */}
           <p className="text-[11px] min-[360px]:text-[11.5px] md:text-[11px] lg:text-xs xl:text-[12.5px] font-mono text-neutral-300 leading-relaxed max-w-sm md:max-w-[290px] lg:max-w-sm">
-            Heavyweight 200 GSM drop-shoulder tees engineered with viral PhD research graphics. Limited first run with zero restocks.
+            Academic-inspired streetwear for thinkers, researchers and changemakers.
           </p>
 
           {/* Compelling Exclusive Launch Offer */}

@@ -178,15 +178,16 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
 
     const deltaX = dragOffset;
     const elapsed = Date.now() - dragStartRef.current.time;
-    // Velocity in px/ms
-    const velocity = Math.abs(deltaX) / Math.max(elapsed, 1);
-
-    // Apple momentum projection: project where the gesture is heading based on release velocity
-    const projectedOffset = deltaX + (deltaX !== 0 ? Math.sign(deltaX) * velocity * 160 : 0);
+    // Apple WWDC "Designing Fluid Interfaces" momentum projection
+    // velocity in px/ms converted to px/s with exponential scroll deceleration
+    const velocityPxSec = (deltaX / Math.max(elapsed, 1)) * 1000;
+    const decelerationRate = 0.992; // Snappy direct response
+    const projectedDistance = (velocityPxSec / 1000) * decelerationRate / (1 - decelerationRate);
+    const projectedOffset = deltaX + projectedDistance;
 
     setDragOffset(0);
 
-    const threshold = isMobile ? 40 : 55;
+    const threshold = isMobile ? 35 : 50;
 
     if (projectedOffset < -threshold) {
       nextProduct();

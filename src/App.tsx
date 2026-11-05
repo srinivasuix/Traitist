@@ -365,10 +365,6 @@ export default function App() {
         onRemoveItem={handleRemoveFromCart}
         onClearCart={handleClearCart}
         onAddToCart={handleAddToCart}
-        onSelectProduct={(prod) => {
-          setIsCartOpen(false);
-          handleSelectProduct(prod);
-        }}
         onOpenSizeGuide={() => setIsSizeGuideOpen(true)}
         wishlistIds={wishlistIds}
         onToggleWishlist={handleToggleWishlist}

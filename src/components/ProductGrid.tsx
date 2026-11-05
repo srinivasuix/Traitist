@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Heart, Plus, ShoppingBag, Check } from 'lucide-react';
 import { CATALOG_PRODUCTS, Product, DEFAULT_SIZES } from '../data/products';
 import { BlurFade } from './magicui/blur-fade';
+import { WishlistHeartButton } from './WishlistHeartButton';
 
 interface ProductGridProps {
   wishlistIds: string[];
@@ -120,25 +121,13 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                     </div>
                   )}
 
-                  {/* Wishlist Button */}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onToggleWishlist(product);
-                    }}
-                    aria-label={isWishlisted ? `Remove ${product.title} from wishlist` : `Add ${product.title} to wishlist`}
-                    className="absolute top-2 right-2 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm border border-black/10 hover:bg-white flex items-center justify-center transition z-10 cursor-pointer shadow-xs"
-                  >
-                    <Heart
-                      className={`w-3.5 h-3.5 transition-colors ${
-                        isWishlisted
-                          ? 'fill-[#FF5722] text-[#FF5722]'
-                          : 'text-neutral-700 hover:text-black'
-                      }`}
-                      aria-hidden="true"
-                    />
-                  </button>
+                  {/* Animated Wishlist Button */}
+                  <WishlistHeartButton
+                    isWishlisted={isWishlisted}
+                    onToggle={() => onToggleWishlist(product)}
+                    title={product.title}
+                    className="absolute top-2 right-2"
+                  />
 
                   {/* Garment Image */}
                   <img

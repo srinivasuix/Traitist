@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { Product, CATALOG_PRODUCTS, DEFAULT_SIZES, SIZE_TO_VARIANT } from '../data/products';
 import { BorderBeam } from './magicui/border-beam';
+import { WishlistHeartButton } from './WishlistHeartButton';
 
 interface ProductDetailPageProps {
   product: Product;
@@ -213,21 +214,35 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           </button>
 
           <div className="flex items-center gap-2">
-            <button
+            <motion.button
+              type="button"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.88 }}
+              transition={{ type: 'spring', stiffness: 450, damping: 20 }}
               onClick={() => onToggleWishlist(product)}
               className="p-2 rounded hover:bg-neutral-200 transition text-neutral-700 hover:text-[#FF5722] cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center gap-1.5"
               aria-label={isWishlisted ? 'Remove from wishlist' : 'Save to wishlist'}
               title="Save to wishlist"
             >
-              <Heart
-                className={`w-4 h-4 ${
-                  isWishlisted ? 'fill-[#FF5722] text-[#FF5722]' : ''
-                }`}
-              />
+              <motion.div
+                key={isWishlisted ? 'top-liked' : 'top-unliked'}
+                initial={{ scale: isWishlisted ? 0.7 : 1.15 }}
+                animate={{
+                  scale: isWishlisted ? [0.7, 1.38, 0.92, 1.05, 1] : [1.15, 0.78, 1],
+                  rotate: isWishlisted ? [0, -12, 8, -4, 0] : [0, 8, -6, 0],
+                }}
+                transition={{ duration: isWishlisted ? 0.4 : 0.28, ease: 'easeOut' }}
+              >
+                <Heart
+                  className={`w-4 h-4 transition-colors ${
+                    isWishlisted ? 'fill-[#FF5722] text-[#FF5722] drop-shadow-[0_2px_8px_rgba(255,87,34,0.35)]' : ''
+                  }`}
+                />
+              </motion.div>
               <span className="text-[10px] font-mono uppercase hidden sm:inline">
                 {isWishlisted ? 'SAVED' : 'SAVE'}
               </span>
-            </button>
+            </motion.button>
 
             <button
               onClick={handleShare}
@@ -678,25 +693,13 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                       </div>
                     )}
 
-                    {/* Wishlist Button */}
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onToggleWishlist(rel);
-                      }}
-                      aria-label={isRelWishlisted ? `Remove ${rel.title} from wishlist` : `Add ${rel.title} to wishlist`}
-                      className="absolute top-2 right-2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/80 backdrop-blur-sm border border-black/10 hover:bg-white flex items-center justify-center transition z-10 cursor-pointer shadow-xs"
-                    >
-                      <Heart
-                        className={`w-3.5 h-3.5 transition-colors ${
-                          isRelWishlisted
-                            ? 'fill-[#FF5722] text-[#FF5722]'
-                            : 'text-neutral-700 hover:text-black'
-                        }`}
-                        aria-hidden="true"
-                      />
-                    </button>
+                    {/* Animated Wishlist Button */}
+                    <WishlistHeartButton
+                      isWishlisted={isRelWishlisted}
+                      onToggle={() => onToggleWishlist(rel)}
+                      title={rel.title}
+                      className="absolute top-2 right-2"
+                    />
 
                     {/* Garment Image */}
                     <img

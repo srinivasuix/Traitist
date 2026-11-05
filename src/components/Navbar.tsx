@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Search, ShoppingBag, Menu, X, Heart } from 'lucide-react';
 import { BRAND_LOGO_URL } from '../data/products';
 
@@ -135,12 +136,21 @@ export const Navbar: React.FC<NavbarProps> = ({
               aria-label={`View Wishlist (${wishlistCount} items)`}
               className="relative p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:text-black hover:bg-neutral-200/50 rounded-sm transition cursor-pointer"
             >
-              <Heart className="w-4.5 h-4.5 sm:w-5 sm:h-5" aria-hidden="true" />
-              {wishlistCount > 0 && (
-                <span className="absolute top-1 right-1 bg-[#FF5722] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
-                  {wishlistCount}
-                </span>
-              )}
+              <Heart className={`w-4.5 h-4.5 sm:w-5 sm:h-5 transition-colors ${wishlistCount > 0 ? 'text-neutral-900' : 'text-neutral-700'}`} aria-hidden="true" />
+              <AnimatePresence>
+                {wishlistCount > 0 && (
+                  <motion.span
+                    key={`wishlist-badge-${wishlistCount}`}
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    animate={{ scale: [0.5, 1.25, 1], opacity: 1 }}
+                    exit={{ scale: 0, opacity: 0 }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 22 }}
+                    className="absolute top-1 right-1 bg-[#FF5722] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold"
+                  >
+                    {wishlistCount}
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </button>
 
             {/* Shopping Cart Trigger */}

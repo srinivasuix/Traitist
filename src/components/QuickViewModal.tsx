@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Heart, ShieldCheck, Truck, RefreshCw, Plus, Minus, ArrowRight, AlertTriangle } from 'lucide-react';
 import { Product, DEFAULT_SIZES, SIZE_TO_VARIANT } from '../data/products';
+import { WishlistHeartButton } from './WishlistHeartButton';
 
 interface QuickViewModalProps {
   product: Product | null;
@@ -123,19 +124,12 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                   </>
                 )}
               </div>
-              <button
-                type="button"
-                onClick={() => onToggleWishlist(product)}
-                className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-neutral-600 hover:text-[#FF5722] transition cursor-pointer"
-                aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
-              >
-                <Heart
-                  className={`w-4 h-4 ${
-                    isWishlisted ? 'fill-[#FF5722] text-[#FF5722]' : ''
-                  }`}
-                  aria-hidden="true"
-                />
-              </button>
+              <WishlistHeartButton
+                isWishlisted={isWishlisted}
+                onToggle={() => onToggleWishlist(product)}
+                title={product.title}
+                size="sm"
+              />
             </div>
 
             <h2 id="quickview-title" className="text-xl sm:text-2xl font-bold font-display text-neutral-900 mt-1">

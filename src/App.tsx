@@ -391,7 +391,15 @@ export default function App() {
       </AnimatePresence>
 
       {/* 10. Main Footer */}
-      <Footer onOpenSizeGuide={() => setIsSizeGuideOpen(true)} />
+      <Footer
+        onOpenSizeGuide={() => setIsSizeGuideOpen(true)}
+        onOpenNotFound={() => {
+          setSelectedProduct(null);
+          setIsNotFound(true);
+          window.location.hash = '#/404';
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }}
+      />
 
       {/* Floating Drawers & Modals */}
       <CartDrawer

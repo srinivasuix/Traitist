@@ -4,9 +4,10 @@ import { BRAND_LOGO_URL } from '../data/products';
 
 interface FooterProps {
   onOpenSizeGuide: () => void;
+  onOpenNotFound?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide, onOpenNotFound }) => {
   const [quickEmail, setQuickEmail] = useState('');
   const [signedUp, setSignedUp] = useState(false);
 
@@ -97,8 +98,19 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
             </p>
             <ul className="space-y-2 text-xs text-neutral-600 font-sans">
               <li>
-                <a className="hover:text-black transition" href="#shop">
-                  Shipping (Free Express Shipping)
+                <a
+                  href="#/404"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (onOpenNotFound) {
+                      onOpenNotFound();
+                    } else {
+                      window.location.hash = '#/404';
+                    }
+                  }}
+                  className="hover:text-black transition cursor-pointer text-[#FF5722] hover:underline font-mono text-[11px] font-semibold"
+                >
+                  404 Page
                 </a>
               </li>
               <li>

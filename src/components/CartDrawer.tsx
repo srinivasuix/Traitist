@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Trash2, Plus, Minus, ArrowRight, ShieldCheck, ShoppingBag, Check, ChevronDown, Eye, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Product, CATALOG_PRODUCTS } from '../data/products';
+import { Product, CATALOG_PRODUCTS, DEFAULT_SIZES } from '../data/products';
 import { TraitistReceiptPrinter, TraitistReceiptOrderData } from './ReceiptPrinter';
 import { BorderBeam } from './magicui/border-beam';
 import { QuickViewModal } from './QuickViewModal';
@@ -464,7 +464,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                                 className="text-[11px] font-mono font-bold uppercase py-1 pl-2.5 pr-6 border border-neutral-300 bg-neutral-50 hover:bg-neutral-100 hover:border-black rounded text-neutral-900 appearance-none cursor-pointer focus:outline-none focus:border-black transition h-[32px]"
                                 aria-label={`Change size for ${item.product.title}`}
                               >
-                                {(item.product.sizes || ['S', 'M', 'L', 'XL', 'XXL']).map((s) => (
+                                {(item.product.sizes || DEFAULT_SIZES).map((s) => (
                                   <option key={s} value={s}>
                                     Size {s}
                                   </option>
@@ -628,11 +628,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                                 className="w-full text-[11px] font-mono py-1 px-2 border border-neutral-300 bg-white rounded-sm text-neutral-800 appearance-none pr-6 cursor-pointer focus:outline-none focus:border-black"
                                 aria-label={`Select size for ${prod.title}`}
                               >
-                                <option value="S">Size S (Small)</option>
-                                <option value="M">Size M (Medium)</option>
-                                <option value="L">Size L (Large)</option>
-                                <option value="XL">Size XL</option>
-                                <option value="XXL">Size XXL</option>
+                                {(prod.sizes || DEFAULT_SIZES).map((s) => (
+                                  <option key={s} value={s}>
+                                    Size {s}
+                                  </option>
+                                ))}
                               </select>
                               <ChevronDown className="w-3 h-3 text-neutral-500 absolute right-1.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                             </div>

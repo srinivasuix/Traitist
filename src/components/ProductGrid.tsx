@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Heart, Plus, ShoppingBag, Check } from 'lucide-react';
-import { CATALOG_PRODUCTS, Product } from '../data/products';
+import { CATALOG_PRODUCTS, Product, DEFAULT_SIZES } from '../data/products';
 import { BlurFade } from './magicui/blur-fade';
 
 interface ProductGridProps {
@@ -169,7 +169,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                     onClick={(e) => e.stopPropagation()}
                   >
                     <div className="flex items-center gap-1.5" role="group" aria-label={`Sizes for ${product.title}`}>
-                      {(product.sizes || ['S', 'M', 'L', 'XL', 'XXL']).map((size) => (
+                      {(product.sizes || DEFAULT_SIZES).map((size) => (
                         <button
                           key={size}
                           type="button"

@@ -187,7 +187,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                 </button>
               </div>
 
-              <div className="grid grid-cols-5 gap-1.5 sm:gap-2" role="group" aria-label="Available sizes">
+              <div className="flex items-center gap-1.5 flex-wrap" role="group" aria-label="Available sizes">
                 {(product.sizes || DEFAULT_SIZES).map((size) => (
                   <button
                     key={size}
@@ -195,7 +195,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                     aria-pressed={selectedSize === size}
                     aria-label={`Select size ${size}`}
                     onClick={() => setSelectedSize(size)}
-                    className={`py-2 min-h-[42px] text-xs font-mono uppercase font-semibold rounded transition cursor-pointer border ${
+                    className={`min-w-[42px] h-10 px-2.5 text-xs font-mono uppercase font-bold rounded flex items-center justify-center transition cursor-pointer border ${
                       selectedSize === size
                         ? 'bg-black text-white border-black shadow-xs'
                         : 'bg-[#DFDDD7]/60 text-neutral-800 border-neutral-300 hover:border-black'

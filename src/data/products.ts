@@ -21,23 +21,27 @@ export interface Product {
   sizes?: string[];
 }
 
-export const DEFAULT_VARIANTS = ["Small", "Medium", "Large", "XL", "XXL"] as const;
-export const DEFAULT_SIZES = ["S", "M", "L", "XL", "XXL"] as const;
+export const DEFAULT_VARIANTS = ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"] as const;
+export const DEFAULT_SIZES = ["XS", "S", "M", "L", "XL", "2XL", "3XL"] as const;
 
 export const SIZE_TO_VARIANT: Record<string, string> = {
+  XS: "XS",
   S: "Small",
   M: "Medium",
   L: "Large",
   XL: "XL",
-  XXL: "XXL",
+  "2XL": "2XL",
+  "3XL": "3XL",
 };
 
 export const VARIANT_TO_SIZE: Record<string, string> = {
+  XS: "XS",
   Small: "S",
   Medium: "M",
   Large: "L",
   XL: "XL",
-  XXL: "XXL",
+  "2XL": "2XL",
+  "3XL": "3XL",
 };
 
 export interface LookItem {
@@ -77,8 +81,8 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
     id: "02",
@@ -98,8 +102,8 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
     id: "03",
@@ -119,8 +123,8 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
     id: "04",
@@ -139,8 +143,8 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Super-Combed Cotton",
     blendMode: "normal",
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
     id: "05",
@@ -159,8 +163,8 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
     id: "06",
@@ -179,8 +183,8 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Combed Compact Cotton",
     blendMode: "normal",
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
     id: "07",
@@ -199,8 +203,8 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Pure Combed Cotton",
     blendMode: "normal",
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
     id: "08",
@@ -220,8 +224,8 @@ export const ROTATOR_PRODUCTS: Product[] = [
     gsm: "240 GSM",
     fabric: "100% Heavy Combed Cotton",
     blendMode: "normal",
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
 ];
 
@@ -245,8 +249,8 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Pure Bio-Washed Cotton",
     blendMode: "normal",
     scale: 1.15,
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
     id: "cat-02",
@@ -267,8 +271,8 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Super-Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
     id: "cat-03",
@@ -289,8 +293,8 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
     id: "cat-04",
@@ -310,8 +314,8 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
     id: "cat-05",
@@ -331,8 +335,8 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Pure Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
     id: "cat-06",
@@ -352,8 +356,8 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
     id: "cat-07",
@@ -373,8 +377,8 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Pure Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
   {
     id: "cat-08",
@@ -395,8 +399,8 @@ export const CATALOG_PRODUCTS: Product[] = [
     fabric: "100% Bio-Washed Combed Cotton",
     blendMode: "normal",
     scale: 1.15,
-    variants: ["Small", "Medium", "Large", "XL", "XXL"],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    variants: ["XS", "Small", "Medium", "Large", "XL", "2XL", "3XL"],
+    sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
   },
 ];
 

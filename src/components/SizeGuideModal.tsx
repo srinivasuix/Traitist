@@ -23,11 +23,13 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose 
   if (!isOpen) return null;
 
   const measurements = [
+    { size: 'XS', chestIn: '38"', chestCm: '96.5 cm', lengthIn: '27"', lengthCm: '68.5 cm', shoulderIn: '18.5"', shoulderCm: '47 cm', sleeveIn: '8.0"', sleeveCm: '20.5 cm' },
     { size: 'S', chestIn: '40"', chestCm: '102 cm', lengthIn: '28"', lengthCm: '71 cm', shoulderIn: '19.5"', shoulderCm: '49.5 cm', sleeveIn: '8.5"', sleeveCm: '21.5 cm' },
     { size: 'M', chestIn: '42"', chestCm: '107 cm', lengthIn: '29"', lengthCm: '73.5 cm', shoulderIn: '20.5"', shoulderCm: '52 cm', sleeveIn: '9.0"', sleeveCm: '23 cm' },
     { size: 'L', chestIn: '44"', chestCm: '112 cm', lengthIn: '30"', lengthCm: '76 cm', shoulderIn: '21.5"', shoulderCm: '54.5 cm', sleeveIn: '9.5"', sleeveCm: '24 cm' },
     { size: 'XL', chestIn: '46"', chestCm: '117 cm', lengthIn: '31"', lengthCm: '78.5 cm', shoulderIn: '22.5"', shoulderCm: '57 cm', sleeveIn: '10.0"', sleeveCm: '25.5 cm' },
-    { size: 'XXL', chestIn: '48"', chestCm: '122 cm', lengthIn: '32"', lengthCm: '81 cm', shoulderIn: '23.5"', shoulderCm: '59.5 cm', sleeveIn: '10.5"', sleeveCm: '26.5 cm' },
+    { size: '2XL', chestIn: '48"', chestCm: '122 cm', lengthIn: '32"', lengthCm: '81 cm', shoulderIn: '23.5"', shoulderCm: '59.5 cm', sleeveIn: '10.5"', sleeveCm: '26.5 cm' },
+    { size: '3XL', chestIn: '50"', chestCm: '127 cm', lengthIn: '33"', lengthCm: '83.5 cm', shoulderIn: '24.5"', shoulderCm: '62 cm', sleeveIn: '11.0"', sleeveCm: '28 cm' },
   ];
 
   return (

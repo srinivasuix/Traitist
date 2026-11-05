@@ -112,27 +112,33 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
               </button>
             </div>
           ) : (
-            <AnimatePresence initial={false} mode="popLayout">
-              {wishlistProducts.map((product) => {
-                const price = product.priceDisplayINR;
+            <div className="relative space-y-3">
+              <AnimatePresence initial={false} mode="popLayout">
+                {wishlistProducts.map((product) => {
+                  const price = product.priceDisplayINR;
 
-                return (
-                  <motion.div
-                    key={product.id}
-                    layout
-                    initial={{ opacity: 0, scale: 0.96, y: 8 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{
-                      opacity: 0,
-                      scale: 0.92,
-                      x: -20,
-                      transition: { duration: 0.22, ease: [0.32, 0.72, 0, 1] },
-                    }}
-                    transition={{
-                      layout: { duration: 0.28, ease: [0.32, 0.72, 0, 1] },
-                    }}
-                    className="flex items-center justify-between p-3 bg-[#DFDDD7]/70 rounded border border-neutral-300/80"
-                  >
+                  return (
+                    <motion.div
+                      key={product.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.95, y: 12 }}
+                      animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+                      exit={{
+                        opacity: 0,
+                        scale: 0.86,
+                        x: -56,
+                        rotate: -2,
+                        filter: 'blur(4px)',
+                        transition: {
+                          duration: 0.28,
+                          ease: [0.32, 0.72, 0, 1],
+                        },
+                      }}
+                      transition={{
+                        layout: { type: 'spring', stiffness: 440, damping: 30, mass: 0.8 },
+                      }}
+                      className="flex items-center justify-between p-3 bg-[#DFDDD7]/70 rounded border border-neutral-300/80 overflow-hidden"
+                    >
                     <div
                       tabIndex={0}
                       role="button"
@@ -214,7 +220,7 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
                         whileTap="tap"
                         onClick={() => onRemoveFromWishlist(product)}
                         aria-label={`Remove ${product.title} from wishlist`}
-                        className="p-2 min-h-[40px] min-w-[40px] flex items-center justify-center text-neutral-500 hover:text-[#FF5722] hover:bg-neutral-200/60 rounded-full transition-colors cursor-pointer group"
+                        className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-neutral-500 hover:text-[#FF5722] hover:bg-neutral-200/60 rounded-full transition-colors cursor-pointer group"
                       >
                         <motion.div
                           variants={{
@@ -238,7 +244,8 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
                   </motion.div>
                 );
               })}
-            </AnimatePresence>
+              </AnimatePresence>
+            </div>
           )}
         </div>
 

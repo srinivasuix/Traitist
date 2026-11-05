@@ -807,27 +807,29 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       </button>
                     </div>
                   ) : (
-                    <div className="space-y-2.5">
+                    <div className="space-y-2.5 relative">
                       <AnimatePresence initial={false} mode="popLayout">
                         {items.map((item) => (
                           <motion.div
                             key={`${item.product.id}-${item.size}`}
                             layout
-                            initial={{ opacity: 0, scale: 0.96, y: 8 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            initial={{ opacity: 0, scale: 0.95, y: 12 }}
+                            animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
                             exit={{
                               opacity: 0,
-                              scale: 0.92,
-                              x: -20,
+                              scale: 0.86,
+                              x: -56,
+                              rotate: -2,
+                              filter: 'blur(4px)',
                               transition: {
-                                duration: 0.22,
+                                duration: 0.28,
                                 ease: [0.32, 0.72, 0, 1],
                               },
                             }}
                             transition={{
-                              layout: { duration: 0.28, ease: [0.32, 0.72, 0, 1] },
+                              layout: { type: 'spring', stiffness: 440, damping: 30, mass: 0.8 },
                             }}
-                            className="flex items-center gap-3 p-3 bg-white rounded-xs border border-neutral-200 shadow-2xs"
+                            className="flex items-center gap-3 p-3 bg-white rounded-xs border border-neutral-200 shadow-2xs overflow-hidden"
                           >
                             <img
                               src={item.product.image}

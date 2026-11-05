@@ -45,9 +45,9 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
             </button>
 
             {/* Panda Order Successful Illustration */}
-            <div className="w-48 sm:w-56 mx-auto overflow-hidden rounded-2xl mb-4 border border-neutral-300/80 shadow-md bg-white">
+            <div className="w-48 sm:w-56 mx-auto overflow-hidden rounded-2xl mb-4 border border-neutral-800 shadow-xl bg-black hover:scale-[1.02] transition-transform duration-300">
               <img
-                src="/images/empty-states/order-success.jpg"
+                src="/images/empty-states/order-success.jpg?v=2"
                 alt="Order Successful!"
                 className="w-full h-auto object-cover"
               />
@@ -108,3 +108,4 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
     </AnimatePresence>
   );
 };
+

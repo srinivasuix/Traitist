@@ -75,14 +75,17 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
         <div className="flex-grow overflow-y-auto py-4 space-y-3">
           {wishlistProducts.length === 0 ? (
             <div className="py-8 px-4 text-center flex flex-col items-center select-none">
-              <div className="w-48 sm:w-56 overflow-hidden rounded-2xl mb-4 border border-neutral-300/80 shadow-md bg-white hover:scale-[1.02] transition-transform duration-300">
+              <div className="w-48 sm:w-56 overflow-hidden rounded-2xl mb-4 border border-neutral-800 shadow-xl bg-black hover:scale-[1.02] transition-transform duration-300">
                 <img
-                  src="/images/empty-states/wishlist-empty.jpg"
+                  src="/images/empty-states/wishlist-empty.jpg?v=2"
                   alt="Your Wishlist is Empty"
                   className="w-full h-auto object-cover"
                 />
               </div>
-              <p className="text-xs text-neutral-600 mt-1 max-w-xs mx-auto font-sans leading-relaxed">
+              <p className="text-xs font-mono uppercase tracking-widest text-neutral-900 font-bold mb-1">
+                YOUR WISHLIST IS EMPTY
+              </p>
+              <p className="text-xs text-neutral-600 max-w-xs mx-auto font-sans leading-relaxed">
                 Save pieces you love to get early access alerts when new sizes and drops release.
               </p>
               <button

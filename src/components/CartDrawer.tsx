@@ -783,9 +783,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 <div className="flex-grow overflow-y-auto px-5 py-3 space-y-3">
                   {items.length === 0 ? (
                     <div className="py-8 px-4 flex flex-col items-center justify-center text-center select-none">
-                      <div className="w-48 sm:w-52 overflow-hidden rounded-2xl mb-4 border border-neutral-300/80 shadow-md bg-white hover:scale-[1.02] transition-transform duration-300">
+                      <div className="w-48 sm:w-52 overflow-hidden rounded-2xl mb-4 border border-neutral-800 shadow-xl bg-black hover:scale-[1.02] transition-transform duration-300">
                         <img
-                          src="/images/empty-states/cart-empty.jpg"
+                          src="/images/empty-states/cart-empty.jpg?v=2"
                           alt="Your bag is empty"
                           className="w-full h-auto object-cover"
                         />

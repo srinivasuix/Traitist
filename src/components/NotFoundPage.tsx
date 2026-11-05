@@ -17,9 +17,9 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ onGoHome }) => {
     >
       <div className="max-w-md w-full flex flex-col items-center">
         {/* Panda 404 Illustration */}
-        <div className="w-56 sm:w-64 overflow-hidden rounded-2xl mb-6 border border-neutral-300/80 shadow-md bg-white hover:scale-[1.02] transition-transform duration-300">
+        <div className="w-56 sm:w-64 overflow-hidden rounded-2xl mb-6 border border-neutral-800 shadow-xl bg-black hover:scale-[1.02] transition-transform duration-300">
           <img
-            src="/images/empty-states/404-not-found.jpg"
+            src="/images/empty-states/404-not-found.jpg?v=2"
             alt="Page Not Found - 404"
             className="w-full h-auto object-cover"
           />
@@ -69,3 +69,4 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ onGoHome }) => {
     </motion.div>
   );
 };
+

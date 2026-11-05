@@ -48,7 +48,7 @@ export const MetricsSection: React.FC = () => {
               <span className="text-xl md:text-2xl font-mono text-neutral-500 ml-1">UNITS</span>
             </dd>
             <dd className="text-xs text-neutral-600 leading-relaxed font-sans">
-              Units per colour per drop. When it is gone it goes directly to the archive vault. No restocks.
+              Units per colour per drop. Strictly limited release. No restocks.
             </dd>
           </div>
         </BlurFade>

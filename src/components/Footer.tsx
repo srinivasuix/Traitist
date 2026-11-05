@@ -87,11 +87,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
                   Showcase
                 </a>
               </li>
-              <li>
-                <a className="hover:text-black transition" href="#archive">
-                  Archive
-                </a>
-              </li>
             </ul>
           </div>
 
@@ -120,12 +115,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
                 </button>
               </li>
               <li>
-                <a className="hover:text-black transition" href="#archive">
+                <a className="hover:text-black transition" href="#newsletter">
                   FAQ & Care
                 </a>
               </li>
               <li>
-                <a className="hover:text-black transition" href="#archive">
+                <a className="hover:text-black transition" href="#newsletter">
                   Contact Studio
                 </a>
               </li>
@@ -190,19 +185,19 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
         <div className="flex flex-col sm:flex-row items-center justify-between pt-8 text-[11px] font-mono text-neutral-600 uppercase gap-4 text-center sm:text-left">
           <p>© 2026 TRAITIST</p>
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-4 sm:gap-x-6 gap-y-2">
-            <a className="hover:text-black transition" href="#archive">
+            <a className="hover:text-black transition" href="#terms">
               PRIVACY
             </a>
-            <a className="hover:text-black transition" href="#archive">
+            <a className="hover:text-black transition" href="#terms">
               TERMS
             </a>
-            <a className="hover:text-black transition" href="#archive">
+            <a className="hover:text-black transition" href="#terms">
               REFUNDS
             </a>
-            <a className="hover:text-black transition" href="#archive">
+            <a className="hover:text-black transition" href="#terms">
               SHIPPING
             </a>
-            <a className="hover:text-black transition" href="#archive">
+            <a className="hover:text-black transition" href="#newsletter">
               CONTACT INFO
             </a>
             <button

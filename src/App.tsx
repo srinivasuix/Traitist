@@ -87,7 +87,7 @@ export default function App() {
           setSelectedProduct(found);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-      } else if (!hash || hash === '#shop' || hash === '#archive') {
+      } else if (!hash || hash === '#shop') {
         setSelectedProduct(null);
       }
 

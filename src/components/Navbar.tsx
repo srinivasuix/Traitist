@@ -82,13 +82,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span>COLLECTION</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FF5722]" aria-hidden="true"></span>
               </a>
-              <a
-                className="hover:text-black transition tracking-wider text-neutral-600 hover:text-black"
-                href="#archive"
-                onClick={() => onGoHome?.()}
-              >
-                ARCHIVE
-              </a>
             </div>
           </nav>
 
@@ -220,13 +213,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <span className="text-[10px] bg-black text-white px-2 py-0.5 rounded-full font-sans">
                     NEW
                   </span>
-                </a>
-                <a
-                  href="#archive"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="py-3 px-3 rounded hover:bg-neutral-200/80 transition min-h-[44px] flex items-center"
-                >
-                  Archive Vault
                 </a>
                 <button
                   onClick={() => {

@@ -23,7 +23,7 @@ export const NewsletterSection: React.FC = () => {
     <section
       className="relative max-w-4xl mx-auto px-4 py-14 sm:py-20 md:py-24 text-center overflow-hidden"
       data-purpose="newsletter-subscription"
-      id="archive"
+      id="newsletter"
     >
       {/* Magic UI Ambient Background */}
       <DotPattern
@@ -45,7 +45,7 @@ export const NewsletterSection: React.FC = () => {
                 words={[
                   '24H EARLY ACCESS',
                   'LIMITED DROP ALERTS',
-                  'ARCHIVE VAULT ACCESS',
+                  'NEW DROP ACCESS',
                   'ZERO DISCOUNT SPAM',
                 ]}
                 className="text-neutral-900 font-bold"

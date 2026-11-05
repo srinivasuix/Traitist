@@ -123,15 +123,13 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  const freeShippingThreshold = 999;
-
   // Calculate totals
   const subtotal = items.reduce((sum, item) => {
     return sum + item.product.priceINR * item.quantity;
   }, 0);
 
   const discountAmount = Math.round((subtotal * discountPercent) / 100);
-  const shipping = subtotal >= freeShippingThreshold || items.length === 0 ? 0 : 99;
+  const shipping = 0; // Complimentary free shipping on all orders
   const grandTotal = Math.max(0, subtotal - discountAmount + shipping);
 
   const handleApplyPromo = (e: React.FormEvent) => {

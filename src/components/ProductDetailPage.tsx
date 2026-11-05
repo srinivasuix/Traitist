@@ -570,7 +570,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               <div className="px-2 space-y-1">
                 <Truck className="w-4 h-4 mx-auto text-neutral-700" />
                 <p className="text-[11px] font-bold text-neutral-900 leading-tight">Free shipping</p>
-                <p className="text-[9px] font-mono text-neutral-500 uppercase">OVER ₹999</p>
+                <p className="text-[9px] font-mono text-neutral-500 uppercase">ALL ORDERS</p>
               </div>
               <div className="px-2 space-y-1">
                 <RefreshCw className="w-4 h-4 mx-auto text-neutral-700" />
@@ -641,7 +641,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 </button>
                 {openAccordions.shipping && (
                   <div id="accordion-panel-shipping" className="pb-4 text-[11px] text-neutral-700 font-mono leading-relaxed space-y-1.5">
-                    <p>• Complimentary express shipping across India on orders above ₹999.</p>
+                    <p>• Complimentary express shipping across India on all orders.</p>
                     <p>• Orders dispatch within 24 hours via express air logistics.</p>
                     <p>• 7-day (1 week) size exchanges with doorstep pickup. Only exchanges accepted (no returns).</p>
                   </div>

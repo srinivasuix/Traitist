@@ -80,7 +80,7 @@ export const MetricsSection: React.FC = () => {
               <span className="text-xl md:text-2xl font-mono text-neutral-500 ml-1">DAYS</span>
             </dd>
             <dd className="text-xs text-neutral-600 leading-relaxed font-sans">
-              1 week (7 days) to swap a size. Only exchanges accepted, no returns. Complimentary shipping across India on all orders over ₹999.
+              1 week (7 days) to swap a size. Only exchanges accepted, no returns. Complimentary express shipping across India on all orders.
             </dd>
           </div>
         </BlurFade>

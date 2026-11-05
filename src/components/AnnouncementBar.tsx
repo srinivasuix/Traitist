@@ -28,7 +28,7 @@ export const AnnouncementBar: React.FC = () => {
             <div className="flex items-center gap-8 px-4 font-mono">
               <span>NIGHT SHIFT • STREETWEAR SERIES</span>
               <span className="text-neutral-500" aria-hidden="true">•</span>
-              <span>FREE SHIPPING OVER ₹999</span>
+              <span>FREE EXPRESS SHIPPING ACROSS INDIA</span>
               <span className="text-neutral-500" aria-hidden="true">•</span>
               <span>NEW ARRIVALS — PHD STREETWEAR SERIES</span>
               <span className="text-neutral-500" aria-hidden="true">•</span>

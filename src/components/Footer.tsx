@@ -98,7 +98,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
             <ul className="space-y-2 text-xs text-neutral-600 font-sans">
               <li>
                 <a className="hover:text-black transition" href="#shop">
-                  Shipping (Free over ₹999)
+                  Shipping (Free Express Shipping)
                 </a>
               </li>
               <li>

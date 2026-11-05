@@ -21,51 +21,63 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
       className="relative max-w-7xl mx-auto px-4 md:px-8 pt-8 pb-4"
       aria-label="The First Drop Launch Offer"
     >
-      <div className="relative bg-[#DFDDD7]/70 border border-neutral-300 rounded-sm p-6 sm:p-8 md:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-2xs overflow-hidden">
-        {/* Subtle orange accent indicator in the corner */}
-        <div
-          className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-[#FF5722]/5 blur-2xl pointer-events-none"
-          aria-hidden="true"
-        />
-
-        <div className="max-w-xl space-y-2">
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5722]" aria-hidden="true" />
-            <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-[#FF5722] font-bold">
-              THE FIRST DROP.
-            </span>
-          </div>
-
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-display tracking-tight text-neutral-950">
-            Your Research. Your Identity.
-          </h2>
-
-          <p className="text-xs sm:text-sm text-neutral-600 font-sans leading-relaxed">
-            Celebrate the PhD journey with our first collection of academic-inspired streetwear.
-          </p>
+      <div className="relative rounded-sm overflow-hidden border border-neutral-800 bg-[#0e0e0e] shadow-xl group min-h-[320px] sm:min-h-[360px] md:min-h-[380px] flex flex-col justify-end md:justify-center">
+        {/* Background Editorial Photo */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/images/first_drop_research_identity.jpg"
+            alt="PhD Researchers wearing TRAITIST Threads of Resilience collection"
+            className="w-full h-full object-cover object-right sm:object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+            loading="lazy"
+          />
+          {/* Multi-layered cinematic gradient for text readability across devices */}
+          {/* Desktop: Strong dark gradient from left to right */}
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black via-black/85 via-45% to-transparent pointer-events-none" />
+          {/* Mobile/Tablet: Dark gradient from bottom to top */}
+          <div className="md:hidden absolute inset-0 bg-gradient-to-t from-black/95 via-black/75 to-black/30 pointer-events-none" />
         </div>
 
-        <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row items-start sm:items-center md:items-start lg:items-center gap-4 sm:gap-6 shrink-0 pt-3 md:pt-0 border-t md:border-t-0 border-neutral-300">
-          <div>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-500 block">
-              SPECIAL LAUNCH OFFER
-            </span>
-            <p className="text-xs sm:text-sm font-mono font-bold text-neutral-950 mt-0.5">
-              INTRODUCTORY PRICE <span className="text-[#FF5722]">₹{FIRST_DROP_LAUNCH_PRICE}</span>{' '}
-              <span className="text-neutral-400 line-through font-normal text-xs">
-                (Regular ₹{FIRST_DROP_REGULAR_PRICE})
+        {/* Content Container */}
+        <div className="relative z-10 p-6 sm:p-8 md:p-12 max-w-xl flex flex-col justify-between h-full space-y-4">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#FF5722] animate-pulse" aria-hidden="true" />
+              <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-[#FF5722] font-bold">
+                THE FIRST DROP • EDITION 01
               </span>
+            </div>
+
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black font-display tracking-tight text-white leading-[1.08]">
+              Your Research.<br className="hidden sm:inline" /> Your Identity.
+            </h2>
+
+            <p className="text-xs sm:text-sm text-neutral-300 font-sans leading-relaxed max-w-md pt-1">
+              Celebrate the PhD journey with our debut collection of heavy 200 GSM academic streetwear. Built for the sprint, the lab, and late-night defense prep.
             </p>
           </div>
 
-          <button
-            type="button"
-            onClick={handleScroll}
-            className="inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[44px] bg-neutral-950 hover:bg-black text-white text-xs font-mono font-bold uppercase tracking-wider rounded-sm transition-all duration-200 hover:scale-[1.01] active:scale-[0.98] cursor-pointer shadow-sm group"
-          >
-            <span>EXPLORE THE FIRST DROP</span>
-            <ArrowDown className="w-3.5 h-3.5 text-white/70 transition-transform duration-200 group-hover:translate-y-0.5" />
-          </button>
+          <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 border-t border-neutral-800/80">
+            <div>
+              <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
+                SPECIAL LAUNCH OFFER
+              </span>
+              <p className="text-xs sm:text-sm font-mono font-bold text-white mt-0.5">
+                INTRODUCTORY PRICE <span className="text-[#FF5722]">₹{FIRST_DROP_LAUNCH_PRICE}</span>{' '}
+                <span className="text-neutral-500 line-through font-normal text-xs">
+                  (Regular ₹{FIRST_DROP_REGULAR_PRICE})
+                </span>
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleScroll}
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[44px] bg-white hover:bg-neutral-200 active:scale-95 text-black text-xs font-mono font-bold uppercase tracking-wider rounded-sm transition-all duration-200 cursor-pointer shadow-md group/btn"
+            >
+              <span>EXPLORE THE DROP</span>
+              <ArrowDown className="w-3.5 h-3.5 text-black transition-transform duration-200 group-hover/btn:translate-y-0.5" />
+            </button>
+          </div>
         </div>
       </div>
     </section>

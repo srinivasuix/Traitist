@@ -569,16 +569,16 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 {openAccordions.description && (
                   <div id="accordion-panel-description" className="pb-4 text-[11px] text-neutral-700 font-mono leading-relaxed">
                     <p>{product.description}</p>
-                    <div className="grid grid-cols-[auto_1fr_auto] items-start gap-4 sm:gap-6 mt-3.5 pt-3 border-t border-neutral-300/80 font-mono text-[11px]">
-                      <div>
+                    <div className="flex items-start justify-between gap-4 mt-3.5 pt-3 border-t border-neutral-300/80 font-mono text-[11px]">
+                      <div className="shrink-0">
                         <span className="text-neutral-500 text-[9px] font-medium tracking-wider uppercase block mb-1">SKU</span>
                         <span className="font-semibold text-neutral-950 whitespace-nowrap block">{product.sku || 'TR-001'}</span>
                       </div>
-                      <div>
+                      <div className="shrink-0">
                         <span className="text-neutral-500 text-[9px] font-medium tracking-wider uppercase block mb-1">FABRIC</span>
-                        <span className="font-semibold text-neutral-950 leading-snug block">{product.fabric}</span>
+                        <span className="font-semibold text-neutral-950 whitespace-nowrap block">{product.fabric}</span>
                       </div>
-                      <div>
+                      <div className="shrink-0">
                         <span className="text-neutral-500 text-[9px] font-medium tracking-wider uppercase block mb-1">WEIGHT</span>
                         <span className="font-semibold text-neutral-950 whitespace-nowrap block">{product.gsm} Combed Jersey</span>
                       </div>
@@ -793,8 +793,8 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
                   {/* Product Info */}
                   <div className="flex justify-between items-start mt-3 gap-2">
-                    <div className="min-w-0 pr-1">
-                      <h4 className="text-xs font-semibold uppercase tracking-tight text-neutral-900 group-hover:text-neutral-700 transition">
+                    <div className="min-w-0 pr-1 flex-1">
+                      <h4 className="text-xs font-semibold uppercase tracking-tight text-neutral-900 group-hover:text-neutral-700 transition min-h-[2rem] line-clamp-2 leading-tight">
                         {rel.title}
                       </h4>
                       <p className="text-[10px] font-mono text-neutral-600 uppercase mt-0.5 truncate">
@@ -802,7 +802,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                       </p>
                     </div>
                     <div className="text-right shrink-0">
-                      <div className="flex items-center justify-end gap-1.5 flex-wrap">
+                      <div className="flex items-center justify-end gap-1.5 flex-wrap min-h-[1.25rem]">
                         {rel.regularPriceDisplayINR && !rel.isSecretDrop && (
                           <span className="text-[11px] font-mono text-neutral-400 line-through">
                             {rel.regularPriceDisplayINR}
@@ -812,9 +812,13 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                           {rel.isSecretDrop ? '???' : rel.priceDisplayINR}
                         </span>
                       </div>
-                      {rel.isLaunchPrice && !rel.isSecretDrop && (
+                      {rel.isLaunchPrice && !rel.isSecretDrop ? (
                         <span className="inline-block text-[9px] font-mono font-bold tracking-wider text-[#FF5722] uppercase mt-0.5">
                           LAUNCH PRICE
+                        </span>
+                      ) : (
+                        <span className="inline-block text-[9px] font-mono font-bold tracking-wider text-transparent select-none mt-0.5" aria-hidden="true">
+                          &nbsp;
                         </span>
                       )}
                     </div>

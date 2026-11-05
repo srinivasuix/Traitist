@@ -71,3 +71,4 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
     </section>
   );
 };
+

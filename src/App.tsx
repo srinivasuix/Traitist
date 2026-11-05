@@ -91,6 +91,13 @@ export default function App() {
       } else if (!hash || hash === '#shop' || hash === '#campaign' || hash === '#archive') {
         setSelectedProduct(null);
       }
+
+      // Handle checkout return callbacks
+      const searchParams = new URLSearchParams(window.location.search);
+      if (searchParams.get('checkout') === 'cancelled') {
+        setToastMessage('Checkout cancelled. Your bag items are saved.');
+        window.history.replaceState(null, '', window.location.pathname + window.location.hash);
+      }
     };
 
     handleHashSync();

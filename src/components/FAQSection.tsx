@@ -2,10 +2,10 @@ import React from 'react';
 import FaqSection, { FaqData } from './ui/habit-faq-scroller';
 
 const TRAITIST_FAQ_DATA: FaqData = {
-  smallLabel: 'THE IMPORTANT STUFF · NO PEER REVIEW REQUIRED',
+  smallLabel: 'BEFORE YOU ASK YOUR SUPERVISOR...',
   mainTitle: "QUESTIONS? WE'VE DONE THE HOMEWORK.",
   mainSubtitle:
-    'Everything you need to know about our tees, fits, fabric, prints, shipping and returns. No supervisor approval required.',
+    'Everything you need to know about our tees, fit, fabric, prints, shipping and returns. No supervisor approval required.',
   rows: [
     {
       id: 'row-craftsmanship',

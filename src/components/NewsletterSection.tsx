@@ -40,20 +40,20 @@ export const NewsletterSection: React.FC = () => {
           <div className="flex items-center justify-center gap-2 mb-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FF5722] animate-pulse" aria-hidden="true" />
             <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-600 font-semibold">
-              THE LIST · EXCLUSIVE ACCESS
+              P.S. THIS EMAIL IS ACTUALLY IMPORTANT.
             </span>
           </div>
         </BlurFade>
 
         <BlurFade delay={0.1} inView>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-display tracking-tight text-neutral-950 uppercase mb-2.5 leading-tight max-w-xl mx-auto">
-            BEAT YOUR SUPERVISOR TO THE DROP.
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-display tracking-tight text-neutral-950 uppercase mb-2.5 leading-tight max-w-2xl mx-auto">
+            YOUR INBOX DESERVES BETTER THAN SUPERVISOR EMAILS.
           </h2>
         </BlurFade>
 
         <BlurFade delay={0.15} inView>
           <p className="text-xs sm:text-sm text-neutral-600 max-w-md mx-auto mb-6 leading-relaxed font-sans">
-            Get 24-hour early access, secret drop codes and PhD-approved streetwear. Finally, an email worth opening.
+            Get 24-hour early access, exclusive drop codes and first dibs on limited releases. Finally, an email worth opening.
           </p>
         </BlurFade>
 
@@ -66,7 +66,7 @@ export const NewsletterSection: React.FC = () => {
             <div className="w-5 h-5 rounded-full bg-black text-white flex items-center justify-center">
               <Check className="w-3 h-3 text-[#10B981]" aria-hidden="true" />
             </div>
-            <span>ACCEPTED! BEAT YOUR SUPERVISOR TO THE DROP.</span>
+            <span>ACCEPTED! YOUR INBOX DESERVES BETTER THAN SUPERVISOR EMAILS.</span>
           </div>
         ) : (
           <BlurFade delay={0.2} inView>

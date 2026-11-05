@@ -147,7 +147,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
               )}
               {product.isLaunchPrice && !product.isSecretDrop && (
                 <span className="text-[10px] font-mono text-[#FF5722] bg-[#FF5722]/10 border border-[#FF5722]/20 font-bold px-1.5 py-0.5 rounded">
-                  LAUNCH PRICE · SAVE ₹ {((product.regularPriceINR || 899) - product.priceINR).toLocaleString()}
+                  LAUNCH OFFER
                 </span>
               )}
             </div>

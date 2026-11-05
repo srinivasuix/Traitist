@@ -61,7 +61,7 @@ export const TraitistReceiptPrinter: React.FC<OrderConfirmationProps> = ({
     window.print();
   };
 
-  const formatPrice = (val: number) => `₹ ${val.toLocaleString()}`;
+  const formatPrice = (val: number) => `₹${val.toLocaleString()}`;
 
   return (
     <div className={`w-full max-w-md mx-auto space-y-4 font-mono text-left ${className}`}>
@@ -187,7 +187,7 @@ export const TraitistReceiptPrinter: React.FC<OrderConfirmationProps> = ({
                 <a
                   href={orderData.trackingUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="text-[#FF5722] underline hover:text-black"
                 >
                   Track Package

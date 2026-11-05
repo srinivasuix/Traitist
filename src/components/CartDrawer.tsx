@@ -266,7 +266,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     }
   };
 
-  const formatPrice = (val: number) => `₹ ${val.toLocaleString()}`;
+  const formatPrice = (val: number) => `₹${val.toLocaleString()}`;
 
   const getCleanColor = (colorway: string) => colorway.split('•')[0].trim();
 

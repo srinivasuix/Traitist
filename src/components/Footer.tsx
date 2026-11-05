@@ -138,7 +138,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
                   className="hover:text-black flex items-center gap-1.5 transition"
                   href="https://instagram.com"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                 >
                   <Instagram className="w-3.5 h-3.5" />
                   <span>Instagram</span>
@@ -147,9 +147,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
               <li>
                 <a
                   className="hover:text-black flex items-center gap-1.5 transition"
-                  href="https://tiktok.com"
+                  href="https://x.com"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                 >
                   <Twitter className="w-3.5 h-3.5" />
                   <span>Twitter / X</span>
@@ -160,7 +160,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
                   className="hover:text-black flex items-center gap-1.5 transition"
                   href="https://youtube.com"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                 >
                   <Youtube className="w-3.5 h-3.5" />
                   <span>YouTube</span>

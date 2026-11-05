@@ -109,7 +109,9 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (isLoading) {
+    const isAnyModalOpen =
+      isLoading || isCartOpen || isSearchOpen || isWishlistOpen || isSizeGuideOpen;
+    if (isAnyModalOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -117,7 +119,7 @@ export default function App() {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isLoading]);
+  }, [isLoading, isCartOpen, isSearchOpen, isWishlistOpen, isSizeGuideOpen]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);

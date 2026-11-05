@@ -66,8 +66,10 @@ export interface CommunityFit {
 }
 
 export const BRAND_LOGO_URL = "/images/brand_logo_transparent.png";
+export const BRAND_LOGO_WHITE_URL = "/images/brand_logo_white.png";
+export const BRAND_LOGO_WHITE_ON_BLACK_URL = "/images/brand_logo_white_on_black.jpg";
+export const BRAND_LOGO_BLACK_ON_WHITE_URL = "/images/brand_logo_black_on_white.jpg";
 export const BRAND_LOGO_SVG = "/images/traitist_logo.svg";
-export const BRAND_LOGO_RAW_URL = "/assets/aistudio/Blend_b48afb1a.png";
 
 export const ROTATOR_PRODUCTS: Product[] = [
   {

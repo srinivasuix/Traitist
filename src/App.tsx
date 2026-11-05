@@ -175,6 +175,43 @@ export default function App() {
     );
   };
 
+  const handleUpdateSize = (productId: string, oldSize: string, newSize: string) => {
+    if (oldSize === newSize) return;
+    setCartItems((prev) => {
+      const targetItem = prev.find(
+        (item) => item.product.id === productId && item.size === oldSize
+      );
+      if (!targetItem) return prev;
+
+      const existingWithNewSizeIndex = prev.findIndex(
+        (item) => item.product.id === productId && item.size === newSize
+      );
+
+      if (existingWithNewSizeIndex > -1) {
+        // Merge quantities into existing item with newSize
+        return prev
+          .map((item, idx) => {
+            if (idx === existingWithNewSizeIndex) {
+              return { ...item, quantity: item.quantity + targetItem.quantity };
+            }
+            if (item.product.id === productId && item.size === oldSize) {
+              return null;
+            }
+            return item;
+          })
+          .filter(Boolean) as CartItem[];
+      } else {
+        // Update size of the target item
+        return prev.map((item) =>
+          item.product.id === productId && item.size === oldSize
+            ? { ...item, size: newSize }
+            : item
+        );
+      }
+    });
+    showToast(`Updated size to ${newSize}`);
+  };
+
   const handleRemoveFromCart = (productId: string, size: string) => {
     setCartItems((prev) =>
       prev.filter((item) => !(item.product.id === productId && item.size === size))
@@ -312,6 +349,7 @@ export default function App() {
         onClose={() => setIsCartOpen(false)}
         items={cartItems}
         onUpdateQuantity={handleUpdateQuantity}
+        onUpdateSize={handleUpdateSize}
         onRemoveItem={handleRemoveFromCart}
         onClearCart={handleClearCart}
         onAddToCart={handleAddToCart}

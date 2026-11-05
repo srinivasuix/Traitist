@@ -17,6 +17,7 @@ interface CartDrawerProps {
   onClose: () => void;
   items: CartItem[];
   onUpdateQuantity: (productId: string, size: string, delta: number) => void;
+  onUpdateSize?: (productId: string, oldSize: string, newSize: string) => void;
   onRemoveItem: (productId: string, size: string) => void;
   onClearCart: () => void;
   onAddToCart?: (product: Product, size: string, quantity?: number) => void;
@@ -30,6 +31,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   onClose,
   items,
   onUpdateQuantity,
+  onUpdateSize,
   onRemoveItem,
   onClearCart,
   onAddToCart,
@@ -449,12 +451,29 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                             </span>
                           </div>
                           <p className="text-[11px] text-neutral-500 mt-0.5 font-sans">
-                            Colour: {getCleanColor(item.product.colorway)}, Size: {item.size} {item.product.sku ? `· ${item.product.sku}` : ''}
+                            Colour: {getCleanColor(item.product.colorway)} {item.product.sku ? `· ${item.product.sku}` : ''}
                           </p>
 
-                          {/* Stepper & Trash Controls */}
-                          <div className="flex items-center gap-2.5 mt-2.5">
-                            <div className="inline-flex items-center border border-neutral-300 bg-neutral-50 rounded">
+                          {/* Size Selector & Stepper & Trash Controls */}
+                          <div className="flex items-center gap-2 mt-2.5 flex-wrap">
+                            {/* Size Selector */}
+                            <div className="relative">
+                              <select
+                                value={item.size}
+                                onChange={(e) => onUpdateSize?.(item.product.id, item.size, e.target.value)}
+                                className="text-[11px] font-mono font-bold uppercase py-1 pl-2.5 pr-6 border border-neutral-300 bg-neutral-50 hover:bg-neutral-100 hover:border-black rounded text-neutral-900 appearance-none cursor-pointer focus:outline-none focus:border-black transition h-[32px]"
+                                aria-label={`Change size for ${item.product.title}`}
+                              >
+                                {(item.product.sizes || ['S', 'M', 'L', 'XL', 'XXL']).map((s) => (
+                                  <option key={s} value={s}>
+                                    Size {s}
+                                  </option>
+                                ))}
+                              </select>
+                              <ChevronDown className="w-3 h-3 text-neutral-600 absolute right-1.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                            </div>
+
+                            <div className="inline-flex items-center border border-neutral-300 bg-neutral-50 rounded h-[32px]">
                               <button
                                 onClick={() => onUpdateQuantity(item.product.id, item.size, -1)}
                                 className="p-1 min-w-[32px] min-h-[32px] flex items-center justify-center hover:bg-neutral-200 transition cursor-pointer active:scale-95"
@@ -476,7 +495,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
                             <button
                               onClick={() => onRemoveItem(item.product.id, item.size)}
-                              className="min-w-[36px] min-h-[36px] flex items-center justify-center text-neutral-400 hover:text-[#FF5722] transition cursor-pointer rounded hover:bg-neutral-100"
+                              className="min-w-[32px] min-h-[32px] flex items-center justify-center text-neutral-400 hover:text-[#FF5722] transition cursor-pointer rounded hover:bg-neutral-100"
                               aria-label={`Remove ${item.product.title} size ${item.size} from bag`}
                             >
                               <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />

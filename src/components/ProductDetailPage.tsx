@@ -479,8 +479,8 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               </div>
               <div className="px-2 space-y-1">
                 <RefreshCw className="w-4 h-4 mx-auto text-neutral-700" />
-                <p className="text-[11px] font-bold text-neutral-900 leading-tight">Easy returns</p>
-                <p className="text-[9px] font-mono text-neutral-500 uppercase">7 DAYS</p>
+                <p className="text-[11px] font-bold text-neutral-900 leading-tight">Size exchange</p>
+                <p className="text-[9px] font-mono text-neutral-500 uppercase">1 WEEK</p>
               </div>
               <div className="px-2 space-y-1">
                 <Clock className="w-4 h-4 mx-auto text-neutral-700" />
@@ -528,7 +528,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 )}
               </div>
 
-              {/* Shipping and Returns Accordion */}
+              {/* Shipping and Exchanges Accordion */}
               <div>
                 <button
                   type="button"
@@ -537,7 +537,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   aria-controls="accordion-panel-shipping"
                   className="w-full py-3.5 flex items-center justify-between text-left text-[11px] font-mono uppercase tracking-wider text-neutral-900 font-bold hover:text-black cursor-pointer"
                 >
-                  <span>SHIPPING AND RETURNS</span>
+                  <span>SHIPPING AND EXCHANGES</span>
                   {openAccordions.shipping ? (
                     <X className="w-3.5 h-3.5 text-neutral-600" aria-hidden="true" />
                   ) : (
@@ -548,7 +548,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   <div id="accordion-panel-shipping" className="pb-4 text-xs text-neutral-700 font-mono leading-relaxed space-y-1.5 text-[11px]">
                     <p>• Complimentary express shipping across India on orders above ₹999.</p>
                     <p>• Orders dispatch within 24 hours via express air logistics.</p>
-                    <p>• 7-day hassle-free exchange and size swaps with doorstep pickup.</p>
+                    <p>• 7-day (1 week) size exchanges with doorstep pickup. Only exchanges accepted (no returns).</p>
                   </div>
                 )}
               </div>

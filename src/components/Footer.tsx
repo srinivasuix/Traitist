@@ -113,7 +113,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide }) => {
               </li>
               <li>
                 <a className="hover:text-black transition" href="#campaign">
-                  30-Day Returns & Exchange
+                  7-Day Size Exchanges (No Returns)
                 </a>
               </li>
               <li>

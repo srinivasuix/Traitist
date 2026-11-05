@@ -69,18 +69,18 @@ export const MetricsSection: React.FC = () => {
           </div>
         </BlurFade>
 
-        {/* Metric 4: Returns */}
+        {/* Metric 4: Size Exchanges */}
         <BlurFade delay={0.2} inView>
           <div>
             <dt className="text-[10px] font-mono text-neutral-600 uppercase tracking-widest block mb-1">
-              RETURNS & EXCHANGES
+              EXCHANGES ONLY
             </dt>
             <dd className="text-4xl md:text-6xl font-black font-display text-neutral-950 mb-2 tracking-tighter flex items-baseline">
-              <NumberTicker value={30} />
+              <NumberTicker value={7} />
               <span className="text-xl md:text-2xl font-mono text-neutral-500 ml-1">DAYS</span>
             </dd>
             <dd className="text-xs text-neutral-600 leading-relaxed font-sans">
-              Days to return or swap a size. Complimentary shipping across India on all orders over ₹999.
+              1 week (7 days) to swap a size. Only exchanges accepted, no returns. Complimentary shipping across India on all orders over ₹999.
             </dd>
           </div>
         </BlurFade>

@@ -17,6 +17,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
   onAddToCart,
   onSelectProduct,
 }) => {
+  const [activeFilter, setActiveFilter] = useState<'all' | 'flagship' | 'femme' | 'grind'>('all');
   const [selectedSizes, setSelectedSizes] = useState<Record<string, string>>({
     'cat-01': 'M',
     'cat-02': 'L',
@@ -28,6 +29,20 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     'cat-08': 'XL',
   });
   const [recentlyAdded, setRecentlyAdded] = useState<Record<string, boolean>>({});
+
+  const filteredProducts = CATALOG_PRODUCTS.filter((product) => {
+    if (activeFilter === 'all') return true;
+    if (activeFilter === 'flagship') {
+      return product.badge === 'FLAGSHIP' || product.badge === 'VIRAL' || product.badge === 'NEW' || product.badge === 'BESTSELLER';
+    }
+    if (activeFilter === 'femme') {
+      return product.title.toLowerCase().includes('femme') || product.edition?.toLowerCase().includes('femme');
+    }
+    if (activeFilter === 'grind') {
+      return product.title.toLowerCase().includes('coffee') || product.title.toLowerCase().includes('milestone') || product.title.toLowerCase().includes('pie');
+    }
+    return true;
+  });
 
   const handleSizeClick = (e: React.MouseEvent, productId: string, size: string) => {
     e.stopPropagation();
@@ -48,6 +63,13 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
     }, 2000);
   };
 
+  const filterTabs = [
+    { id: 'all', label: 'All Pieces', count: CATALOG_PRODUCTS.length },
+    { id: 'flagship', label: 'Flagship & Viral', count: CATALOG_PRODUCTS.filter(p => p.badge === 'FLAGSHIP' || p.badge === 'VIRAL' || p.badge === 'NEW' || p.badge === 'BESTSELLER').length },
+    { id: 'femme', label: 'Femme Editions', count: CATALOG_PRODUCTS.filter(p => p.title.toLowerCase().includes('femme') || p.edition?.toLowerCase().includes('femme')).length },
+    { id: 'grind', label: 'Thesis & Coffee', count: CATALOG_PRODUCTS.filter(p => p.title.toLowerCase().includes('coffee') || p.title.toLowerCase().includes('milestone') || p.title.toLowerCase().includes('pie')).length },
+  ];
+
   return (
     <section
       className="max-w-7xl mx-auto px-4 md:px-8 py-16"
@@ -55,7 +77,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       id="shop"
     >
       {/* Header of the Grid */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-neutral-300 pb-5 mb-8 gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-neutral-300 pb-5 mb-6 gap-4">
         <div>
           <span className="text-[10px] uppercase tracking-widest font-mono text-neutral-600 font-semibold">
             IN STOCK NOW • ACADEMIC SURVIVAL
@@ -68,7 +90,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
         {/* Catalog summary count */}
         <div className="flex items-center gap-3">
           <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-600 font-semibold">
-            {CATALOG_PRODUCTS.length} PIECES AVAILABLE
+            {filteredProducts.length} OF {CATALOG_PRODUCTS.length} PIECES
           </span>
           <span className="text-neutral-400" aria-hidden="true">•</span>
           <span className="text-[11px] font-mono uppercase tracking-widest text-[#FF5722] font-semibold">
@@ -77,9 +99,38 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
         </div>
       </div>
 
+      {/* Category Filter Tabs */}
+      <div
+        className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2 mb-8"
+        role="tablist"
+        aria-label="Filter products by edition"
+      >
+        {filterTabs.map((tab) => {
+          const isActive = activeFilter === tab.id;
+          return (
+            <button
+              key={tab.id}
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => setActiveFilter(tab.id as typeof activeFilter)}
+              className={`px-3 py-1.5 rounded-full text-xs font-mono font-medium tracking-tight whitespace-nowrap transition-all duration-150 cursor-pointer flex items-center gap-1.5 min-h-[36px] sm:min-h-0 ${
+                isActive
+                  ? 'bg-neutral-950 text-white shadow-xs'
+                  : 'bg-[#DFDDD7]/60 text-neutral-700 hover:bg-[#DFDDD7] hover:text-black border border-neutral-300/60'
+              }`}
+            >
+              <span>{tab.label}</span>
+              <span className={`text-[10px] ${isActive ? 'text-neutral-400' : 'text-neutral-500'}`}>
+                {tab.count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
       {/* Product Grid: 4 Columns on desktop, 3 on tablet, 2 on mobile */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-3.5 sm:gap-x-5 lg:gap-x-6 gap-y-7 sm:gap-y-10">
-        {CATALOG_PRODUCTS.map((product, idx) => {
+        {filteredProducts.map((product, idx) => {
           const isWishlisted = wishlistIds.includes(product.id);
           const currentSize = selectedSizes[product.id] || 'M';
           const isAdded = !!recentlyAdded[product.id];

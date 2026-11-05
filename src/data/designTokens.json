@@ -1,0 +1,55 @@
+{
+  "primitive": {
+    "color": {
+      "paper": "#ECEBE6",
+      "cement": "#DFDDD7",
+      "carbon": "#111111",
+      "orange": "#FF5722",
+      "border": "#D1CFCA",
+      "emerald": "#10B981",
+      "white": "#FFFFFF"
+    },
+    "font": {
+      "display": "Syne, sans-serif",
+      "editorial": "Newsreader, Georgia, serif",
+      "sans": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+      "mono": "Space Grotesk, monospace"
+    },
+    "spacing": {
+      "xs": "4px",
+      "sm": "8px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "32px",
+      "2xl": "48px",
+      "3xl": "64px"
+    }
+  },
+  "semantic": {
+    "canvas": {
+      "background": "{primitive.color.paper}",
+      "surface": "{primitive.color.cement}",
+      "text": "{primitive.color.carbon}",
+      "accent": "{primitive.color.orange}",
+      "border": "{primitive.color.border}"
+    },
+    "status": {
+      "success": "{primitive.color.emerald}",
+      "badge": "{primitive.color.orange}"
+    }
+  },
+  "component": {
+    "button": {
+      "primaryBg": "{semantic.canvas.text}",
+      "primaryFg": "{primitive.color.white}",
+      "accentBg": "{semantic.canvas.accent}",
+      "accentFg": "{primitive.color.white}",
+      "radius": "2px"
+    },
+    "card": {
+      "background": "{semantic.canvas.surface}",
+      "border": "{semantic.canvas.border}",
+      "radius": "2px"
+    }
+  }
+}

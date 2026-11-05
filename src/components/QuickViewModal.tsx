@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Heart, ShieldCheck, Truck, RefreshCw, Plus, Minus, ArrowRight } from 'lucide-react';
+import { X, Heart, ShieldCheck, Truck, RefreshCw, Plus, Minus, ArrowRight, AlertTriangle } from 'lucide-react';
 import { Product, DEFAULT_SIZES, SIZE_TO_VARIANT } from '../data/products';
 
 interface QuickViewModalProps {
@@ -232,6 +232,20 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                 >
                   <Plus className="w-3.5 h-3.5 text-neutral-700" aria-hidden="true" />
                 </button>
+              </div>
+            </div>
+            {/* Print Colour Notice */}
+            <div className="mt-4 p-3 rounded-md border border-amber-200/80 bg-amber-50/50 flex items-start gap-2.5 text-left">
+              <div className="shrink-0 p-1 rounded-sm bg-amber-100/90 text-amber-800 mt-0.5">
+                <AlertTriangle className="w-3.5 h-3.5 text-amber-800" aria-hidden="true" />
+              </div>
+              <div className="min-w-0">
+                <h4 className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-900">
+                  Print Colour Notice
+                </h4>
+                <p className="text-[11px] text-neutral-600 font-sans leading-relaxed mt-0.5">
+                  Actual printed colours may vary slightly from the digital product images due to screen settings, fabric characteristics, and printing processes. The approved design and artwork will remain the same.
+                </p>
               </div>
             </div>
           </div>

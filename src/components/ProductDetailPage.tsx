@@ -16,6 +16,7 @@ import {
   Zap,
   ArrowRight,
   X,
+  AlertTriangle,
 } from 'lucide-react';
 import { Product, CATALOG_PRODUCTS, DEFAULT_SIZES, SIZE_TO_VARIANT } from '../data/products';
 import { BorderBeam } from './magicui/border-beam';
@@ -337,6 +338,11 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               ₹ {product.priceINR.toLocaleString()}
             </div>
 
+            {/* Product Description */}
+            <p className="text-xs sm:text-[13px] text-neutral-600 font-sans leading-relaxed mt-2.5">
+              {product.description}
+            </p>
+
             {/* Divider */}
             <hr className="border-neutral-300/80 my-4" />
 
@@ -419,6 +425,21 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 >
                   <Plus className="w-3.5 h-3.5" />
                 </button>
+              </div>
+            </div>
+
+            {/* Print Colour Notice */}
+            <div className="mt-4 p-3 sm:p-3.5 rounded-md border border-amber-200/80 bg-amber-50/50 flex items-start gap-2.5 sm:gap-3 text-left">
+              <div className="shrink-0 p-1 rounded-sm bg-amber-100/90 text-amber-800 mt-0.5">
+                <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-800" aria-hidden="true" />
+              </div>
+              <div className="min-w-0">
+                <h4 className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-neutral-900">
+                  Print Colour Notice
+                </h4>
+                <p className="text-[11px] sm:text-xs text-neutral-600 font-sans leading-relaxed mt-1">
+                  Actual printed colours may vary slightly from the digital product images due to screen settings, fabric characteristics, and printing processes. The approved design and artwork will remain the same.
+                </p>
               </div>
             </div>
 

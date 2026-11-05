@@ -2,63 +2,78 @@ import React from 'react';
 import FaqSection, { FaqData } from './ui/habit-faq-scroller';
 
 const TRAITIST_FAQ_DATA: FaqData = {
-  mainTitle: 'FREQUENTLY ASKED QUESTIONS',
+  smallLabel: 'THE IMPORTANT STUFF · NO PEER REVIEW REQUIRED',
+  mainTitle: "QUESTIONS? WE'VE DONE THE HOMEWORK.",
   mainSubtitle:
-    'PhD Collection fit details, heavyweight 200 GSM cotton jersey specifications, order tracking timelines, and hassle-free size exchanges.',
+    'Everything you need to know about our tees, fits, fabric, prints, shipping and returns. No supervisor approval required.',
   rows: [
     {
-      id: 'row-fit-fabric',
-      speed: '42s',
+      id: 'row-craftsmanship',
+      speed: '46s',
       direction: 'left',
       faqItems: [
         {
-          id: 'sizing',
-          category: 'FIT // BOXY DROP-SHOULDER',
-          question: 'How do TRAITIST T-shirts fit?',
+          id: 'q1-fit',
+          category: '01 · FIT // THE COMFORT ZONE',
+          question: 'How do your T-shirts fit?',
           answer:
-            'Our T-shirts feature an intentional, boxy drop-shoulder cut. Order your standard size for a relaxed streetwear drape, or size down if you prefer a closer, traditional fit.',
+            'Made for a relaxed, oversized streetwear look with an intentional boxy drop-shoulder cut. Stick to your usual size for relaxed thesis-writing comfort, or size down for a closer fit.',
         },
         {
-          id: 'fabric',
-          category: 'FABRIC // 200 GSM COTTON',
-          question: 'What fabric and weight do you use?',
+          id: 'q2-fabric',
+          category: '02 · FABRIC // THE GOOD STUFF',
+          question: 'What are your T-shirts made of?',
           answer:
-            'Every tee is cut from heavyweight 200 GSM 100% combed cotton jersey. It is pre-shrunk and bio-washed to maintain its structural drape and softness after repeated wear.',
+            'We use heavyweight 200 GSM, 100% combed cotton jersey. Each tee is pre-shrunk and bio-washed for empirical durability that comfortably outlasts long overnight lab marathons.',
         },
         {
-          id: 'print-durability',
-          category: 'PRINT // HIGH-DENSITY',
-          question: 'How durable are the graphic prints?',
+          id: 'q3-print',
+          category: '03 · PRINT // MADE TO LAST',
+          question: 'Will the prints fade or crack?',
           answer:
-            'We use premium discharge and high-density screen printing engineered to flex with 200 GSM cotton jersey without cracking, peeling, or fading over time.',
+            'Our designs are crafted using premium high-density printing techniques for vibrant, detailed graphics. Follow the cold-wash protocol and your graphics will outlive your dissertation revisions.',
+        },
+        {
+          id: 'q8-care',
+          category: '08 · CARE // RESEARCH UNIFORM',
+          question: 'How should I wash my graphic tee?',
+          answer:
+            'Turn inside out before washing in cold water with similar colours. Avoid bleach or harsh detergents, line dry away from harsh sun, and never iron directly over the graphic print.',
         },
       ],
     },
     {
-      id: 'row-shipping-returns',
+      id: 'row-service-delivery',
       speed: '48s',
       direction: 'right',
       faqItems: [
         {
-          id: 'shipping',
-          category: 'DISPATCH // 1-2 BUSINESS DAYS',
-          question: 'When will my order ship and arrive?',
+          id: 'q4-size',
+          category: '04 · SIZE // THE RIGHT FIT',
+          question: 'What if I order the wrong size?',
           answer:
-            'Orders ship within 1–2 business days of confirmation, with standard delivery taking 3–5 business days across India. Real-time tracking links are sent via email and SMS.',
+            'No need for a thesis-level investigation. We offer hassle-free size exchanges within 7 days of delivery on eligible unworn products with tags intact. Contact our support team to get started.',
         },
         {
-          id: 'returns',
-          category: 'EXCHANGE // 7-DAY WINDOW',
-          question: 'What is your return or exchange policy?',
+          id: 'q5-price',
+          category: '05 · PRICE // THE FIRST DROP',
+          question: 'Why is the launch price ₹799?',
           answer:
-            'We offer hassle-free size exchanges within 7 days of delivery for unwashed, unworn tees with tags intact. Reach out to support@traitist.com to initiate.',
+            'Because your first PhD streetwear obsession deserves an accessible introduction. The PhD Collection is available at ₹799 (regularly ₹899) for a limited launch period or until launch stock runs out.',
         },
         {
-          id: 'launch-offer',
-          category: 'PRICE // LAUNCH OFFER',
-          question: 'How long is the ₹799 introductory price valid?',
+          id: 'q6-shipping',
+          category: '06 · SHIPPING // THE WAITING GAME',
+          question: 'When will my order be shipped?',
           answer:
-            'The ₹799 price (regularly ₹899) is an exclusive launch offer reserved for PhD Collection orders until initial allocation sells out. Once the launch edition closes, standard pricing will apply.',
+            'We aim to dispatch orders within 1–2 business days after confirmation. Delivery typically takes 3–5 business days across India with complimentary express shipping on all orders.',
+        },
+        {
+          id: 'q7-tracking',
+          category: "07 · ORDER TRACKING // WHERE'S MY TEE?",
+          question: 'How can I track my order?',
+          answer:
+            "Your tee is on its way, not caught in an academic backlog. Once dispatched, we'll send a live tracking link via email and SMS so you can monitor its progress in real time.",
         },
       ],
     },
@@ -72,3 +87,4 @@ export const FAQSection: React.FC = () => {
     </div>
   );
 };
+

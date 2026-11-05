@@ -15,6 +15,7 @@ export interface FaqRow {
 }
 
 export interface FaqData {
+  smallLabel?: string;
   mainTitle: string;
   mainSubtitle: string;
   rows: FaqRow[];
@@ -95,7 +96,7 @@ export const FaqSection: React.FC<{
         <div className="flex items-center justify-center gap-2 mb-2">
           <span className="w-1.5 h-1.5 bg-[#FF5722] shrink-0" aria-hidden="true" />
           <span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-[#FF5722] font-bold">
-            FREQUENTLY ASKED QUESTIONS
+            {data.smallLabel || 'FREQUENTLY ASKED QUESTIONS'}
           </span>
         </div>
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-neutral-950 uppercase tracking-tight leading-tight">

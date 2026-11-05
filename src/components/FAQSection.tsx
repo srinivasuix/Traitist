@@ -1,126 +1,102 @@
-import React, { useState } from 'react';
-import { Plus, Minus } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import React from 'react';
+import FaqSection, { FaqData } from './ui/habit-faq-scroller';
 
-interface FAQItem {
-  id: string;
-  question: string;
-  answer: string;
-}
-
-const FAQS: FAQItem[] = [
-  {
-    id: 'sizing',
-    question: 'How do TRAITIST T-shirts fit?',
-    answer:
-      'Our T-shirts feature an intentional, boxy drop-shoulder fit. Order your standard size for a relaxed streetwear silhouette, or size down if you prefer a closer, traditional fit.',
-  },
-  {
-    id: 'fabric',
-    question: 'What fabric and weight do you use?',
-    answer:
-      'Every tee is cut from heavyweight 200 GSM 100% combed cotton jersey. It is pre-shrunk and bio-washed to maintain its structural drape and softness after repeated wear.',
-  },
-  {
-    id: 'care',
-    question: 'How should I wash and care for my T-shirt?',
-    answer:
-      'Machine wash cold inside out with similar colours, and line dry in the shade. Never iron directly over the graphic print.',
-  },
-  {
-    id: 'shipping',
-    question: 'When will my order ship and arrive?',
-    answer:
-      'Orders ship within [1–2 business days] of confirmation, with standard delivery taking [3–5 business days] across India. You will receive tracking details via email and SMS once your package is dispatched.',
-  },
-  {
-    id: 'returns',
-    question: 'What is your return or exchange policy?',
-    answer:
-      'We offer hassle-free size exchanges within [7 days] of delivery for unwashed, unworn tees with tags intact. If you need a different size, reach out to [support@traitist.com] to initiate an exchange.',
-  },
-  {
-    id: 'launch-offer',
-    question: 'How long is the ₹799 introductory price valid?',
-    answer:
-      'The ₹799 price (regularly ₹899) is an exclusive launch offer reserved for Drop 01 orders until initial quantities sell out. Once the first drop closes, standard pricing will apply.',
-  },
-];
+const TRAITIST_FAQ_DATA: FaqData = {
+  mainTitle: 'FREQUENTLY ASKED QUESTIONS',
+  mainSubtitle:
+    'Drop 01 fit details, heavyweight 200 GSM cotton jersey specifications, order tracking timelines, and hassle-free size exchanges.',
+  rows: [
+    {
+      id: 'row-fit-fabric',
+      speed: '42s',
+      direction: 'left',
+      faqItems: [
+        {
+          id: 'sizing',
+          category: 'FIT // BOXY DROP-SHOULDER',
+          question: 'How do TRAITIST T-shirts fit?',
+          answer:
+            'Our T-shirts feature an intentional, boxy drop-shoulder cut. Order your standard size for a relaxed streetwear drape, or size down if you prefer a closer, traditional fit.',
+        },
+        {
+          id: 'fabric',
+          category: 'FABRIC // 200 GSM COTTON',
+          question: 'What fabric and weight do you use?',
+          answer:
+            'Every tee is cut from heavyweight 200 GSM 100% combed cotton jersey. It is pre-shrunk and bio-washed to maintain its structural drape and softness after repeated wear.',
+        },
+        {
+          id: 'print-durability',
+          category: 'PRINT // HIGH-DENSITY',
+          question: 'How durable are the graphic prints?',
+          answer:
+            'We use premium discharge and high-density screen printing engineered to flex with 200 GSM cotton jersey without cracking, peeling, or fading over time.',
+        },
+      ],
+    },
+    {
+      id: 'row-shipping-returns',
+      speed: '48s',
+      direction: 'right',
+      faqItems: [
+        {
+          id: 'shipping',
+          category: 'DISPATCH // 1-2 BUSINESS DAYS',
+          question: 'When will my order ship and arrive?',
+          answer:
+            'Orders ship within 1–2 business days of confirmation, with standard delivery taking 3–5 business days across India. Real-time tracking links are sent via email and SMS.',
+        },
+        {
+          id: 'returns',
+          category: 'EXCHANGE // 7-DAY WINDOW',
+          question: 'What is your return or exchange policy?',
+          answer:
+            'We offer hassle-free size exchanges within 7 days of delivery for unwashed, unworn tees with tags intact. Reach out to support@traitist.com to initiate.',
+        },
+        {
+          id: 'launch-offer',
+          category: 'PRICE // SPECIAL DROP OFFER',
+          question: 'How long is the ₹799 introductory price valid?',
+          answer:
+            'The ₹799 price (regularly ₹899) is an exclusive launch offer reserved for Drop 01 orders until initial quantities sell out. Once the first drop closes, standard pricing will apply.',
+        },
+      ],
+    },
+    {
+      id: 'row-care-community',
+      speed: '44s',
+      direction: 'left',
+      faqItems: [
+        {
+          id: 'care',
+          category: 'CARE // COLD WASH ONLY',
+          question: 'How should I wash and care for my T-shirt?',
+          answer:
+            'Machine wash cold inside out with similar colours, and line dry in the shade. Never iron directly over the graphic print to maintain the high-density ink texture.',
+        },
+        {
+          id: 'packaging',
+          category: 'ARCHIVAL // KRAFT UNBOXING',
+          question: 'How are orders packaged and shipped?',
+          answer:
+            'Every tee arrives in a custom matte protective sleeve and sealed kraft box, complete with collectible PhD stickers and an authenticity packing slip.',
+        },
+        {
+          id: 'early-access',
+          category: 'DROP // PASSCODES',
+          question: 'How do I get early access to future drops?',
+          answer:
+            'Subscribe to our newsletter below or save items to your wishlist to receive private drop passcodes 2 hours before public releases.',
+        },
+      ],
+    },
+  ],
+};
 
 export const FAQSection: React.FC = () => {
-  const [openId, setOpenId] = useState<string | null>(null);
-
-  const toggle = (id: string) => {
-    setOpenId((prev) => (prev === id ? null : id));
-  };
-
   return (
-    <section
-      id="faq"
-      className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20"
-      aria-label="Frequently Asked Questions"
-    >
-      {/* Section Header */}
-      <div className="mb-8 sm:mb-10 border-b border-neutral-300 pb-5">
-        <div className="flex items-center gap-1.5 mb-2">
-          <span className="w-1.5 h-1.5 bg-[#FF5722] shrink-0" aria-hidden="true" />
-          <span className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-[#FF5722] font-bold">
-            COMMON INQUIRIES
-          </span>
-        </div>
-        <h2 className="text-xl sm:text-2xl font-display font-bold uppercase tracking-tight text-neutral-900">
-          Frequently Asked Questions
-        </h2>
-        <p className="mt-2 text-xs sm:text-sm font-mono text-neutral-600">
-          Everything you need to know before your first TRAITIST drop.
-        </p>
-      </div>
-
-      {/* Brand Accordion List */}
-      <div className="divide-y divide-neutral-300 border-y border-neutral-300">
-        {FAQS.map((faq) => {
-          const isOpen = openId === faq.id;
-          return (
-            <div key={faq.id} className="transition-colors">
-              <button
-                type="button"
-                onClick={() => toggle(faq.id)}
-                aria-expanded={isOpen}
-                aria-controls={`faq-answer-${faq.id}`}
-                className="w-full flex items-center justify-between py-4 sm:py-5 text-left group cursor-pointer focus:outline-none min-h-[48px]"
-              >
-                <span className="text-sm sm:text-base font-medium text-neutral-900 group-hover:text-[#FF5722] transition-colors pr-4">
-                  {faq.question}
-                </span>
-                <span className="text-neutral-400 group-hover:text-neutral-900 shrink-0 transition-transform duration-200">
-                  {isOpen ? (
-                    <Minus className="w-4 h-4 text-[#FF5722]" />
-                  ) : (
-                    <Plus className="w-4 h-4" />
-                  )}
-                </span>
-              </button>
-
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    id={`faq-answer-${faq.id}`}
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="overflow-hidden"
-                  >
-                    <div className="pb-5 pr-8 text-xs sm:text-sm font-sans text-neutral-600 leading-relaxed">
-                      {faq.answer}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          );
-        })}
-      </div>
-    </section>
+    <div id="faq" className="w-full">
+      <FaqSection data={TRAITIST_FAQ_DATA} />
+    </div>
   );
 };

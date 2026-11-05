@@ -1,59 +1,77 @@
-import { Sparkles } from "lucide-react";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionStreamingContent,
-  AccordionTrigger,
-} from "@/components/ui/accordion-generative-utils/accordion";
+import FaqSection from "@/components/ui/habit-faq-scroller";
 
-const answers = [
-  {
-    value: "what",
-    question: "What does this component do?",
-    answer:
-      "It streams the answer in one character at a time, the way a model writes it. The panel opens to the height of the finished text first, so nothing below it jumps while the words arrive.",
-  },
-  {
-    value: "how",
-    question: "How is the effect built?",
-    answer:
-      "A timer reveals a growing slice of the string while a caret trails the last character. The full text sits underneath at zero visibility to reserve the space, and it is the copy a screen reader reads.",
-  },
-  {
-    value: "speed",
-    question: "Can I change the pace?",
-    answer:
-      "Yes. Set speed for milliseconds per character and startDelay for the pause before the first word. Punctuation adds a beat on its own, and a reduced-motion preference skips straight to the finished answer.",
-  },
-];
+export default function DemoOne() {
+  // --- EASY TO REMIX ---
+  // Just change the values in this object to update the FAQ Section
+  const faqData = {
+    mainTitle: "Frequently Asked Questions",
+    mainSubtitle:
+      "Have questions? We've got answers. If you can't find what you're looking for, feel free to contact us.",
+    rows: [
+      {
+        id: 'row1',
+        speed: '60s',
+        direction: 'left' as const,
+        faqItems: [
+          {
+            id: 'q1',
+            question: 'How do I track a new habit?',
+            answer:
+              'Simply click the "Add Habit" button on your dashboard, give it a name, set your schedule (daily, weekly, etc.), and you\'re ready to go!'
+          },
+          {
+            id: 'q2',
+            question: 'Is my data private and secure?',
+            answer:
+              'Absolutely. We use industry-standard encryption to protect your data. You are the only one who can see your personal progress.'
+          }
+        ]
+      },
+      {
+        id: 'row2',
+        speed: '45s',
+        direction: 'right' as const,
+        faqItems: [
+          {
+            id: 'q3',
+            question: 'Can I use this app with my team?',
+            answer:
+              'Yes! Our "Team" plan is designed for collaboration. You can create team goals, track shared habits, and view team-wide progress reports.'
+          },
+          {
+            id: 'q4',
+            question: 'What happens if I miss a day?',
+            answer:
+              'Life happens! Missing a day won\'t break your streak. Our app focuses on long-term consistency, not 100% perfection.'
+          }
+        ]
+      },
+      {
+        id: 'row3',
+        speed: '70s',
+        direction: 'left' as const,
+        faqItems: [
+          {
+            id: 'q5',
+            question: 'Is there a free trial?',
+            answer:
+              'Yes, you can try all our Pro features for 7 days, no credit card required. You can downgrade to the Free plan at any time.'
+          },
+          {
+            id: 'q6',
+            question: 'How do I cancel my subscription?',
+            answer:
+              'You can cancel your subscription at any time from your account settings page. Your access will continue until the end of your billing period.'
+          }
+        ]
+      }
+    ]
+  };
+  // --- END REMIX AREA ---
 
-export default function AccordionGenerativeDemo() {
   return (
-    <div className="flex w-full items-center justify-center p-10">
-      <Accordion
-        type="single"
-        collapsible
-        variant="card"
-        defaultValue="what"
-        className="w-full max-w-lg"
-      >
-        {answers.map((item) => (
-          <AccordionItem key={item.value} value={item.value}>
-            <AccordionTrigger>
-              <span className="flex items-center gap-2.5">
-                <Sparkles
-                  aria-hidden="true"
-                  className="size-4 shrink-0 text-violet-500 dark:text-violet-400"
-                  strokeWidth={2}
-                />
-                {item.question}
-              </span>
-            </AccordionTrigger>
-            <AccordionStreamingContent text={item.answer} speed={12} />
-          </AccordionItem>
-        ))}
-      </Accordion>
+    <div className="text-gray-800 min-h-screen flex items-center justify-center py-20 px-4">
+      <FaqSection data={faqData} />
     </div>
   );
 }
-

@@ -98,22 +98,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide, onOpenNotFound 
             </p>
             <ul className="space-y-2 text-xs text-neutral-600 font-sans">
               <li>
-                <a
-                  href="#/404"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (onOpenNotFound) {
-                      onOpenNotFound();
-                    } else {
-                      window.location.hash = '#/404';
-                    }
-                  }}
-                  className="hover:text-black transition cursor-pointer"
-                >
-                  404 Page
-                </a>
-              </li>
-              <li>
                 <a className="hover:text-black transition" href="#shop">
                   7-Day Size Exchanges (No Returns)
                 </a>
@@ -134,6 +118,22 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide, onOpenNotFound 
               <li>
                 <a className="hover:text-black transition" href="#newsletter">
                   Contact Studio
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#/404"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (onOpenNotFound) {
+                      onOpenNotFound();
+                    } else {
+                      window.location.hash = '#/404';
+                    }
+                  }}
+                  className="hover:text-black transition cursor-pointer"
+                >
+                  404 Page
                 </a>
               </li>
             </ul>

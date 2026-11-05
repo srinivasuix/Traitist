@@ -567,7 +567,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   )}
                 </button>
                 {openAccordions.description && (
-                  <div id="accordion-panel-description" className="pb-4 text-xs text-neutral-700 font-sans leading-relaxed">
+                  <div id="accordion-panel-description" className="pb-4 text-[11px] text-neutral-700 font-mono leading-relaxed">
                     <p>{product.description}</p>
                     <div className="grid grid-cols-[auto_1fr_auto] items-start gap-4 sm:gap-6 mt-3.5 pt-3 border-t border-neutral-300/80 font-mono text-[11px]">
                       <div>
@@ -604,7 +604,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   )}
                 </button>
                 {openAccordions.shipping && (
-                  <div id="accordion-panel-shipping" className="pb-4 text-xs text-neutral-700 font-mono leading-relaxed space-y-1.5 text-[11px]">
+                  <div id="accordion-panel-shipping" className="pb-4 text-[11px] text-neutral-700 font-mono leading-relaxed space-y-1.5">
                     <p>• Complimentary express shipping across India on orders above ₹999.</p>
                     <p>• Orders dispatch within 24 hours via express air logistics.</p>
                     <p>• 7-day (1 week) size exchanges with doorstep pickup. Only exchanges accepted (no returns).</p>
@@ -629,7 +629,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   )}
                 </button>
                 {openAccordions.care && (
-                  <div id="accordion-panel-care" className="pb-4 text-xs text-neutral-700 font-mono leading-relaxed space-y-1.5 text-[11px]">
+                  <div id="accordion-panel-care" className="pb-4 text-[11px] text-neutral-700 font-mono leading-relaxed space-y-1.5">
                     <p>• 100% Super-Combed Cotton, 200 GSM heavy jersey knit.</p>
                     <p>• Machine wash cold inside out with similar colors.</p>
                     <p>• Line dry in shade to preserve relaxed street drape.</p>

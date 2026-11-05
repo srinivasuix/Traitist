@@ -18,6 +18,7 @@ import {
   X,
   AlertTriangle,
   ShoppingBag,
+  CreditCard,
 } from 'lucide-react';
 import { Product, CATALOG_PRODUCTS, DEFAULT_SIZES, SIZE_TO_VARIANT } from '../data/products';
 import { BorderBeam } from './magicui/border-beam';
@@ -500,6 +501,19 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 </h4>
                 <p className="text-[11px] sm:text-xs text-neutral-600 font-sans leading-relaxed mt-1">
                   Actual printed colours may vary slightly from the digital product images due to screen settings, fabric characteristics, and printing processes. The approved design and artwork will remain the same.
+                </p>
+              </div>
+            </div>
+
+            {/* Prepaid Orders Notice (COD Unavailable) */}
+            <div className="mt-3.5 p-3 sm:p-3.5 rounded-sm border border-neutral-300 bg-neutral-200/50 flex items-start gap-2.5 sm:gap-3 text-left">
+              <CreditCard className="w-4 h-4 text-neutral-700 shrink-0 mt-0.5" aria-hidden="true" />
+              <div className="min-w-0">
+                <h4 className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-neutral-900">
+                  PREPAID ORDERS ONLY.
+                </h4>
+                <p className="text-[11px] sm:text-xs text-neutral-600 font-sans leading-relaxed mt-0.5">
+                  Cash on Delivery (COD) is currently unavailable. Please complete your purchase using an available online payment method.
                 </p>
               </div>
             </div>

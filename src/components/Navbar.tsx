@@ -128,7 +128,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <motion.span
                     key={`wishlist-badge-${wishlistCount}`}
                     initial={{ scale: 0.5, opacity: 0 }}
-                    animate={{ scale: [0.5, 1.25, 1], opacity: 1 }}
+                    animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0, opacity: 0 }}
                     transition={{ type: 'spring', stiffness: 500, damping: 22 }}
                     className="absolute top-1 right-1 bg-[#FF5722] text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold"

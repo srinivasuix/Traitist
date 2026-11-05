@@ -166,7 +166,7 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
                           <motion.div
                             key={addedIds[product.id] ? 'check' : 'bag'}
                             initial={{ scale: 0.6, rotate: -20 }}
-                            animate={{ scale: [0.6, 1.25, 1], rotate: [-20, 0, 0] }}
+                            animate={{ scale: 1, rotate: 0 }}
                             transition={{ type: 'spring', stiffness: 500, damping: 22 }}
                             className="flex items-center"
                           >

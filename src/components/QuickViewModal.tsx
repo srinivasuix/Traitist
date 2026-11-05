@@ -138,11 +138,11 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
 
             <div className="flex items-baseline gap-2.5 mt-2 flex-wrap">
               <span className="text-xl font-mono font-bold text-neutral-950">
-                {product.isSecretDrop ? '???' : `₹ ${product.priceINR.toLocaleString()}`}
+                {product.isSecretDrop ? '???' : `₹${product.priceINR.toLocaleString()}`}
               </span>
               {product.regularPriceINR && !product.isSecretDrop && (
                 <span className="text-xs font-mono text-neutral-400 line-through">
-                  ₹ {product.regularPriceINR.toLocaleString()}
+                  ₹{product.regularPriceINR.toLocaleString()}
                 </span>
               )}
               {product.isLaunchPrice && !product.isSecretDrop && (

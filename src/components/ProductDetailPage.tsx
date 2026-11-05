@@ -383,11 +383,11 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             {/* Price */}
             <div className="flex items-baseline gap-3 mt-2.5 flex-wrap">
               <span className="text-xl sm:text-2xl font-mono text-neutral-950 font-bold">
-                ₹ {product.priceINR.toLocaleString()}
+                ₹{product.priceINR.toLocaleString()}
               </span>
               {product.regularPriceINR && !product.isSecretDrop && (
                 <span className="text-sm font-mono text-neutral-400 line-through">
-                  ₹ {product.regularPriceINR.toLocaleString()}
+                  ₹{product.regularPriceINR.toLocaleString()}
                 </span>
               )}
               {product.isLaunchPrice && !product.isSecretDrop && (
@@ -792,35 +792,33 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                   </div>
 
                   {/* Product Info */}
-                  <div className="flex justify-between items-start mt-3 gap-2">
+                  <div className="flex justify-between items-start mt-2.5 sm:mt-3 gap-2">
                     <div className="min-w-0 pr-1 flex-1">
-                      <h4 className="text-xs font-semibold uppercase tracking-tight text-neutral-900 group-hover:text-neutral-700 transition min-h-[2rem] line-clamp-2 leading-tight">
+                      <h4 className="text-xs sm:text-[13px] font-semibold uppercase tracking-tight text-neutral-900 group-hover:text-neutral-700 transition leading-snug">
                         {rel.title}
                       </h4>
                       <p className="text-[10px] font-mono text-neutral-600 uppercase mt-0.5 truncate">
                         {rel.sku ? `${rel.sku} • ` : ''}{rel.edition || rel.category}
                       </p>
                     </div>
-                    <div className="text-right shrink-0">
-                      <div className="flex items-center justify-end gap-1.5 flex-wrap min-h-[1.25rem]">
-                        {rel.regularPriceDisplayINR && !rel.isSecretDrop && (
-                          <span className="text-[11px] font-mono text-neutral-400 line-through">
-                            {rel.regularPriceDisplayINR}
-                          </span>
-                        )}
-                        <span className="text-xs font-mono font-bold text-neutral-900 whitespace-nowrap">
-                          {rel.isSecretDrop ? '???' : rel.priceDisplayINR}
-                        </span>
-                      </div>
-                      {rel.isLaunchPrice && !rel.isSecretDrop ? (
-                        <span className="inline-block text-[9px] font-mono font-bold tracking-wider text-[#FF5722] uppercase mt-0.5">
-                          LAUNCH PRICE
-                        </span>
-                      ) : (
-                        <span className="inline-block text-[9px] font-mono font-bold tracking-wider text-transparent select-none mt-0.5" aria-hidden="true">
-                          &nbsp;
+
+                    {/* Compact, Unified Pricing Group */}
+                    <div className="text-right shrink-0 flex flex-col items-end">
+                      {rel.isLaunchPrice && !rel.isSecretDrop && (
+                        <span className="text-[8.5px] sm:text-[9px] font-mono font-bold tracking-wider text-[#FF5722] uppercase block leading-none mb-1">
+                          LAUNCH OFFER
                         </span>
                       )}
+                      <div className="flex items-baseline justify-end gap-1.5 whitespace-nowrap">
+                        <span className="text-xs sm:text-[13px] font-mono font-bold text-neutral-950 tracking-tight">
+                          {rel.isSecretDrop ? '???' : `₹${rel.priceINR.toLocaleString()}`}
+                        </span>
+                        {rel.regularPriceINR && !rel.isSecretDrop && (
+                          <span className="text-[10px] sm:text-[11px] font-mono text-neutral-400 line-through">
+                            ₹{rel.regularPriceINR.toLocaleString()}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>

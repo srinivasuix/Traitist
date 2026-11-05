@@ -77,8 +77,8 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
         </div>
       </div>
 
-      {/* Product Grid: 4 Columns on desktop, 2 on mobile */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-x-3 sm:gap-x-5 gap-y-7 sm:gap-y-10">
+      {/* Product Grid: 4 Columns on desktop, 3 on tablet, 2 on mobile */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-3.5 sm:gap-x-5 lg:gap-x-6 gap-y-7 sm:gap-y-10">
         {CATALOG_PRODUCTS.map((product, idx) => {
           const isWishlisted = wishlistIds.includes(product.id);
           const currentSize = selectedSizes[product.id] || 'M';
@@ -224,35 +224,33 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                 </div>
 
                 {/* Product Info */}
-                <div className="flex justify-between items-start mt-3 gap-2">
+                <div className="flex justify-between items-start mt-2.5 sm:mt-3 gap-2">
                   <div className="min-w-0 pr-1 flex-1">
-                    <h3 className="text-xs font-semibold uppercase tracking-tight text-neutral-900 group-hover:text-neutral-700 transition min-h-[2rem] line-clamp-2 leading-tight">
+                    <h3 className="text-xs sm:text-[13px] font-semibold uppercase tracking-tight text-neutral-900 group-hover:text-neutral-700 transition leading-snug">
                       {product.title}
                     </h3>
                     <p className="text-[10px] font-mono text-neutral-600 uppercase mt-0.5 truncate">
                       {product.sku ? `${product.sku} • ` : ''}{product.edition || product.category}
                     </p>
                   </div>
-                  <div className="text-right shrink-0">
-                    <div className="flex items-center justify-end gap-1.5 flex-wrap min-h-[1.25rem]">
-                      {product.regularPriceDisplayINR && !product.isSecretDrop && (
-                        <span className="text-[11px] font-mono text-neutral-400 line-through">
-                          {product.regularPriceDisplayINR}
-                        </span>
-                      )}
-                      <span className="text-xs font-mono font-bold text-neutral-900 whitespace-nowrap">
-                        {product.isSecretDrop ? '???' : product.priceDisplayINR}
-                      </span>
-                    </div>
-                    {product.isLaunchPrice && !product.isSecretDrop ? (
-                      <span className="inline-block text-[9px] font-mono font-bold tracking-wider text-[#FF5722] uppercase mt-0.5">
-                        LAUNCH PRICE
-                      </span>
-                    ) : (
-                      <span className="inline-block text-[9px] font-mono font-bold tracking-wider text-transparent select-none mt-0.5" aria-hidden="true">
-                        &nbsp;
+
+                  {/* Compact, Unified Pricing Group */}
+                  <div className="text-right shrink-0 flex flex-col items-end">
+                    {product.isLaunchPrice && !product.isSecretDrop && (
+                      <span className="text-[8.5px] sm:text-[9px] font-mono font-bold tracking-wider text-[#FF5722] uppercase block leading-none mb-1">
+                        LAUNCH OFFER
                       </span>
                     )}
+                    <div className="flex items-baseline justify-end gap-1.5 whitespace-nowrap">
+                      <span className="text-xs sm:text-[13px] font-mono font-bold text-neutral-950 tracking-tight">
+                        {product.isSecretDrop ? '???' : `₹${product.priceINR.toLocaleString()}`}
+                      </span>
+                      {product.regularPriceINR && !product.isSecretDrop && (
+                        <span className="text-[10px] sm:text-[11px] font-mono text-neutral-400 line-through">
+                          ₹{product.regularPriceINR.toLocaleString()}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
               </article>

@@ -123,9 +123,6 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   const shipping = subtotal >= freeShippingThreshold || items.length === 0 ? 0 : 99;
   const grandTotal = Math.max(0, subtotal - discountAmount + shipping);
 
-  const amountNeededForFreeShipping = Math.max(0, freeShippingThreshold - subtotal);
-  const freeShippingProgress = Math.min(100, (subtotal / freeShippingThreshold) * 100);
-
   const handleApplyPromo = (e: React.FormEvent) => {
     e.preventDefault();
     const cleanCode = promoCode.trim().toUpperCase();
@@ -771,29 +768,6 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             ) : (
               /* CART ITEMS VIEW (Phase 2) */
               <>
-                {/* Compact Free Shipping Progress Bar */}
-                <div className="px-5 py-2.5 bg-[#DFDDD7] border-b border-neutral-300 text-[10px] font-mono shrink-0">
-                  <div className="flex items-center justify-between mb-1.5">
-                    {amountNeededForFreeShipping > 0 ? (
-                      <span className="text-neutral-700 uppercase tracking-wider font-semibold">
-                        Add <strong className="text-neutral-950 font-bold">{formatPrice(amountNeededForFreeShipping)}</strong> for free shipping
-                      </span>
-                    ) : (
-                      <span className="text-emerald-800 font-bold flex items-center gap-1 uppercase tracking-wider">
-                        <Check className="w-3.5 h-3.5 text-emerald-700" />
-                        Free express shipping unlocked!
-                      </span>
-                    )}
-                    <span className="text-neutral-500 font-bold">{Math.round(freeShippingProgress)}%</span>
-                  </div>
-                  <div className="w-full h-1 bg-neutral-300 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-neutral-950 transition-all duration-300 ease-out"
-                      style={{ width: `${freeShippingProgress}%` }}
-                    />
-                  </div>
-                </div>
-
                 {/* Cart Items List */}
                 <div className="flex-grow overflow-y-auto px-5 py-3 space-y-3">
                   {items.length === 0 ? (

@@ -569,18 +569,18 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 {openAccordions.description && (
                   <div id="accordion-panel-description" className="pb-4 text-xs text-neutral-700 font-sans leading-relaxed">
                     <p>{product.description}</p>
-                    <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-neutral-200 font-mono text-[11px]">
+                    <div className="grid grid-cols-[auto_1fr_auto] items-start gap-4 sm:gap-6 mt-3.5 pt-3 border-t border-neutral-300/80 font-mono text-[11px]">
                       <div>
-                        <span className="text-neutral-500 text-[9px] block">SKU</span>
-                        <span className="font-semibold text-neutral-900">{product.sku || 'TR-001'}</span>
+                        <span className="text-neutral-500 text-[9px] font-medium tracking-wider uppercase block mb-1">SKU</span>
+                        <span className="font-semibold text-neutral-950 whitespace-nowrap block">{product.sku || 'TR-001'}</span>
                       </div>
                       <div>
-                        <span className="text-neutral-500 text-[9px] block">FABRIC</span>
-                        <span className="font-semibold text-neutral-900">{product.fabric}</span>
+                        <span className="text-neutral-500 text-[9px] font-medium tracking-wider uppercase block mb-1">FABRIC</span>
+                        <span className="font-semibold text-neutral-950 leading-snug block">{product.fabric}</span>
                       </div>
                       <div>
-                        <span className="text-neutral-500 text-[9px] block">WEIGHT</span>
-                        <span className="font-semibold text-neutral-900">{product.gsm} Combed Jersey</span>
+                        <span className="text-neutral-500 text-[9px] font-medium tracking-wider uppercase block mb-1">WEIGHT</span>
+                        <span className="font-semibold text-neutral-950 whitespace-nowrap block">{product.gsm} Combed Jersey</span>
                       </div>
                     </div>
                   </div>

@@ -39,7 +39,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
               type="button"
               onClick={onClose}
               aria-label="Close modal"
-              className="absolute top-3 right-3 min-w-[44px] min-h-[44px] flex items-center justify-center text-neutral-500 hover:text-black rounded-full hover:bg-neutral-200/60 transition cursor-pointer"
+              className="absolute top-4 right-4 p-2 text-neutral-500 hover:text-black rounded-full hover:bg-neutral-200/60 transition cursor-pointer"
             >
               <X className="w-4 h-4" aria-hidden="true" />
             </button>

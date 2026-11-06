@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { X, Ruler } from 'lucide-react';
 
 interface SizeGuideModalProps {
@@ -20,6 +20,8 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose 
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
+  if (!isOpen) return null;
+
   const measurements = [
     { size: 'XS', chestIn: '38"', chestCm: '96.5 cm', lengthIn: '27"', lengthCm: '68.5 cm', shoulderIn: '18.5"', shoulderCm: '47 cm', sleeveIn: '8.0"', sleeveCm: '20.5 cm' },
     { size: 'S', chestIn: '40"', chestCm: '102 cm', lengthIn: '28"', lengthCm: '71 cm', shoulderIn: '19.5"', shoulderCm: '49.5 cm', sleeveIn: '8.5"', sleeveCm: '21.5 cm' },
@@ -31,38 +33,25 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose 
   ];
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="sizeguide-title"
-          className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4"
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="sizeguide-title"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-sm animate-fade-in"
+    >
+      <div
+        className="fixed inset-0 bg-transparent"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <div data-lenis-prevent className="relative max-w-lg w-full max-h-[90vh] overflow-y-auto bg-[#ECEBE6] rounded-sm p-4 sm:p-8 shadow-2xl border border-neutral-300 z-10">
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"
+          aria-label="Close size guide"
         >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.18 }}
-            className="fixed inset-0 bg-black/75 backdrop-blur-sm"
-            onClick={onClose}
-            aria-hidden="true"
-          />
-          <motion.div
-            data-lenis-prevent
-            initial={{ opacity: 0, scale: 0.98, y: 8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.98, y: 6, transition: { duration: 0.16 } }}
-            transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-            className="relative max-w-lg w-full max-h-[90vh] overflow-y-auto bg-[#ECEBE6] rounded-sm p-4 sm:p-8 shadow-2xl border border-neutral-300 z-10"
-          >
-            <button
-              onClick={onClose}
-              className="absolute top-3 right-3 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"
-              aria-label="Close size guide"
-            >
-              <X className="w-5 h-5 text-neutral-800" aria-hidden="true" />
-            </button>
+          <X className="w-5 h-5 text-neutral-800" aria-hidden="true" />
+        </button>
 
         <div className="flex items-center gap-2 mb-1">
           <Ruler className="w-5 h-5 text-black" aria-hidden="true" />
@@ -176,9 +165,7 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({ isOpen, onClose 
         >
           Got It
         </button>
-          </motion.div>
-        </div>
-      )}
-    </AnimatePresence>
+      </div>
+    </div>
   );
 };

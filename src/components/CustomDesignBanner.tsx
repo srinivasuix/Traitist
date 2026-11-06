@@ -94,9 +94,9 @@ export const CustomDesignBanner: React.FC<CustomDesignBannerProps> = ({
               {/* T-Shirt Canvas Silhouette Graphic — High-Resolution, Crisp Artwork */}
               <div className="relative my-auto flex flex-col items-center justify-center w-full py-1">
                 <img
-                  src="/images/bespoke_custom_tee_mockup.jpg"
-                  alt="TRAITIST Bespoke Atelier Thesis Survivor Custom Graphic Specimen"
-                  className="w-full max-h-[340px] sm:max-h-[370px] object-contain rounded-xs select-none drop-shadow-[0_16px_32px_rgba(0,0,0,0.85)]"
+                  src="/images/bespoke_phd_journey_tee.jpg"
+                  alt="TRAITIST Bespoke Atelier PhD Milestone Journey Custom Graphic Specimen"
+                  className="w-full max-h-[350px] sm:max-h-[380px] object-contain rounded-xs select-none drop-shadow-[0_16px_32px_rgba(0,0,0,0.85)]"
                   loading="lazy"
                 />
 
@@ -104,7 +104,7 @@ export const CustomDesignBanner: React.FC<CustomDesignBannerProps> = ({
                 {/* 4 Corner Crosshair Brackets around Centre-Front Print Zone (Zero interior fill) */}
                 <div
                   aria-hidden="true"
-                  className="absolute top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 sm:w-56 h-56 sm:h-64 pointer-events-none transition-all duration-300 group-hover:scale-[1.02]"
+                  className="absolute top-[52%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-52 sm:w-60 h-64 sm:h-72 pointer-events-none transition-all duration-300 group-hover:scale-[1.02]"
                 >
                   {/* Top-Left Bracket */}
                   <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#FF5722]" />

@@ -155,18 +155,17 @@ export const FirstDropBanner: React.FC<FirstDropBannerProps> = ({ onExplore }) =
               </div>
 
               {/* Product Image Frame with Viewfinder Corner Brackets */}
-              <div className="relative w-full aspect-[4/3.2] my-2.5 rounded-xs overflow-hidden bg-black/60 flex items-center justify-center">
+              <div className="relative w-full aspect-square my-2.5 rounded-xs overflow-hidden bg-black/60 flex items-center justify-center">
                 {/* 4 Viewfinder Corner Brackets in Restrained Brand Orange */}
                 <div aria-hidden="true" className="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-[#FF5722] pointer-events-none z-10" />
                 <div aria-hidden="true" className="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-[#FF5722] pointer-events-none z-10" />
                 <div aria-hidden="true" className="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-[#FF5722] pointer-events-none z-10" />
                 <div aria-hidden="true" className="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-[#FF5722] pointer-events-none z-10" />
 
-                {/* Actual PhD Collection T-Shirt with original comic-style graphic */}
+                {/* PhD Collection — Under Review After Death T-Shirt */}
                 <img
-                  src="/images/phd_thesis_banner_tee.jpg"
-                  srcSet="/images/phd_thesis_banner_tee.jpg 1x, /images/phd_thesis_banner_tee@2x.jpg 2x"
-                  alt="PhD Collection — My Thesis Is Being Written In Blood, Tears, Sweat and Coffee original comic-style graphic T-shirt"
+                  src="/images/under_review_banner_tee.jpg"
+                  alt="PhD Collection — Under Review After Death graphic T-shirt featuring two skeletons discussing paper under review"
                   className="w-full h-full object-cover object-center select-none transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                   loading="eager"
                 />

@@ -81,7 +81,7 @@ export const NewsletterSection: React.FC = () => {
       <div className="relative z-10">
         <AnimatePresence mode="wait">
           {!submitted ? (
-            /* PRE-SUBMISSION STATE */
+            /* PRE-SUBMISSION FORM STATE */
             <motion.div
               key="newsletter-form-view"
               initial={{ opacity: 1 }}
@@ -157,7 +157,7 @@ export const NewsletterSection: React.FC = () => {
               )}
             </motion.div>
           ) : (
-            /* CONFIRMED SUCCESS STATE */
+            /* CONFIRMED SUCCESS STATE — REFINED EDITORIAL THEME */
             <motion.div
               key="newsletter-success-view"
               role="status"
@@ -167,138 +167,189 @@ export const NewsletterSection: React.FC = () => {
               transition={{ duration: shouldReduceMotion ? 0.05 : 0.4, ease: 'easeOut' }}
               className="max-w-2xl mx-auto flex flex-col items-center text-center py-2"
             >
-              {/* Circular Success Icon (Pale green #DDF5E5, dark green #087443 checkmark, self-drawing circle) */}
-              <div
-                className="w-14 h-14 sm:w-[58px] sm:h-[58px] rounded-full flex items-center justify-center relative mb-4 shadow-2xs"
-                style={{ backgroundColor: '#DDF5E5' }}
+              {/* Circular Success Scalloped Seal with Radiating Bursts */}
+              <motion.div
+                initial={{
+                  opacity: shouldReduceMotion ? 1 : 0,
+                  scale: shouldReduceMotion ? 1 : 0.75,
+                }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: shouldReduceMotion ? 0.01 : 0.4,
+                  ease: [0.34, 1.56, 0.64, 1],
+                }}
+                className="relative mb-3 flex items-center justify-center"
               >
                 <svg
-                  width="58"
-                  height="58"
-                  viewBox="0 0 58 58"
+                  width="72"
+                  height="72"
+                  viewBox="0 0 64 64"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="absolute inset-0 w-full h-full"
+                  className="overflow-visible"
                   aria-hidden="true"
                 >
-                  <motion.circle
-                    cx="29"
-                    cy="29"
-                    r="27"
-                    stroke="#087443"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    initial={{ pathLength: shouldReduceMotion ? 1 : 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{
-                      duration: shouldReduceMotion ? 0.01 : 0.45,
-                      ease: 'easeOut',
-                    }}
-                  />
-                </svg>
+                  {/* Left Burst Radiating Ticks */}
+                  <path d="M6 25L1 24" stroke="#15803d" strokeWidth="2.5" strokeLinecap="round" />
+                  <path d="M8 32H2" stroke="#15803d" strokeWidth="2.5" strokeLinecap="round" />
+                  <path d="M7 39L2 41" stroke="#15803d" strokeWidth="2.5" strokeLinecap="round" />
 
-                <motion.svg
-                  width="26"
-                  height="26"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                  className="relative z-10"
-                  initial={{
-                    opacity: shouldReduceMotion ? 1 : 0,
-                    scale: shouldReduceMotion ? 1 : 0.65,
-                  }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    delay: shouldReduceMotion ? 0 : 0.18,
-                    duration: shouldReduceMotion ? 0.01 : 0.35,
-                    ease: [0.34, 1.56, 0.64, 1],
-                  }}
-                >
+                  {/* Right Burst Radiating Ticks */}
+                  <path d="M58 25L63 24" stroke="#15803d" strokeWidth="2.5" strokeLinecap="round" />
+                  <path d="M56 32H62" stroke="#15803d" strokeWidth="2.5" strokeLinecap="round" />
+                  <path d="M57 39L62 41" stroke="#15803d" strokeWidth="2.5" strokeLinecap="round" />
+
+                  {/* Scalloped Official Seal in Brand Evergreen */}
+                  <path
+                    d="M 53.70 32.00 L 52.52 33.80 L 50.12 35.20 L 48.71 36.48 L 49.29 38.29 L 50.67 40.71 L 50.79 42.85 L 48.87 43.82 L 46.10 43.83 L 44.23 44.23 L 43.83 46.10 L 43.82 48.87 L 42.85 50.79 L 40.71 50.67 L 38.29 49.29 L 36.48 48.71 L 35.20 50.12 L 33.80 52.52 L 32.00 53.70 L 30.20 52.52 L 28.80 50.12 L 27.52 48.71 L 25.71 49.29 L 23.29 50.67 L 21.15 50.79 L 20.18 48.87 L 20.17 46.10 L 19.77 44.23 L 17.90 43.83 L 15.13 43.82 L 13.21 42.85 L 13.33 40.71 L 14.71 38.29 L 15.29 36.48 L 13.88 35.20 L 11.48 33.80 L 10.30 32.00 L 11.48 30.20 L 13.88 28.80 L 15.29 27.52 L 14.71 25.71 L 13.33 23.29 L 13.21 21.15 L 15.13 20.18 L 17.90 20.17 L 19.77 19.77 L 20.17 17.90 L 20.18 15.13 L 21.15 13.21 L 23.29 13.33 L 25.71 14.71 L 27.52 15.29 L 28.80 13.88 L 30.20 11.48 L 32.00 10.30 L 33.80 11.48 L 35.20 13.88 L 36.48 15.29 L 38.29 14.71 L 40.71 13.33 L 42.85 13.21 L 43.82 15.13 L 43.83 17.90 L 44.23 19.77 L 46.10 20.17 L 48.87 20.18 L 50.79 21.15 L 50.67 23.29 L 49.29 25.71 L 48.71 27.52 L 50.12 28.80 L 52.52 30.20 Z"
+                    fill="#15803d"
+                  />
+
+                  {/* Clean White Checkmark */}
                   <motion.path
-                    d="M4.5 12.5L9.5 17.5L19.5 7"
-                    stroke="#087443"
-                    strokeWidth="2.75"
+                    d="M23 32.5L28.5 38L41 24.5"
+                    stroke="#FFFFFF"
+                    strokeWidth="3.6"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     initial={{ pathLength: shouldReduceMotion ? 1 : 0 }}
                     animate={{ pathLength: 1 }}
                     transition={{
-                      delay: shouldReduceMotion ? 0 : 0.22,
-                      duration: shouldReduceMotion ? 0.01 : 0.38,
+                      delay: shouldReduceMotion ? 0 : 0.2,
+                      duration: shouldReduceMotion ? 0.01 : 0.35,
                       ease: 'easeOut',
                     }}
                   />
-                </motion.svg>
-              </div>
+                </svg>
+              </motion.div>
 
-              {/* Small Label */}
+              {/* Small Label Pill */}
               <motion.div
                 initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  delay: shouldReduceMotion ? 0 : 0.14,
+                  delay: shouldReduceMotion ? 0 : 0.12,
                   duration: shouldReduceMotion ? 0.01 : 0.3,
                 }}
-                className="mb-1.5"
+                className="mb-2"
               >
-                <span className="text-[10px] sm:text-[10.5px] font-mono uppercase tracking-widest text-[#FF5722] font-bold">
-                  YOU'RE ON THE LIST · TRAITIST
-                </span>
+                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#FF5722]/5 border border-[#FF5722]/60 shadow-2xs">
+                  <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.18em] text-[#FF5722] font-bold">
+                    YOU&apos;RE ON THE LIST · TRAITIST
+                  </span>
+                </div>
               </motion.div>
 
-              {/* Headline */}
-              <motion.h3
+              {/* Main Headline with organic editorial green underline */}
+              <motion.div
                 initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  delay: shouldReduceMotion ? 0 : 0.22,
+                  delay: shouldReduceMotion ? 0 : 0.2,
                   duration: shouldReduceMotion ? 0.01 : 0.3,
                 }}
-                className="text-2xl sm:text-3xl md:text-4xl font-bold font-display tracking-tight text-neutral-950 uppercase mb-2 leading-tight"
+                className="relative inline-block mt-1 mb-1 max-w-xl mx-auto"
               >
-                WELCOME TO THE INNER CIRCLE.
-              </motion.h3>
+                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-black font-display tracking-tight text-neutral-950 uppercase leading-tight">
+                  WELCOME TO THE INNER CIRCLE.
+                </h3>
+
+                {/* Subtle organic green underline underneath 'THE INNER CIRCLE.' */}
+                <svg
+                  className="absolute -bottom-2 right-2 sm:right-6 w-44 sm:w-56 h-3 text-[#15803d]/80 pointer-events-none"
+                  viewBox="0 0 220 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2 8C50 3.5 150 2 218 7C170 9.5 80 11 12 10"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+
+                {/* Two small green accent ticks at top right */}
+                <div className="absolute -top-2.5 -right-3.5 sm:-right-4 text-[#15803d] pointer-events-none" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                    <path d="M11 2L14 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                    <path d="M4 8L8 10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                  </svg>
+                </div>
+              </motion.div>
 
               {/* Supporting Text */}
               <motion.p
                 initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  delay: shouldReduceMotion ? 0 : 0.3,
+                  delay: shouldReduceMotion ? 0 : 0.28,
                   duration: shouldReduceMotion ? 0.01 : 0.3,
                 }}
-                className="text-xs sm:text-sm text-neutral-600 font-sans leading-relaxed mb-5"
+                className="text-xs sm:text-sm md:text-base text-neutral-700 font-sans leading-relaxed mt-2.5 mb-6"
               >
                 Your inbox just got a little more interesting.
               </motion.p>
 
-              {/* Confirmation Message Panel */}
+              {/* Confirmation Panel with Envelope Icon */}
               <motion.div
                 initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  delay: shouldReduceMotion ? 0 : 0.38,
+                  delay: shouldReduceMotion ? 0 : 0.36,
                   duration: shouldReduceMotion ? 0.01 : 0.35,
                 }}
-                className="w-full max-w-xl mx-auto py-3.5 px-5 sm:px-7 bg-[#DFDDD7] rounded-sm border border-neutral-300 text-xs sm:text-[13px] text-neutral-800 font-sans leading-relaxed"
+                className="w-full max-w-xl mx-auto p-4 sm:p-5 rounded-md sm:rounded-lg bg-[#EBF6EE]/90 border border-[#BDE5C8] shadow-xs flex items-center gap-3.5 sm:gap-4.5"
               >
-                You're subscribed! Keep an eye out for early access, exclusive drop codes and first dibs on new releases.
+                {/* Envelope Icon with Spark Burst */}
+                <div className="flex items-center shrink-0 pr-1">
+                  <div className="relative flex items-center justify-center text-[#15803d]">
+                    <svg
+                      width="34"
+                      height="30"
+                      viewBox="0 0 34 30"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                      className="w-7 h-7 sm:w-8 sm:h-8"
+                    >
+                      {/* Envelope body */}
+                      <rect x="2" y="7" width="26" height="19" rx="2.5" stroke="currentColor" strokeWidth="2.2" fill="#EBF6EE" />
+                      {/* Envelope flap */}
+                      <path d="M3 8L15 17L27 8" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                      {/* Radiating spark ticks on top-right */}
+                      <path d="M26 2L28 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M31 5L33 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Subtle Vertical Divider */}
+                <div className="h-9 w-px bg-[#BDE5C8] shrink-0" aria-hidden="true" />
+
+                {/* Confirmation Copy */}
+                <p className="text-xs sm:text-[13px] text-neutral-800 font-sans leading-relaxed text-left flex-grow">
+                  You&apos;re subscribed! Keep an eye out for early access, exclusive drop codes and first dibs on new releases.
+                </p>
               </motion.div>
 
-              {/* Closing Microcopy */}
-              <motion.p
+              {/* Closing Tagline with Editorial Flanking Lines */}
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{
-                  delay: shouldReduceMotion ? 0 : 0.48,
+                  delay: shouldReduceMotion ? 0 : 0.46,
                   duration: shouldReduceMotion ? 0.01 : 0.3,
                 }}
-                className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-neutral-500 mt-4.5"
+                className="flex items-center justify-center gap-3 sm:gap-4 mt-6 text-neutral-500"
               >
-                GOOD THINGS ARE HEADING YOUR WAY.
-              </motion.p>
+                <span className="w-8 sm:w-16 h-px bg-neutral-300" aria-hidden="true" />
+                <span className="text-[10px] sm:text-[10.5px] font-mono uppercase tracking-[0.2em] font-semibold text-neutral-600">
+                  GOOD THINGS ARE HEADING YOUR WAY.
+                </span>
+                <span className="w-8 sm:w-16 h-px bg-neutral-300" aria-hidden="true" />
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>

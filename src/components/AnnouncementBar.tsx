@@ -11,19 +11,11 @@ export const AnnouncementBar: React.FC = () => {
       aria-label="Announcements"
     >
       <div className="flex items-center justify-between px-3">
-        <div
-          className="overflow-hidden whitespace-nowrap flex-grow"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          onFocus={() => setIsPaused(true)}
-          onBlur={() => setIsPaused(false)}
-        >
+        <div className="overflow-hidden whitespace-nowrap flex-grow">
           <Marquee
-            pauseOnHover={true}
+            paused={isPaused}
+            pauseOnHover={!isPaused}
             className="py-0 [--duration:34s]"
-            style={{
-              animationPlayState: isPaused ? 'paused' : 'running',
-            }}
           >
             <div className="flex items-center gap-8 px-4 font-mono">
               <span>NIGHT SHIFT UNIFORM. DAYTIME ATTITUDE.</span>
@@ -41,14 +33,15 @@ export const AnnouncementBar: React.FC = () => {
         {/* WCAG 2.2.2 Pause/Play Ticker Toggle */}
         <button
           type="button"
-          onClick={() => setIsPaused(!isPaused)}
-          aria-label={isPaused ? 'Resume ticker movement' : 'Pause ticker movement'}
-          className="ml-2 p-1 text-neutral-400 hover:text-white transition shrink-0 cursor-pointer min-w-[32px] min-h-[32px] flex items-center justify-center rounded"
+          onClick={() => setIsPaused((prev) => !prev)}
+          aria-label={isPaused ? 'Play announcement ticker' : 'Pause announcement ticker'}
+          aria-pressed={isPaused}
+          className="ml-2 p-1 text-neutral-400 hover:text-white transition shrink-0 cursor-pointer min-w-[32px] min-h-[32px] flex items-center justify-center rounded hover:bg-neutral-900 active:scale-95 focus-visible:outline-1 focus-visible:outline-white"
         >
           {isPaused ? (
-            <Play className="w-3 h-3 fill-current" aria-hidden="true" />
+            <Play className="w-3 h-3 fill-current text-white" aria-hidden="true" />
           ) : (
-            <Pause className="w-3 h-3 fill-current" aria-hidden="true" />
+            <Pause className="w-3 h-3 fill-current text-neutral-300 hover:text-white" aria-hidden="true" />
           )}
         </button>
       </div>

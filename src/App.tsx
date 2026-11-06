@@ -6,6 +6,8 @@ import { Navbar } from './components/Navbar';
 import { HeroRotator } from './components/HeroRotator';
 import { FirstDropBanner } from './components/FirstDropBanner';
 import { ProductGrid } from './components/ProductGrid';
+import { CustomDesignBanner } from './components/CustomDesignBanner';
+import { CustomDesignModal } from './components/CustomDesignModal';
 import { MetricsSection } from './components/MetricsSection';
 import { FAQSection } from './components/FAQSection';
 import { NewsletterSection } from './components/NewsletterSection';
@@ -41,6 +43,7 @@ export default function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
+  const [isCustomDesignOpen, setIsCustomDesignOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isNotFound, setIsNotFound] = useState(false);
   const [isOrderSuccessOpen, setIsOrderSuccessOpen] = useState(false);
@@ -128,7 +131,7 @@ export default function App() {
           setIsNotFound(true);
           window.scrollTo({ top: 0, behavior: 'instant' });
         }
-      } else if (!hash || hash === '#shop' || hash === '#faq' || hash === '#specs' || hash === '#newsletter') {
+      } else if (!hash || hash === '#shop' || hash === '#faq' || hash === '#specs' || hash === '#newsletter' || hash === '#custom-design') {
         setSelectedProduct(null);
         setIsNotFound(false);
       }
@@ -378,6 +381,11 @@ export default function App() {
               onSelectProduct={handleSelectProduct}
             />
 
+            {/* 5. Custom Design Banner ("Your Story. Your Tee.") */}
+            <CustomDesignBanner
+              onOpenCustomDesign={() => setIsCustomDesignOpen(true)}
+            />
+
             {/* 6. Specifications & Metrics (200 GSM, 150 Run size, etc.) */}
             <MetricsSection />
 
@@ -423,6 +431,11 @@ export default function App() {
       <SizeGuideModal
         isOpen={isSizeGuideOpen}
         onClose={() => setIsSizeGuideOpen(false)}
+      />
+
+      <CustomDesignModal
+        isOpen={isCustomDesignOpen}
+        onClose={() => setIsCustomDesignOpen(false)}
       />
 
       <SearchModal

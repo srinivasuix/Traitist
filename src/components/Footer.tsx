@@ -49,6 +49,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide, onOpenNotFound 
                   Showcase
                 </a>
               </li>
+              <li>
+                <a className="hover:text-black transition flex items-center gap-1.5" href="#custom-design">
+                  <span>Custom design</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF5722]" aria-hidden="true" />
+                </a>
+              </li>
             </ul>
           </div>
 

@@ -223,6 +223,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                       NEW
                     </span>
                   </a>
+                  <a
+                    href="#custom-design"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onGoHome?.();
+                    }}
+                    className="py-3 px-3 rounded hover:bg-neutral-200/80 transition flex items-center justify-between min-h-[44px]"
+                  >
+                    <span>Custom Design Studio</span>
+                    <span className="text-[10px] font-mono text-[#FF5722] font-semibold">1-OF-1</span>
+                  </a>
                   <button
                     onClick={() => {
                       setMobileMenuOpen(false);

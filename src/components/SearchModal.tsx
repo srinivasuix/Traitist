@@ -172,11 +172,18 @@ export const SearchModal: React.FC<SearchModalProps> = ({
               </button>
             </div>
           ) : (
-            searchResults.map((product) => {
+            searchResults.map((product, idx) => {
               const price = product.priceDisplayINR;
               return (
-                <div
+                <motion.div
                   key={product.id}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.18,
+                    delay: Math.min(idx * 0.035, 0.14),
+                    ease: [0.23, 1, 0.32, 1],
+                  }}
                   role="button"
                   tabIndex={0}
                   aria-label={`View ${product.title}`}
@@ -215,7 +222,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                     </span>
                     <ArrowRight className="w-4 h-4 text-neutral-500 group-hover:text-black group-hover:translate-x-1 transition-all" aria-hidden="true" />
                   </div>
-                </div>
+                </motion.div>
               );
             })
           )}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import {
   Check,
   Copy,
@@ -64,7 +65,12 @@ export const TraitistReceiptPrinter: React.FC<OrderConfirmationProps> = ({
   const formatPrice = (val: number) => `₹${val.toLocaleString()}`;
 
   return (
-    <div className={`w-full max-w-md mx-auto space-y-4 font-mono text-left ${className}`}>
+    <motion.div
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+      className={`w-full max-w-md mx-auto space-y-4 font-mono text-left ${className}`}
+    >
       {/* 1. Order Status Header Card */}
       <div className="bg-white rounded-sm border border-neutral-300 p-5 shadow-xs text-center flex flex-col items-center">
         {/* Panda Order Successful Illustration */}
@@ -284,6 +290,6 @@ export const TraitistReceiptPrinter: React.FC<OrderConfirmationProps> = ({
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };

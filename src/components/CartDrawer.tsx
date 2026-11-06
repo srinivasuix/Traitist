@@ -984,15 +984,21 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                               Apply
                             </button>
                           </form>
-                          {promoMessage && (
-                            <p
-                              className={`text-[10px] font-mono mt-1 ${
-                                discountPercent > 0 ? 'text-emerald-800 font-bold' : 'text-[#FF5722]'
-                              }`}
-                            >
-                              {promoMessage}
-                            </p>
-                          )}
+                          <AnimatePresence mode="wait">
+                            {promoMessage && (
+                              <motion.p
+                                initial={{ opacity: 0, height: 0, y: -4 }}
+                                animate={{ opacity: 1, height: 'auto', y: 0 }}
+                                exit={{ opacity: 0, height: 0, y: -4 }}
+                                transition={{ duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+                                className={`text-[10px] font-mono mt-1 overflow-hidden ${
+                                  discountPercent > 0 ? 'text-emerald-800 font-bold' : 'text-[#FF5722]'
+                                }`}
+                              >
+                                {promoMessage}
+                              </motion.p>
+                            )}
+                          </AnimatePresence>
                         </div>
                       )}
                     </div>

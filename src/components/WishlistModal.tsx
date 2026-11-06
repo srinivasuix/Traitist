@@ -74,6 +74,7 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
                 </h2>
               </div>
               <button
+                type="button"
                 onClick={onClose}
                 className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"
                 aria-label="Close wishlist"

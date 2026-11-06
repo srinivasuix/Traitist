@@ -71,6 +71,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide, onOpenNotFound 
               </li>
               <li>
                 <button
+                  type="button"
                   onClick={onOpenSizeGuide}
                   className="hover:text-black transition text-left cursor-pointer inline-flex items-center min-h-[32px] sm:min-h-0"
                 >
@@ -180,6 +181,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenSizeGuide, onOpenNotFound 
               CONTACT INFO
             </a>
             <button
+              type="button"
               onClick={scrollToTop}
               aria-label="Back to top"
               className="hover:text-black transition p-2 hover:bg-neutral-300 rounded cursor-pointer min-w-[44px] min-h-[44px] inline-flex items-center justify-center"

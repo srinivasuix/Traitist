@@ -59,6 +59,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Left Navigation Items */}
           <nav aria-label="Primary" className="flex items-center gap-4 md:gap-6 text-[12px] font-semibold tracking-wider uppercase z-10 shrink-0">
             <button
+              type="button"
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open navigation menu"
               aria-expanded={mobileMenuOpen}
@@ -109,6 +110,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-0.5 min-[380px]:gap-1 sm:gap-2 text-neutral-800 z-10 shrink-0">
             {/* Search Trigger */}
             <button
+              type="button"
               onClick={onOpenSearch}
               aria-label="Search catalog"
               className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:text-black hover:bg-neutral-200/50 rounded-sm transition cursor-pointer"
@@ -118,6 +120,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Wishlist Trigger */}
             <button
+              type="button"
               onClick={onOpenWishlist}
               aria-label={`View Wishlist (${wishlistCount} items)`}
               className="relative p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:text-black hover:bg-neutral-200/50 rounded-sm transition cursor-pointer"
@@ -141,6 +144,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Shopping Cart Trigger */}
             <button
+              type="button"
               onClick={onOpenCart}
               aria-label={`Shopping Bag (${cartCount} items)`}
               className="relative p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:text-black hover:bg-neutral-200/50 rounded-sm transition cursor-pointer"
@@ -190,6 +194,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     className="h-8 w-auto object-contain"
                   />
                   <button
+                    type="button"
                     onClick={() => setMobileMenuOpen(false)}
                     className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full hover:bg-neutral-200 transition cursor-pointer"
                     aria-label="Close menu"
@@ -235,6 +240,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span className="text-[10px] font-mono text-[#FF5722] font-semibold">1-OF-1</span>
                   </a>
                   <button
+                    type="button"
                     onClick={() => {
                       setMobileMenuOpen(false);
                       onOpenSizeGuide();

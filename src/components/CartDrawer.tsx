@@ -503,6 +503,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                             inputMode="email"
                             autoComplete="email"
                             required
+                            aria-invalid={formErrors.email ? 'true' : undefined}
+                            aria-describedby={formErrors.email ? 'guest-email-error' : undefined}
                             value={guestInfo.email}
                             onChange={(e) => handleInputChange('email', e.target.value)}
                             placeholder="scholar@university.edu"
@@ -515,7 +517,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           <Mail className="w-3.5 h-3.5 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                         </div>
                         {formErrors.email && (
-                          <p className="text-[10px] font-mono text-red-600 mt-0.5">
+                          <p id="guest-email-error" role="alert" className="text-[10px] font-mono text-red-600 mt-0.5">
                             {formErrors.email}
                           </p>
                         )}
@@ -542,6 +544,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                               maxLength={10}
                               autoComplete="tel-national"
                               required
+                              aria-invalid={formErrors.phone ? 'true' : undefined}
+                              aria-describedby={formErrors.phone ? 'guest-phone-error' : undefined}
                               value={guestInfo.phone}
                               onChange={(e) => handleInputChange('phone', e.target.value)}
                               placeholder="10-digit mobile number"
@@ -555,7 +559,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           </div>
                         </div>
                         {formErrors.phone && (
-                          <p className="text-[10px] font-mono text-red-600 mt-0.5">
+                          <p id="guest-phone-error" role="alert" className="text-[10px] font-mono text-red-600 mt-0.5">
                             {formErrors.phone}
                           </p>
                         )}
@@ -581,6 +585,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           type="text"
                           autoComplete="name"
                           required
+                          aria-invalid={formErrors.fullName ? 'true' : undefined}
+                          aria-describedby={formErrors.fullName ? 'guest-name-error' : undefined}
                           value={guestInfo.fullName}
                           onChange={(e) => handleInputChange('fullName', e.target.value)}
                           placeholder="e.g. Alex Mitchell"
@@ -591,7 +597,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           }`}
                         />
                         {formErrors.fullName && (
-                          <p className="text-[10px] font-mono text-red-600 mt-0.5">
+                          <p id="guest-name-error" role="alert" className="text-[10px] font-mono text-red-600 mt-0.5">
                             {formErrors.fullName}
                           </p>
                         )}
@@ -610,6 +616,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           type="text"
                           autoComplete="street-address"
                           required
+                          aria-invalid={formErrors.addressLine ? 'true' : undefined}
+                          aria-describedby={formErrors.addressLine ? 'guest-address-error' : undefined}
                           value={guestInfo.addressLine}
                           onChange={(e) => handleInputChange('addressLine', e.target.value)}
                           placeholder="e.g. Flat 402, Oakwood Court, 12th Main Road"
@@ -620,7 +628,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           }`}
                         />
                         {formErrors.addressLine && (
-                          <p className="text-[10px] font-mono text-red-600 mt-0.5">
+                          <p id="guest-address-error" role="alert" className="text-[10px] font-mono text-red-600 mt-0.5">
                             {formErrors.addressLine}
                           </p>
                         )}
@@ -644,6 +652,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                               maxLength={6}
                               autoComplete="postal-code"
                               required
+                              aria-invalid={formErrors.pincode ? 'true' : undefined}
+                              aria-describedby={formErrors.pincode ? 'guest-pincode-error' : undefined}
                               value={guestInfo.pincode}
                               onChange={(e) => handleInputChange('pincode', e.target.value)}
                               placeholder="6 digits"
@@ -658,7 +668,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                             )}
                           </div>
                           {formErrors.pincode && (
-                            <p className="text-[10px] font-mono text-red-600 mt-0.5">
+                            <p id="guest-pincode-error" role="alert" className="text-[10px] font-mono text-red-600 mt-0.5">
                               {formErrors.pincode}
                             </p>
                           )}
@@ -676,6 +686,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                             type="text"
                             autoComplete="address-level2"
                             required
+                            aria-invalid={formErrors.city ? 'true' : undefined}
+                            aria-describedby={formErrors.city ? 'guest-city-error' : undefined}
                             value={guestInfo.city}
                             onChange={(e) => handleInputChange('city', e.target.value)}
                             placeholder="City"
@@ -686,7 +698,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                             }`}
                           />
                           {formErrors.city && (
-                            <p className="text-[10px] font-mono text-red-600 mt-0.5">
+                            <p id="guest-city-error" role="alert" className="text-[10px] font-mono text-red-600 mt-0.5">
                               {formErrors.city}
                             </p>
                           )}
@@ -706,6 +718,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           type="text"
                           autoComplete="address-level1"
                           required
+                          aria-invalid={formErrors.state ? 'true' : undefined}
+                          aria-describedby={formErrors.state ? 'guest-state-error' : undefined}
                           value={guestInfo.state}
                           onChange={(e) => handleInputChange('state', e.target.value)}
                           placeholder="e.g. Karnataka, Maharashtra, Delhi"
@@ -716,7 +730,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           }`}
                         />
                         {formErrors.state && (
-                          <p className="text-[10px] font-mono text-red-600 mt-0.5">
+                          <p id="guest-state-error" role="alert" className="text-[10px] font-mono text-red-600 mt-0.5">
                             {formErrors.state}
                           </p>
                         )}

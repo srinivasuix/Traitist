@@ -89,6 +89,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
           <span className="text-[10px] sm:text-[11px]">TRAITIST // 2026</span>
         </div>
         <button
+          type="button"
           onClick={handleSkip}
           aria-label="Skip intro animation"
           className="hover:text-black hover:underline transition-colors cursor-pointer text-[10px] tracking-wider py-1.5 px-3 border border-neutral-300 rounded min-h-[44px] min-w-[44px] inline-flex items-center justify-center font-mono"

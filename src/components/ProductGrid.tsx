@@ -208,7 +208,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                       type="button"
                       onClick={(e) => handleQuickAdd(e, product)}
                       aria-label={isAdded ? `Added ${product.title} to bag` : `Add ${product.title} to bag`}
-                      className={`md:hidden absolute bottom-2 right-2 z-20 min-w-[38px] min-h-[38px] rounded-full flex items-center justify-center shadow-md transition-all active:scale-90 cursor-pointer ${
+                      className={`md:hidden absolute bottom-2 right-2 z-20 min-w-[44px] min-h-[44px] w-11 h-11 rounded-full flex items-center justify-center shadow-md transition-all active:scale-90 cursor-pointer ${
                         isAdded
                           ? 'bg-[#10B981] text-white scale-105'
                           : 'bg-black/90 backdrop-blur-sm text-white hover:bg-black'

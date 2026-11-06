@@ -426,6 +426,7 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
           <div className="flex items-center justify-center gap-3 sm:gap-5 mt-4">
             {/* Previous Arrow */}
             <button
+              type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 prevProduct();
@@ -480,6 +481,7 @@ export const HeroRotator: React.FC<HeroRotatorProps> = ({
 
             {/* Next Arrow */}
             <button
+              type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 nextProduct();

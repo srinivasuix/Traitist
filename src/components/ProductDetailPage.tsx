@@ -206,6 +206,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <button
+            type="button"
             onClick={onBack}
             className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest font-semibold hover:text-[#FF5722] transition-colors cursor-pointer min-h-[44px] min-w-[44px] pr-3"
             aria-label="Back to main collection"
@@ -216,6 +217,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
           <div className="flex items-center gap-2">
             <button
+              type="button"
               onClick={handleShare}
               className="p-2 rounded hover:bg-neutral-200 transition text-neutral-700 hover:text-black cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label="Share product link"

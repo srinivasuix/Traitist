@@ -69,7 +69,10 @@ export const HorizontalScroller: React.FC<{
 
   return (
     <div className={`w-full overflow-hidden group relative scroller-mask py-1 ${className}`}>
-      <div className={`flex ${animationClass}`} style={style}>
+      <div
+        className={`flex ${animationClass} group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused]`}
+        style={style}
+      >
         <div className="flex items-stretch justify-center flex-shrink-0 gap-4 sm:gap-6 px-3">
           {children}
         </div>

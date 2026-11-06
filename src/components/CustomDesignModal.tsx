@@ -16,6 +16,7 @@ export const CustomDesignModal: React.FC<CustomDesignModalProps> = ({
   const [instructions, setInstructions] = useState('');
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
   const [errors, setErrors] = useState<{ story?: string; fullName?: string; email?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -43,6 +44,7 @@ export const CustomDesignModal: React.FC<CustomDesignModalProps> = ({
         setInstructions('');
         setFullName('');
         setEmail('');
+        setWhatsapp('');
         setErrors({});
         setIsSuccess(false);
         setIsSubmitting(false);
@@ -386,6 +388,32 @@ export const CustomDesignModal: React.FC<CustomDesignModalProps> = ({
                       )}
                     </div>
 
+                    {/* WhatsApp Number (Optional) */}
+                    <div>
+                      <div className="flex items-baseline justify-between mb-1.5">
+                        <label
+                          htmlFor="custom-whatsapp"
+                          className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-900"
+                        >
+                          WhatsApp number
+                        </label>
+                        <span className="text-[10px] font-mono text-neutral-500 uppercase">Optional</span>
+                      </div>
+                      <p className="text-[11px] text-neutral-600 font-sans mb-2 leading-relaxed">
+                        Optional. If provided, our studio team can also share progress sketches and quick design previews directly with you on WhatsApp.
+                      </p>
+                      <input
+                        id="custom-whatsapp"
+                        name="whatsapp"
+                        type="tel"
+                        autoComplete="tel"
+                        value={whatsapp}
+                        onChange={(e) => setWhatsapp(e.target.value)}
+                        placeholder="e.g. +91 98765 43210"
+                        className="w-full p-3 text-base sm:text-xs font-sans rounded-xs bg-white border border-neutral-300 focus:border-black focus:ring-1 focus:ring-black outline-none transition placeholder:text-neutral-400 text-neutral-900"
+                      />
+                    </div>
+
                     {/* Brief Summary Box */}
                     <div className="p-3 bg-[#DFDDD7]/50 rounded-xs border border-neutral-300/80">
                       <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-600 font-semibold block mb-1">
@@ -464,6 +492,12 @@ export const CustomDesignModal: React.FC<CustomDesignModalProps> = ({
                     <span className="text-neutral-500 uppercase">PLACEMENT</span>
                     <span className="font-semibold text-neutral-900">Centre Front Print</span>
                   </div>
+                  {whatsapp.trim() && (
+                    <div className="flex justify-between border-b border-neutral-300 pb-1.5">
+                      <span className="text-neutral-500 uppercase">WHATSAPP</span>
+                      <span className="font-semibold text-neutral-900">{whatsapp.trim()}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between">
                     <span className="text-neutral-500 uppercase">STUDIO STATUS</span>
                     <span className="font-semibold text-[#FF5722]">Queued for Artist Review</span>

@@ -103,7 +103,7 @@ export const FaqSection: React.FC<{
               {data.smallLabel || 'THE IMPORTANT STUFF · NO PEER REVIEW REQUIRED'}
             </span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-neutral-950 uppercase leading-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-neutral-950 leading-tight">
             {data.mainTitle}
           </h2>
         </div>

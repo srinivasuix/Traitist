@@ -3,7 +3,7 @@ import FaqSection, { FaqData } from './ui/habit-faq-scroller';
 
 const TRAITIST_FAQ_DATA: FaqData = {
   smallLabel: 'BEFORE YOU ASK YOUR SUPERVISOR...',
-  mainTitle: "QUESTIONS? WE'VE DONE THE HOMEWORK.",
+  mainTitle: "Questions? We've Done The Homework.",
   mainSubtitle:
     'Everything you need to know about our tees, fit, fabric, prints, shipping and returns. No supervisor approval required.',
   rows: [

@@ -61,7 +61,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
             IN STOCK NOW • ACADEMIC SURVIVAL
           </span>
           <h2 className="text-3xl md:text-4xl font-bold font-display tracking-tight text-neutral-950 mt-1">
-            Latest pieces
+            Latest Pieces
           </h2>
         </div>
 

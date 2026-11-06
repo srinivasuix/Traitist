@@ -656,7 +656,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 RELATABLE PIECES
               </span>
               <h2 className="text-2xl sm:text-3xl font-bold font-display text-neutral-950 mt-1">
-                More from the collection
+                More From The Collection
               </h2>
             </div>
             <button

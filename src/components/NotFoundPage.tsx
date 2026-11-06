@@ -32,8 +32,8 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ onGoHome }) => {
           </span>
         </div>
 
-        <h1 className="text-2xl sm:text-3xl font-display font-black uppercase tracking-tight text-neutral-900">
-          Lost in the Archives?
+        <h1 className="text-2xl sm:text-3xl font-display font-black tracking-tight text-neutral-900">
+          Lost In The Archives?
         </h1>
 
         <p className="mt-2 text-xs sm:text-sm font-sans text-neutral-600 max-w-sm leading-relaxed">

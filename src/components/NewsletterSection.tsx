@@ -46,8 +46,8 @@ export const NewsletterSection: React.FC = () => {
         </BlurFade>
 
         <BlurFade delay={0.1} inView>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-display tracking-tight text-neutral-950 uppercase mb-2.5 leading-tight max-w-2xl mx-auto">
-            YOUR INBOX DESERVES BETTER THAN SUPERVISOR EMAILS.
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-display tracking-tight text-neutral-950 mb-2.5 leading-tight max-w-2xl mx-auto">
+            Your Inbox Deserves Better Than Supervisor Emails.
           </h2>
         </BlurFade>
 

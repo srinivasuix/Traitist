@@ -69,8 +69,8 @@ export const WishlistModal: React.FC<WishlistModalProps> = ({
             <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-neutral-300">
               <div className="flex items-center gap-2">
                 <Heart className="w-5 h-5 text-[#FF5722] fill-[#FF5722]" aria-hidden="true" />
-                <h2 id="wishlist-modal-title" className="text-sm font-mono font-bold uppercase tracking-wider text-neutral-900">
-                  WISHLIST ({wishlistProducts.length})
+                <h2 id="wishlist-modal-title" className="text-sm font-mono font-bold tracking-wider text-neutral-900">
+                  Wishlist ({wishlistProducts.length})
                 </h2>
               </div>
               <button

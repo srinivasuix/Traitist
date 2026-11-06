@@ -92,11 +92,11 @@ export const CustomDesignBanner: React.FC<CustomDesignBannerProps> = ({
               </div>
 
               {/* T-Shirt Canvas Silhouette Graphic — High-Resolution, Crisp Artwork */}
-              <div className="relative my-auto flex flex-col items-center justify-center w-full py-2">
+              <div className="relative my-auto flex flex-col items-center justify-center w-full py-1">
                 <img
-                  src="/images/products/tee_scholar_thoughts_core.png"
-                  alt="TRAITIST Heavyweight 200 GSM Black Graphic T-Shirt Specimen"
-                  className="w-60 sm:w-72 h-auto object-contain select-none filter contrast-[1.03] brightness-[1.02] drop-shadow-[0_16px_32px_rgba(0,0,0,0.85)]"
+                  src="/images/bespoke_custom_tee_mockup.jpg"
+                  alt="TRAITIST Bespoke Atelier Thesis Survivor Custom Graphic Specimen"
+                  className="w-full max-h-[340px] sm:max-h-[370px] object-contain rounded-xs select-none drop-shadow-[0_16px_32px_rgba(0,0,0,0.85)]"
                   loading="lazy"
                 />
 
@@ -104,7 +104,7 @@ export const CustomDesignBanner: React.FC<CustomDesignBannerProps> = ({
                 {/* 4 Corner Crosshair Brackets around Centre-Front Print Zone (Zero interior fill) */}
                 <div
                   aria-hidden="true"
-                  className="absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 sm:w-36 h-36 sm:h-40 pointer-events-none transition-all duration-300 group-hover:scale-[1.02]"
+                  className="absolute top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 sm:w-56 h-56 sm:h-64 pointer-events-none transition-all duration-300 group-hover:scale-[1.02]"
                 >
                   {/* Top-Left Bracket */}
                   <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#FF5722]" />
@@ -116,9 +116,9 @@ export const CustomDesignBanner: React.FC<CustomDesignBannerProps> = ({
                   <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#FF5722]" />
 
                   {/* Indicator Badge positioned neatly outside the artwork area */}
-                  <div className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap px-2 py-0.5 rounded-full bg-black/90 border border-[#FF5722]/70 flex items-center gap-1 shadow-md">
-                    <span className="w-1 h-1 rounded-full bg-[#FF5722] animate-pulse" />
-                    <span className="font-mono text-[8px] uppercase tracking-wider text-[#FF5722] font-bold">
+                  <div className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap px-2.5 py-0.5 rounded-full bg-black/90 border border-[#FF5722]/80 flex items-center gap-1.5 shadow-md">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF5722] animate-pulse" />
+                    <span className="font-mono text-[8px] sm:text-[8.5px] uppercase tracking-wider text-[#FF5722] font-bold">
                       CENTRE-FRONT PRINT ZONE
                     </span>
                   </div>

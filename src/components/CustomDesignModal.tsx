@@ -434,15 +434,21 @@ export const CustomDesignModal: React.FC<CustomDesignModalProps> = ({
                 )}
               </div>
             ) : (
-              /* Step 3: Success Screen — Matching Order Confirmation Style */
-              <div className="py-4 sm:py-6 text-center flex flex-col items-center">
-                <div className="w-12 h-12 rounded-full bg-emerald-100 border border-emerald-300 flex items-center justify-center mb-3 text-emerald-800 shadow-sm animate-scale-up">
-                  <CheckCircle2 className="w-6 h-6" aria-hidden="true" />
+              /* Step 3: Success Screen — Featuring Traitist Mascot Panda & Studio Spec Sheet */
+              <div className="py-2 sm:py-4 text-center flex flex-col items-center select-none">
+                {/* Panda Mascot Character Illustration */}
+                <div className="w-44 sm:w-52 mx-auto mb-3 hover:scale-[1.03] transition-transform duration-300 flex items-center justify-center">
+                  <img
+                    src="/images/empty-states/order-success.png"
+                    alt="Brief Received! Traitist Studio is crafting your design"
+                    className="w-full h-auto drop-shadow-md select-none pointer-events-none"
+                  />
                 </div>
 
-                <div className="inline-flex items-center gap-1.5 mb-2 px-2.5 py-0.5 rounded-full bg-[#DFDDD7] border border-neutral-300 font-mono text-[10px] text-neutral-800 uppercase font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF5722]" />
-                  BRIEF CONFIRMED • {submissionId}
+                {/* Status Indicator Pill */}
+                <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-[#DFDDD7] border border-neutral-300/90 font-mono text-[10px] sm:text-[10.5px] text-neutral-800 uppercase font-bold shadow-2xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF5722] animate-pulse" aria-hidden="true" />
+                  <span>BRIEF CONFIRMED • {submissionId}</span>
                 </div>
 
                 <h3 className="text-2xl sm:text-3xl font-bold font-display text-neutral-900 tracking-tight">
@@ -454,33 +460,41 @@ export const CustomDesignModal: React.FC<CustomDesignModalProps> = ({
                 </p>
 
                 {/* Brief Spec Sheet — Matching Checkout Summary Card */}
-                <div className="my-5 p-3.5 bg-[#DFDDD7] rounded-sm border border-neutral-300 text-left w-full max-w-md space-y-2 text-xs font-mono">
-                  <div className="flex justify-between border-b border-neutral-300 pb-1.5">
-                    <span className="text-neutral-600 uppercase text-[10px]">CANVAS</span>
+                <div className="my-4.5 p-4 bg-[#DFDDD7]/80 rounded-sm border border-neutral-300 text-left w-full max-w-md space-y-2.5 text-xs font-mono shadow-2xs">
+                  <div className="flex justify-between border-b border-neutral-300/80 pb-2">
+                    <span className="text-neutral-600 uppercase text-[10px] font-medium">CANVAS</span>
                     <span className="font-semibold text-neutral-900">200 GSM Black Combed Cotton</span>
                   </div>
-                  <div className="flex justify-between border-b border-neutral-300 pb-1.5">
-                    <span className="text-neutral-600 uppercase text-[10px]">PLACEMENT</span>
+                  <div className="flex justify-between border-b border-neutral-300/80 pb-2">
+                    <span className="text-neutral-600 uppercase text-[10px] font-medium">PLACEMENT</span>
                     <span className="font-semibold text-neutral-900">Centre Front Print</span>
                   </div>
                   {whatsapp.trim() && (
-                    <div className="flex justify-between border-b border-neutral-300 pb-1.5">
-                      <span className="text-neutral-600 uppercase text-[10px]">WHATSAPP</span>
+                    <div className="flex justify-between border-b border-neutral-300/80 pb-2">
+                      <span className="text-neutral-600 uppercase text-[10px] font-medium">WHATSAPP</span>
                       <span className="font-semibold text-neutral-900">{whatsapp.trim()}</span>
                     </div>
                   )}
-                  <div className="flex justify-between">
-                    <span className="text-neutral-600 uppercase text-[10px]">STUDIO STATUS</span>
-                    <span className="font-semibold text-[#FF5722]">Queued for Artist Review</span>
+                  <div className="flex justify-between border-b border-neutral-300/80 pb-2">
+                    <span className="text-neutral-600 uppercase text-[10px] font-medium">MOCKUP TIMELINE</span>
+                    <span className="font-semibold text-neutral-900">48–72 Hours via Email</span>
+                  </div>
+                  <div className="flex justify-between pt-0.5 items-center">
+                    <span className="text-neutral-600 uppercase text-[10px] font-medium">STUDIO STATUS</span>
+                    <span className="inline-flex items-center gap-1.5 font-bold text-[#FF5722]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#FF5722] animate-pulse" />
+                      Queued for Artist Review
+                    </span>
                   </div>
                 </div>
 
                 <button
                   type="button"
                   onClick={handleClose}
-                  className="w-full sm:w-auto px-8 py-3.5 min-h-[48px] bg-[#FF5722] hover:bg-[#e64a19] text-white text-xs font-mono uppercase tracking-widest font-bold rounded-sm transition-all duration-200 ease-out hover:scale-[1.01] active:scale-[0.98] cursor-pointer shadow-md"
+                  className="w-full sm:w-auto px-8 py-3.5 min-h-[48px] bg-neutral-950 hover:bg-[#FF5722] text-white text-xs font-mono uppercase tracking-widest font-bold rounded-sm transition-all duration-200 ease-out hover:scale-[1.01] active:scale-[0.98] cursor-pointer shadow-md inline-flex items-center justify-center gap-2"
                 >
-                  Return to Shop
+                  <span>RETURN TO SHOP</span>
+                  <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
                 </button>
               </div>
             )}

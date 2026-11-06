@@ -15,7 +15,6 @@ import {
   Minus,
   Zap,
   ArrowRight,
-  X,
   AlertTriangle,
   ShoppingBag,
   CreditCard,
@@ -422,7 +421,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                     type="button"
                     onClick={() => setSelectedSize(size)}
                     aria-pressed={selectedSize === size}
-                    className={`min-w-[42px] h-10 px-2.5 text-xs font-mono uppercase font-bold rounded flex items-center justify-center transition cursor-pointer ${
+                    className={`min-w-[42px] h-10 px-2.5 text-xs font-mono uppercase font-bold rounded flex items-center justify-center transition cursor-pointer active:scale-95 ${
                       selectedSize === size
                         ? 'bg-neutral-950 text-white shadow-xs'
                         : 'bg-white/60 border border-neutral-300 text-neutral-900 hover:border-black'
@@ -557,93 +556,130 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             </div>
 
             {/* Collapsible Accordions (Description, Shipping, Materials) */}
+            {/* Product Spec Accordions with Fluid Grid Transitions */}
             <div className="mt-6 border-t border-neutral-300/80 divide-y divide-neutral-300/80">
               {/* Description Accordion */}
               <div>
                 <button
                   type="button"
+                  id="accordion-btn-description"
                   onClick={() => handleToggleAccordion('description')}
                   aria-expanded={openAccordions.description}
                   aria-controls="accordion-panel-description"
-                  className="w-full py-3.5 flex items-center justify-between text-left text-[11px] font-mono uppercase tracking-wider text-neutral-900 font-bold hover:text-black cursor-pointer"
+                  className="w-full py-3.5 flex items-center justify-between text-left text-[11px] font-mono uppercase tracking-wider text-neutral-900 font-bold hover:text-black cursor-pointer group"
                 >
                   <span>DESCRIPTION</span>
-                  {openAccordions.description ? (
-                    <X className="w-3.5 h-3.5 text-neutral-600" aria-hidden="true" />
-                  ) : (
-                    <Plus className="w-3.5 h-3.5 text-neutral-600" aria-hidden="true" />
-                  )}
+                  <Plus
+                    className={`w-3.5 h-3.5 text-neutral-600 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                      openAccordions.description ? 'rotate-45 text-neutral-950' : 'rotate-0'
+                    }`}
+                    aria-hidden="true"
+                  />
                 </button>
-                {openAccordions.description && (
-                  <div id="accordion-panel-description" className="pb-4 text-[11px] text-neutral-700 font-mono leading-relaxed">
-                    <p>{product.description}</p>
-                    <div className="grid grid-cols-3 gap-3 sm:gap-4 mt-3.5 pt-3 border-t border-neutral-300/80 font-mono text-[10.5px] sm:text-[11px]">
-                      <div className="min-w-0">
-                        <span className="text-neutral-500 text-[9px] font-medium tracking-wider uppercase block mb-1">SKU</span>
-                        <span className="font-semibold text-neutral-950 whitespace-nowrap block">{product.sku || 'TR-001'}</span>
-                      </div>
-                      <div className="min-w-0">
-                        <span className="text-neutral-500 text-[9px] font-medium tracking-wider uppercase block mb-1">FABRIC</span>
-                        <span className="font-semibold text-neutral-950 whitespace-nowrap block truncate" title={product.fabric}>{product.fabric}</span>
-                      </div>
-                      <div className="min-w-0">
-                        <span className="text-neutral-500 text-[9px] font-medium tracking-wider uppercase block mb-1">WEIGHT</span>
-                        <span className="font-semibold text-neutral-950 whitespace-nowrap block">{product.gsm} Combed Jersey</span>
+                <div
+                  id="accordion-panel-description"
+                  role="region"
+                  aria-labelledby="accordion-btn-description"
+                  aria-hidden={!openAccordions.description}
+                  className={`grid transition-[grid-template-rows,opacity] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none ${
+                    openAccordions.description ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0 pointer-events-none'
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="pb-4 text-[11px] text-neutral-700 font-mono leading-relaxed">
+                      <p>{product.description}</p>
+                      <div className="grid grid-cols-3 gap-3 sm:gap-4 mt-3.5 pt-3 border-t border-neutral-300/80 font-mono text-[10.5px] sm:text-[11px]">
+                        <div className="min-w-0">
+                          <span className="text-neutral-500 text-[9px] font-medium tracking-wider uppercase block mb-1">SKU</span>
+                          <span className="font-semibold text-neutral-950 whitespace-nowrap block">{product.sku || 'TR-001'}</span>
+                        </div>
+                        <div className="min-w-0">
+                          <span className="text-neutral-500 text-[9px] font-medium tracking-wider uppercase block mb-1">FABRIC</span>
+                          <span className="font-semibold text-neutral-950 whitespace-nowrap block truncate" title={product.fabric}>{product.fabric}</span>
+                        </div>
+                        <div className="min-w-0">
+                          <span className="text-neutral-500 text-[9px] font-medium tracking-wider uppercase block mb-1">WEIGHT</span>
+                          <span className="font-semibold text-neutral-950 whitespace-nowrap block">{product.gsm} Combed Jersey</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                )}
+                </div>
               </div>
 
               {/* Shipping and Exchanges Accordion */}
               <div>
                 <button
                   type="button"
+                  id="accordion-btn-shipping"
                   onClick={() => handleToggleAccordion('shipping')}
                   aria-expanded={openAccordions.shipping}
                   aria-controls="accordion-panel-shipping"
-                  className="w-full py-3.5 flex items-center justify-between text-left text-[11px] font-mono uppercase tracking-wider text-neutral-900 font-bold hover:text-black cursor-pointer"
+                  className="w-full py-3.5 flex items-center justify-between text-left text-[11px] font-mono uppercase tracking-wider text-neutral-900 font-bold hover:text-black cursor-pointer group"
                 >
                   <span>SHIPPING AND EXCHANGES</span>
-                  {openAccordions.shipping ? (
-                    <X className="w-3.5 h-3.5 text-neutral-600" aria-hidden="true" />
-                  ) : (
-                    <Plus className="w-3.5 h-3.5 text-neutral-600" aria-hidden="true" />
-                  )}
+                  <Plus
+                    className={`w-3.5 h-3.5 text-neutral-600 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                      openAccordions.shipping ? 'rotate-45 text-neutral-950' : 'rotate-0'
+                    }`}
+                    aria-hidden="true"
+                  />
                 </button>
-                {openAccordions.shipping && (
-                  <div id="accordion-panel-shipping" className="pb-4 text-[11px] text-neutral-700 font-mono leading-relaxed space-y-1.5">
-                    <p>• Complimentary express shipping across India on all orders.</p>
-                    <p>• Orders dispatch within 24 hours via express air logistics.</p>
-                    <p>• 7-day (1 week) size exchanges with doorstep pickup. Only exchanges accepted (no returns).</p>
+                <div
+                  id="accordion-panel-shipping"
+                  role="region"
+                  aria-labelledby="accordion-btn-shipping"
+                  aria-hidden={!openAccordions.shipping}
+                  className={`grid transition-[grid-template-rows,opacity] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none ${
+                    openAccordions.shipping ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0 pointer-events-none'
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="pb-4 text-[11px] text-neutral-700 font-mono leading-relaxed space-y-1.5">
+                      <p>• Complimentary express shipping across India on all orders.</p>
+                      <p>• Orders dispatch within 24 hours via express air logistics.</p>
+                      <p>• 7-day (1 week) size exchanges with doorstep pickup. Only exchanges accepted (no returns).</p>
+                    </div>
                   </div>
-                )}
+                </div>
               </div>
 
               {/* Materials and Care Accordion */}
               <div>
                 <button
                   type="button"
+                  id="accordion-btn-care"
                   onClick={() => handleToggleAccordion('care')}
                   aria-expanded={openAccordions.care}
                   aria-controls="accordion-panel-care"
-                  className="w-full py-3.5 flex items-center justify-between text-left text-[11px] font-mono uppercase tracking-wider text-neutral-900 font-bold hover:text-black cursor-pointer"
+                  className="w-full py-3.5 flex items-center justify-between text-left text-[11px] font-mono uppercase tracking-wider text-neutral-900 font-bold hover:text-black cursor-pointer group"
                 >
                   <span>MATERIALS AND CARE</span>
-                  {openAccordions.care ? (
-                    <X className="w-3.5 h-3.5 text-neutral-600" aria-hidden="true" />
-                  ) : (
-                    <Plus className="w-3.5 h-3.5 text-neutral-600" aria-hidden="true" />
-                  )}
+                  <Plus
+                    className={`w-3.5 h-3.5 text-neutral-600 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                      openAccordions.care ? 'rotate-45 text-neutral-950' : 'rotate-0'
+                    }`}
+                    aria-hidden="true"
+                  />
                 </button>
-                {openAccordions.care && (
-                  <div id="accordion-panel-care" className="pb-4 text-[11px] text-neutral-700 font-mono leading-relaxed space-y-1.5">
-                    <p>• 100% Super-Combed Cotton, 200 GSM heavy jersey knit.</p>
-                    <p>• Machine wash cold inside out with similar colors.</p>
-                    <p>• Line dry in shade to preserve relaxed street drape.</p>
-                    <p>• Warm iron inside out; do not iron directly over the graphic print.</p>
+                <div
+                  id="accordion-panel-care"
+                  role="region"
+                  aria-labelledby="accordion-btn-care"
+                  aria-hidden={!openAccordions.care}
+                  className={`grid transition-[grid-template-rows,opacity] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none ${
+                    openAccordions.care ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0 pointer-events-none'
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="pb-4 text-[11px] text-neutral-700 font-mono leading-relaxed space-y-1.5">
+                      <p>• 100% Super-Combed Cotton, 200 GSM heavy jersey knit.</p>
+                      <p>• Machine wash cold inside out with similar colors.</p>
+                      <p>• Line dry in shade to preserve relaxed street drape.</p>
+                      <p>• Warm iron inside out; do not iron directly over the graphic print.</p>
+                    </div>
                   </div>
-                )}
+                </div>
               </div>
             </div>
 

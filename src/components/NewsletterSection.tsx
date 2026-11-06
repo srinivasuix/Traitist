@@ -250,8 +250,8 @@ export const NewsletterSection: React.FC = () => {
                 }}
                 className="relative inline-block mt-1 mb-1 max-w-xl mx-auto"
               >
-                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-black font-display tracking-tight text-neutral-950 uppercase leading-tight">
-                  WELCOME TO THE INNER CIRCLE.
+                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-bold font-display tracking-tight text-neutral-950 leading-tight">
+                  Welcome to the Inner Circle.
                 </h3>
 
                 {/* Subtle organic green underline underneath 'THE INNER CIRCLE.' */}
